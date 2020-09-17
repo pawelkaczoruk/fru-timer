@@ -1,9 +1,6 @@
 import { reactive, computed } from 'vue'
 import useStore from './useStore'
 
-const TIMER_DELAY = 550
-const KEY_CODE = 'Space'
-
 interface Timer {
   state: number;
   interval: number | undefined;
@@ -22,6 +19,9 @@ function isKeyboardEvent(value: KeyboardEvent | TouchEvent): value is KeyboardEv
 }
 
 export default function useTimer() {
+  const TIMER_DELAY = 550
+  const KEY_CODE = 'Space'
+
   const timer: Timer = reactive({
     state: 0,
     interval: undefined,

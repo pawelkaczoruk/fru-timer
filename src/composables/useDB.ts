@@ -1,3 +1,4 @@
+import { Result } from '@/ts/interfaces'
 import Dexie from 'dexie'
 
 export default async function useDB() {
@@ -13,15 +14,15 @@ export default async function useDB() {
     return await db.table('sessions').add([])
   } // result is session Key, use it to store info about sessions in localStorage
   
-  const updateSession = async (sessionKey: number, index: number, result: any) => {
-    await db.table('sessions').update(sessionKey, {[index]: result})
+  const updateSession = async (sessionKey: number, index: number, result: Result) => {
+    await db.table('sessions').update(sessionKey, { [index]: result })
   }
 
   const deleteSession = async (sessionKey: number) => {
     await db.table('sessions').delete(sessionKey)
   }
 
-  const removeResult = async (sessionKey: number, session: any) => {
+  const removeResult = async (sessionKey: number, session: Array<Result>) => {
     await db.table('sessions').put(session, sessionKey)
   }
 
