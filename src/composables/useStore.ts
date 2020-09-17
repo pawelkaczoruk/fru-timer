@@ -1,7 +1,7 @@
 import { reactive, computed } from 'vue'
 
 interface State {
-  currentTime: number
+  currentTime: number;
 }
 
 const state: State = reactive({

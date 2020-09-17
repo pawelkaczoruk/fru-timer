@@ -4,13 +4,26 @@ import useStore from './useStore'
 const TIMER_DELAY = 550
 const KEY_CODE = 'Space'
 
+interface Timer {
+  state: number;
+  interval: number | undefined;
+  timeout: number | undefined;
+  initialDate: number;
+  latestDate: number;
+
+  canStart: boolean;
+  isIdle: boolean;
+  isRunning: boolean;
+  isTimeAdded: boolean;
+}
+
 export default function useTimer() {
-  const timer = reactive({
+  const timer: Timer = reactive({
     state: 0,
-    interval: null,
-    initialDate: null,
-    latestDate: null,
-    timeout: null,
+    interval: undefined,
+    timeout: undefined,
+    initialDate: Date.now(),
+    latestDate: Date.now(),
 
     canStart: true,
     isIdle: true,
@@ -28,7 +41,7 @@ export default function useTimer() {
     }, 10);
   }
 
-  const onPress = (e) => {
+  const onPress = (e: KeyboardEvent) => {
     if (e.code === KEY_CODE || e.code === undefined) {
       if (timer.isRunning) {
         clearInterval(timer.interval)
@@ -52,7 +65,7 @@ export default function useTimer() {
     }
   }
 
-  const onRelease = (e) => {
+  const onRelease = (e: KeyboardEvent) => {
     if (e.code === KEY_CODE || e.code === undefined) {
       clearTimeout(timer.timeout)
 

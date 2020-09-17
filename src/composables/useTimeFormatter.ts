@@ -1,5 +1,5 @@
 export default function useTimeFormatter() {
-  const getFormattedTime = (time: number, penalty: number = 0) => { 
+  const getFormattedTime = (time: number, penalty = 0) => { 
     if (penalty === -1) return 'dnf'
 
     const total = time + penalty
