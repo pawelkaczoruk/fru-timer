@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import useStore from '@/composables/useStore'
 import useTimeFormatter from '@/composables/useTimeFormatter'
 

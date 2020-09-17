@@ -6,9 +6,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { onMounted, onUnmounted } from 'vue'
-import TheTimerDisplay from '@/components/TheTimerDisplay'
+import { defineComponent, onMounted, onUnmounted } from 'vue'
+import TheTimerDisplay from '@/components/TheTimerDisplay.vue'
 import useTimer from '@/composables/useTimer'
 
 export default defineComponent({

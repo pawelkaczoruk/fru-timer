@@ -10,23 +10,23 @@ export default async function useDB() {
   db.open()
 
   const createSession = async () => {
-    return await db.sessions.add([])
+    return await db.table('sessions').add([])
   } // result is session Key, use it to store info about sessions in localStorage
   
-  const updateSession = async (sessionKey, index, result) => {
-    await db.sessions.update(sessionKey, {[index]: result})
+  const updateSession = async (sessionKey: number, index: number, result: any) => {
+    await db.table('sessions').update(sessionKey, {[index]: result})
   }
 
-  const deleteSession = async (sessionKey) => {
-    await db.sessions.delete(sessionKey)
+  const deleteSession = async (sessionKey: number) => {
+    await db.table('sessions').delete(sessionKey)
   }
 
-  const removeResult = async (sessionKey, session) => {
-    await db.sessions.put(session, sessionKey)
+  const removeResult = async (sessionKey: number, session: any) => {
+    await db.table('sessions').put(session, sessionKey)
   }
 
-  const fetchSession = async (sessionKey) => {
-    return await db.sessions.get(sessionKey)
+  const fetchSession = async (sessionKey: number) => {
+    return await db.table('sessions').get(sessionKey)
   } // returns array of results, save it in store
 
   return {
