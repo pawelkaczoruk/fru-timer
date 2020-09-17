@@ -1,12 +1,16 @@
 import { reactive, computed } from 'vue'
 
-const state = reactive({
+interface State {
+  currentTime: number
+}
+
+const state: State = reactive({
   currentTime: 0
 })
 
 export default function useStore() {
   const getCurrentTime = computed(() => state.currentTime)
-  const setCurrentTime = (time) => { state.currentTime = time }
+  const setCurrentTime = (time: number) => { state.currentTime = time }
 
   return {
     getCurrentTime,
