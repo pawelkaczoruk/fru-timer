@@ -17,6 +17,10 @@ interface Timer {
   isTimeAdded: boolean;
 }
 
+function isKeyboardEvent(value: KeyboardEvent | TouchEvent): value is KeyboardEvent {
+  return (value as KeyboardEvent).code !== undefined
+}
+
 export default function useTimer() {
   const timer: Timer = reactive({
     state: 0,
@@ -41,8 +45,8 @@ export default function useTimer() {
     }, 10);
   }
 
-  const onPress = (e: KeyboardEvent) => {
-    if (e.code === KEY_CODE || e.code === undefined) {
+  const onPress = (e: KeyboardEvent | TouchEvent) => {
+    if (isKeyboardEvent(e) && e.code === KEY_CODE || !isKeyboardEvent(e)) {
       if (timer.isRunning) {
         clearInterval(timer.interval)
 
@@ -65,8 +69,8 @@ export default function useTimer() {
     }
   }
 
-  const onRelease = (e: KeyboardEvent) => {
-    if (e.code === KEY_CODE || e.code === undefined) {
+  const onRelease = (e: KeyboardEvent | TouchEvent) => {
+    if (isKeyboardEvent(e) && e.code === KEY_CODE || !isKeyboardEvent(e)) {
       clearTimeout(timer.timeout)
 
       if (timer.canStart) {
