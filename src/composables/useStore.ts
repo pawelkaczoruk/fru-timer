@@ -29,7 +29,7 @@ const state: State = reactive({
 export default function useStore() {
   const getSessionsConfig = computed(() => [...state.sessionsConfig.basic, ...state.sessionsConfig.custom])
 
-  const getCurrentTime = computed(() => state.currentTime)
+  const getCurrentTime = computed(() => Math.floor(state.currentTime / 10) * 10)
   const setCurrentTime = (time: number) => { state.currentTime = time }
 
   const getCurrentScramble = computed(() => 'scramble here') // to implement
