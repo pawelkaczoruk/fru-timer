@@ -21,8 +21,9 @@ const state: State = reactive({
       // { name: 'sqweb', key: 14 },
       // { name: 'square 1', key: 15 },
     ],
-    custom: JSON.parse(localStorage.getItem('sessionsCustom') || '[]')
-  }
+    custom: JSON.parse(localStorage.getItem('customSessions') || '[]')
+  },
+  sessionResult: []
 })
 
 export default function useStore() {
