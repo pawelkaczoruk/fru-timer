@@ -19,6 +19,8 @@ export default defineComponent({
   setup() {
     const { getState, onPress, onRelease } = useTimer()
 
+
+
     onMounted(() => {
       document.addEventListener('keydown', onPress)
       document.addEventListener('keyup', onRelease)

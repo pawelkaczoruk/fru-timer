@@ -1,22 +1,8 @@
 import { reactive, computed } from 'vue'
 import useStore from './useStore'
+import useDB from './useDB'
+import { Timer, isKeyboardEvent, Result } from '@/types/Timer'
 
-interface Timer {
-  state: number;
-  interval: number | undefined;
-  timeout: number | undefined;
-  initialDate: number;
-  latestDate: number;
-
-  canStart: boolean;
-  isIdle: boolean;
-  isRunning: boolean;
-  isTimeAdded: boolean;
-}
-
-function isKeyboardEvent(value: KeyboardEvent | TouchEvent): value is KeyboardEvent {
-  return (value as KeyboardEvent).code !== undefined
-}
 
 export default function useTimer() {
   const TIMER_DELAY = 550
@@ -36,7 +22,6 @@ export default function useTimer() {
   })
 
   const { setCurrentTime } = useStore()
-
   const startTimer = () => {
     const initialDate = Date.now()
 
@@ -45,13 +30,24 @@ export default function useTimer() {
     }, 10);
   }
 
+  const { updateSession } = useDB()
+  const { getCurrentTime, getCurrentScramble, getCurrentSessionKey, getCurrentSessionLength } = useStore()
   const onPress = (e: KeyboardEvent | TouchEvent) => {
     if (isKeyboardEvent(e) && e.code === KEY_CODE || !isKeyboardEvent(e)) {
       if (timer.isRunning) {
         clearInterval(timer.interval)
 
         if (!timer.isTimeAdded) {
-          // add times to store here
+          const result: Result = {
+            comment: '',
+            date: Date.now(),
+            scramble: getCurrentScramble.value,
+            time: {
+              penalty: 0,
+              value: getCurrentTime.value
+            }            
+          }
+          updateSession(getCurrentSessionKey.value, getCurrentSessionLength.value, result)
           timer.isTimeAdded = true
         }
       }

@@ -10,7 +10,8 @@ export default defineComponent({
   name: 'App',
   
   setup() {
-    useDB()
+    const { initializeSessions } = useDB()
+    initializeSessions()
   }
 })
 </script>

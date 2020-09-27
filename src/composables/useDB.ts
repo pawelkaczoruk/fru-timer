@@ -1,19 +1,20 @@
-import { Result } from '@/ts/interfaces'
 import Dexie from 'dexie'
+import useStore from '@/composables/useStore'
+import { Result } from '@/types/Timer'
 
-export default async function useDB() {
-  const DB_NAME = 'fruTimer'
-  const DB_VERSION = 1
-  const OBJECT_STORE = { sessions: '++' }
+const DB_NAME = 'fruTimer'
+const DB_VERSION = 1
+const OBJECT_STORE = { sessions: '&' }
 
-  const db = new Dexie(DB_NAME)
-  db.version(DB_VERSION).stores(OBJECT_STORE)
-  db.open()
+const db = new Dexie(DB_NAME)
+db.version(DB_VERSION).stores(OBJECT_STORE)
+db.open()
 
-  const createSession = async () => {
-    return await db.table('sessions').add([])
+export default function useDB() {
+  const createSession = async (sessionKey: number) => {
+    return await db.table('sessions').add([], sessionKey)
   } // result is session Key, use it to store info about sessions in localStorage
-  
+
   const updateSession = async (sessionKey: number, index: number, result: Result) => {
     await db.table('sessions').update(sessionKey, { [index]: result })
   }
@@ -30,11 +31,22 @@ export default async function useDB() {
     return await db.table('sessions').get(sessionKey)
   } // returns array of results, save it in store
 
+  const { getSessionsConfig } = useStore()
+  const initializeSessions = () => {
+    getSessionsConfig.value.forEach((session) => {
+      fetchSession(session.key)
+        .then((response) => {
+          if (!response) createSession(session.key)
+        })
+    })
+  }
+
   return {
     createSession,
     updateSession,
     deleteSession,
     removeResult,
-    fetchSession
+    fetchSession,
+    initializeSessions
   }
 }
