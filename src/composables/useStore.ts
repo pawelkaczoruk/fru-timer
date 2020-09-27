@@ -1,8 +1,12 @@
 import { reactive, computed } from 'vue'
+import useLocalStorage from './useLocalStorage'
 import { State } from '@/types/Store'
+import { Result } from '@/types/Timer'
 
+const { getConfig, getCustomSessionsConfig } = useLocalStorage()
 const state: State = reactive({
   currentTime: 0,
+  config: getConfig(),
   sessionsConfig: {
     basic: [
       { name: '3x3', key: 1 },
@@ -21,9 +25,9 @@ const state: State = reactive({
       // { name: 'sqweb', key: 14 },
       // { name: 'square 1', key: 15 },
     ],
-    custom: JSON.parse(localStorage.getItem('customSessions') || '[]')
+    custom: getCustomSessionsConfig()
   },
-  sessionResult: []
+  sessionResults: []
 })
 
 export default function useStore() {
@@ -36,6 +40,9 @@ export default function useStore() {
   const getCurrentSessionKey = computed(() => 1) // to implement
   const getCurrentSessionLength = computed(() => 0) // to implement
 
+  const setSessionResults = (results: Array<Result>) => { state.sessionResults = results }
+  const getSessionResults = computed(() => state.sessionResults)
+
   return {
     getSessionsConfig,
 
@@ -44,6 +51,9 @@ export default function useStore() {
 
     getCurrentScramble,
     getCurrentSessionKey,
-    getCurrentSessionLength
+    getCurrentSessionLength,
+
+    setSessionResults,
+    getSessionResults
   }
 }

@@ -23,7 +23,7 @@ const db = new SessionsDB()
 export default function useDB() {
   const createSession = async (sessionKey: number) => {
     return await db.sessions.add([], sessionKey)
-  } // result is session Key, use it to store info about sessions in localStorage
+  }
 
   const updateSession = async (sessionKey: number, index: number, result: Result) => {
     await db.sessions.update(sessionKey, { [index]: result })
@@ -37,14 +37,18 @@ export default function useDB() {
     await db.sessions.put(session, sessionKey)
   }
 
+  const { setSessionResults } = useStore()
   const fetchSession = async (sessionKey: number) => {
     return await db.sessions.get(sessionKey)
-  } // returns array of results, save it in store
+      .then((response) => {
+        if (response) setSessionResults(response)
+      })
+  }
 
   const { getSessionsConfig } = useStore()
   const initializeSessions = () => {
-    getSessionsConfig.value.forEach((session) => {
-      fetchSession(session.key)
+    getSessionsConfig.value.forEach(async (session) => {
+      await db.sessions.get(session.key)
         .then((response) => {
           if (!response) createSession(session.key)
         })
@@ -57,6 +61,6 @@ export default function useDB() {
     deleteSession,
     removeResult,
     fetchSession,
-    initializeSessions
+    initializeSessions,
   }
 }

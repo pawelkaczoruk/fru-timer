@@ -5,12 +5,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import useDB from '@/composables/useDB'
+import useStore from '@/composables/useStore'
 
 export default defineComponent({
   name: 'App',
   
   setup() {
-    const { initializeSessions } = useDB()
+    const { initializeSessions, fetchSession } = useDB()
+    const { getSessionResults } = useStore()
+    fetchSession(1)
+    setTimeout(() => console.log(getSessionResults.value), 5000)
     initializeSessions()
   }
 })
