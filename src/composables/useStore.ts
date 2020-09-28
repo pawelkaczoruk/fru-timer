@@ -6,13 +6,13 @@ import { Result } from '@/types/Timer'
 const { getConfig, getCustomSessionsConfig } = useLocalStorage()
 const state: State = reactive({
   currentTime: 0,
-  currentScramble: 'AUF temp scramble',
+  currentScramble: '',
   config: getConfig(),
   sessionsConfig: {
     basic: [
-      { name: '3x3', key: 1 },
-      { name: '2x2', key: 2 },
-      { name: '3x3 OH', key: 3 },
+      { name: '3x3', key: 1, cube: 'c3x3' },
+      { name: '2x2', key: 2, cube: 'c2x2' },
+      { name: '3x3 OH', key: 3, cube: 'c3x3' },
       // { name: '4x4', key: 4 },
       // { name: '5x5', key: 5 },
       // { name: '6x6', key: 6 },
@@ -49,6 +49,12 @@ export default function useStore() {
   const addSessionResult = (result: Result) => { state.sessionResults.push(result) }
   const getSessionResults = computed(() => state.sessionResults)
 
+  const getSelectedCubeType = computed(() => {
+    const sessionData = getSessionsConfig.value.find((el) => el.key === getCurrentSessionKey.value)
+    if (sessionData) return sessionData.cube
+    return state.sessionsConfig.basic[0].cube
+  })
+
   return {
     getConfig,
     getSessionsConfig,
@@ -66,5 +72,7 @@ export default function useStore() {
     setSessionResults,
     addSessionResult,
     getSessionResults,
+
+    getSelectedCubeType,
   }
 }

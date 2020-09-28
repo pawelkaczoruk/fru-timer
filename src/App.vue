@@ -4,6 +4,8 @@
 
   <p>{{ getCurrentSessionKey }}</p>
   <button @click="changeSession">change session</button>
+  <p>{{ getCurrentScramble }}</p>
+  <button @click="newScramble">Generate scramble</button>
 </template>
 
 <script lang="ts">
@@ -11,13 +13,15 @@ import { defineComponent } from 'vue'
 import useDB from '@/composables/useDB'
 import useStore from '@/composables/useStore'
 import useLocalStorage from './composables/useLocalStorage'
+import useScrambleGenerator from './composables/useScrambleGenerator'
 
 export default defineComponent({
   name: 'App',
   
   setup() {
     const { initializeSessions, fetchSession } = useDB()
-    const { getSessionResults, getCurrentSessionKey, setCurrentSessionKey, getConfig } = useStore()
+    const { getSessionResults, getCurrentSessionKey, setCurrentSessionKey, getConfig, getCurrentScramble } = useStore()
+    const { generateScramble } = useScrambleGenerator()
     initializeSessions()
     fetchSession(getCurrentSessionKey.value)
 
@@ -25,13 +29,19 @@ export default defineComponent({
     const changeSession = () => {
       setCurrentSessionKey(getCurrentSessionKey.value === 1 ? 2 : 1) 
       setConfig(getConfig.value)
+      generateScramble()
       fetchSession(getCurrentSessionKey.value)
     }
+
+    generateScramble()
+    const newScramble = () => { generateScramble() }
 
     return {
       getSessionResults,
       getCurrentSessionKey,
-      changeSession
+      changeSession,
+      newScramble,
+      getCurrentScramble
     }
   }
 })

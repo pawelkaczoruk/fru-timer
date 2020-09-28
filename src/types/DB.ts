@@ -1,6 +1,7 @@
 export interface SessionConfigItem {
   name: string;
   key: number;
+  cube: string;
 }
 
 export interface SessionsConfig {
