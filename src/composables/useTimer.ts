@@ -31,7 +31,7 @@ export default function useTimer() {
   }
 
   const { addResult } = useDB()
-  const { getCurrentTime, getCurrentScramble, getCurrentSessionKey } = useStore()
+  const { getCurrentTime, getCurrentScramble, getCurrentSessionKey, addSessionResult } = useStore()
   const onPress = (e: KeyboardEvent | TouchEvent) => {
     if (isKeyboardEvent(e) && e.code === KEY_CODE || !isKeyboardEvent(e)) {
       if (timer.isRunning) {
@@ -48,6 +48,7 @@ export default function useTimer() {
             }            
           }
           addResult(getCurrentSessionKey.value, result)
+            .then(() => { addSessionResult(result) })
           timer.isTimeAdded = true
         }
       }

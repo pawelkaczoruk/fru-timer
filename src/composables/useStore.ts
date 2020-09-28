@@ -6,6 +6,7 @@ import { Result } from '@/types/Timer'
 const { getConfig, getCustomSessionsConfig } = useLocalStorage()
 const state: State = reactive({
   currentTime: 0,
+  currentScramble: 'AUF temp scramble',
   config: getConfig(),
   sessionsConfig: {
     basic: [
@@ -31,28 +32,36 @@ const state: State = reactive({
 })
 
 export default function useStore() {
+  const getConfig = computed(() => state.config)
   const getSessionsConfig = computed(() => [...state.sessionsConfig.basic, ...state.sessionsConfig.custom])
+  const getCurrentSessionLength = computed(() => state.sessionResults.length)
 
   const getCurrentTime = computed(() => Math.floor(state.currentTime / 10) * 10)
   const setCurrentTime = (time: number) => { state.currentTime = time }
 
-  const getCurrentScramble = computed(() => 'scramble here') // to implement
-  const getCurrentSessionKey = computed(() => 1) // to implement
-  const getCurrentSessionLength = computed(() => 0) // to implement
+  const getCurrentScramble = computed(() => state.currentScramble)
+  const setCurrentScramble = (scramble: string) => { state.currentScramble = scramble }
+
+  const getCurrentSessionKey = computed(() => state.config.activeSessionKey)
+  const setCurrentSessionKey = (key: number) => { state.config.activeSessionKey = key }
 
   const setSessionResults = (results: Array<Result>) => { state.sessionResults = results }
   const addSessionResult = (result: Result) => { state.sessionResults.push(result) }
   const getSessionResults = computed(() => state.sessionResults)
 
   return {
+    getConfig,
     getSessionsConfig,
+    getCurrentSessionLength,
 
     getCurrentTime,
     setCurrentTime,
 
     getCurrentScramble,
+    setCurrentScramble,
+
     getCurrentSessionKey,
-    getCurrentSessionLength,
+    setCurrentSessionKey,
 
     setSessionResults,
     addSessionResult,

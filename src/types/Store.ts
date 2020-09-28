@@ -3,6 +3,7 @@ import { Result } from './Timer'
 
 export interface State {
   currentTime: number;
+  currentScramble: string;
   config: Config;
   sessionResults: Array<Result>;
   sessionsConfig: SessionsConfig;

@@ -1,22 +1,38 @@
 <template>
   <router-view/>
+  <p>{{ getSessionResults }}</p>
+
+  <p>{{ getCurrentSessionKey }}</p>
+  <button @click="changeSession">change session</button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import useDB from '@/composables/useDB'
 import useStore from '@/composables/useStore'
+import useLocalStorage from './composables/useLocalStorage'
 
 export default defineComponent({
   name: 'App',
   
   setup() {
     const { initializeSessions, fetchSession } = useDB()
-    const { getSessionResults } = useStore()
-    fetchSession(1)
-
-    setTimeout(() => console.log(getSessionResults.value), 5000)
+    const { getSessionResults, getCurrentSessionKey, setCurrentSessionKey, getConfig } = useStore()
     initializeSessions()
+    fetchSession(getCurrentSessionKey.value)
+
+    const { setConfig } = useLocalStorage()
+    const changeSession = () => {
+      setCurrentSessionKey(getCurrentSessionKey.value === 1 ? 2 : 1) 
+      setConfig(getConfig.value)
+      fetchSession(getCurrentSessionKey.value)
+    }
+
+    return {
+      getSessionResults,
+      getCurrentSessionKey,
+      changeSession
+    }
   }
 })
 </script>
