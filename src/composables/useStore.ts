@@ -41,6 +41,7 @@ export default function useStore() {
   const getCurrentSessionLength = computed(() => 0) // to implement
 
   const setSessionResults = (results: Array<Result>) => { state.sessionResults = results }
+  const addSessionResult = (result: Result) => { state.sessionResults.push(result) }
   const getSessionResults = computed(() => state.sessionResults)
 
   return {
@@ -54,6 +55,7 @@ export default function useStore() {
     getCurrentSessionLength,
 
     setSessionResults,
-    getSessionResults
+    addSessionResult,
+    getSessionResults,
   }
 }

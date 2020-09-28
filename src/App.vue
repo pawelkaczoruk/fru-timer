@@ -14,6 +14,7 @@ export default defineComponent({
     const { initializeSessions, fetchSession } = useDB()
     const { getSessionResults } = useStore()
     fetchSession(1)
+
     setTimeout(() => console.log(getSessionResults.value), 5000)
     initializeSessions()
   }

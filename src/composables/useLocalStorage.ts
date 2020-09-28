@@ -10,14 +10,24 @@ export default function useLocalStorage() {
     }
   }
 
+  const setConfig = (config: Config) => {
+    localStorage.setItem('config', JSON.stringify(config))
+  }
+
   const getCustomSessionsConfig = (): Array<SessionConfigItem> => {
     const data = localStorage.getItem('customSessions')
     if (typeof data === 'string') return JSON.parse(data)
     return []
   }
+  
+  const setCustomSessionsConfig = (config: Array<SessionConfigItem>) => {
+    localStorage.setItem('customSessions', JSON.stringify(config))
+  }
 
   return {
     getConfig,
-    getCustomSessionsConfig
+    setConfig,
+    getCustomSessionsConfig,
+    setCustomSessionsConfig
   }
 }

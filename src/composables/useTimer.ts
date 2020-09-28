@@ -30,8 +30,8 @@ export default function useTimer() {
     }, 10);
   }
 
-  const { updateSession } = useDB()
-  const { getCurrentTime, getCurrentScramble, getCurrentSessionKey, getCurrentSessionLength } = useStore()
+  const { addResult } = useDB()
+  const { getCurrentTime, getCurrentScramble, getCurrentSessionKey } = useStore()
   const onPress = (e: KeyboardEvent | TouchEvent) => {
     if (isKeyboardEvent(e) && e.code === KEY_CODE || !isKeyboardEvent(e)) {
       if (timer.isRunning) {
@@ -47,7 +47,7 @@ export default function useTimer() {
               value: getCurrentTime.value
             }            
           }
-          updateSession(getCurrentSessionKey.value, getCurrentSessionLength.value, result)
+          addResult(getCurrentSessionKey.value, result)
           timer.isTimeAdded = true
         }
       }
