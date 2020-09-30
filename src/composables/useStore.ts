@@ -3,11 +3,11 @@ import useLocalStorage from './useLocalStorage'
 import { State } from '@/types/Store'
 import { Result } from '@/types/Timer'
 
-const { getConfig, getCustomSessionsConfig } = useLocalStorage()
+const { getConfigLS, getCustomSessionsConfigLS } = useLocalStorage()
 const state: State = reactive({
   currentTime: 0,
   currentScramble: '',
-  config: getConfig(),
+  config: getConfigLS(),
   sessionsConfig: {
     basic: [
       { name: '3x3', key: 1, cube: 'c3x3' },
@@ -26,7 +26,7 @@ const state: State = reactive({
       // { name: 'sqweb', key: 14 },
       // { name: 'square 1', key: 15 },
     ],
-    custom: getCustomSessionsConfig()
+    custom: getCustomSessionsConfigLS()
   },
   sessionResults: []
 })

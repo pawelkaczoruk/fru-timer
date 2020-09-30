@@ -1,33 +1,38 @@
 import { Config } from '@/types/Store'
 import { SessionConfigItem } from '@/types/DB'
 
+const CONFIG: Config = {
+  activeSessionKey: 1
+}
+const CONFIG_KEY = 'config'
+const CUSTOM_SESSIONS_CONFIG: Array<SessionConfigItem> = []
+const CUSTOM_SESSIONS_CONFIG_KEY = 'customSessions'
+
 export default function useLocalStorage() {
-  const getConfig = (): Config => {
-    const data = localStorage.getItem('config')
+  const getConfigLS = (): Config => {
+    const data = localStorage.getItem(CONFIG_KEY)
     if (typeof data === 'string') return JSON.parse(data)
-    return {
-      activeSessionKey: 1
-    }
+    return CONFIG
   }
 
-  const setConfig = (config: Config) => {
-    localStorage.setItem('config', JSON.stringify(config))
+  const setConfigLS = (config: Config) => {
+    localStorage.setItem(CONFIG_KEY, JSON.stringify(config))
   }
 
-  const getCustomSessionsConfig = (): Array<SessionConfigItem> => {
-    const data = localStorage.getItem('customSessions')
+  const getCustomSessionsConfigLS = (): Array<SessionConfigItem> => {
+    const data = localStorage.getItem(CUSTOM_SESSIONS_CONFIG_KEY)
     if (typeof data === 'string') return JSON.parse(data)
-    return []
+    return CUSTOM_SESSIONS_CONFIG
   }
   
-  const setCustomSessionsConfig = (config: Array<SessionConfigItem>) => {
-    localStorage.setItem('customSessions', JSON.stringify(config))
+  const setCustomSessionsConfigLS = (config: Array<SessionConfigItem>) => {
+    localStorage.setItem(CUSTOM_SESSIONS_CONFIG_KEY, JSON.stringify(config))
   }
 
   return {
-    getConfig,
-    setConfig,
-    getCustomSessionsConfig,
-    setCustomSessionsConfig
+    getConfigLS,
+    setConfigLS,
+    getCustomSessionsConfigLS,
+    setCustomSessionsConfigLS
   }
 }

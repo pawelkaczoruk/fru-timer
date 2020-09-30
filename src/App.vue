@@ -25,10 +25,10 @@ export default defineComponent({
     initializeSessions()
     fetchSession(getCurrentSessionKey.value)
 
-    const { setConfig } = useLocalStorage()
+    const { setConfigLS } = useLocalStorage()
     const changeSession = () => {
       setCurrentSessionKey(getCurrentSessionKey.value === 1 ? 2 : 1) 
-      setConfig(getConfig.value)
+      setConfigLS(getConfig.value)
       generateScramble()
       fetchSession(getCurrentSessionKey.value)
     }

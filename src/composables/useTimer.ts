@@ -49,6 +49,7 @@ export default function useTimer() {
               value: getCurrentTime.value
             }            
           }
+
           addResult(getCurrentSessionKey.value, result)
           addSessionResult(result)
           generateScramble()
