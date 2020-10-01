@@ -1,6 +1,10 @@
+const DNF = 'dnf'
+const NO_VALID_TIME = '-'
+
 export default function useTimeFormatter() {
   const getFormattedTime = (time: number, penalty = 0) => { 
-    if (penalty === -1) return 'dnf'
+    if (penalty === -1 || time === -1) return DNF
+    if (time === -2) return NO_VALID_TIME
 
     const total = time + penalty
     const min = Math.floor(total / 60 / 1000)

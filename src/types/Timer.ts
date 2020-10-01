@@ -21,6 +21,8 @@ export interface Result {
   date: number;
 }
 
+export type AverageType = 'mean' | 'avg'
+
 export function isKeyboardEvent(value: KeyboardEvent | TouchEvent): value is KeyboardEvent {
   return (value as KeyboardEvent).code !== undefined
 }

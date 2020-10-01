@@ -1,11 +1,18 @@
 <template>
   <router-view/>
-  <p>{{ getSessionResults }}</p>
 
   <p>{{ getCurrentSessionKey }}</p>
   <button @click="changeSession">change session</button>
   <p>{{ getCurrentScramble }}</p>
   <button @click="newScramble">Generate scramble</button>
+
+  <p>{{ getSessionResults }}</p>
+  <h5>{{ getFormattedTime(getAo5(getSessionResults, 0)) }}</h5>
+  <ul>
+    <li v-for="result in getSessionResults" :key="result.date">
+      {{ getFormattedTime(result.time.value) }}
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -14,6 +21,8 @@ import useDB from '@/composables/useDB'
 import useStore from '@/composables/useStore'
 import useLocalStorage from './composables/useLocalStorage'
 import useScrambleGenerator from './composables/useScrambleGenerator'
+import useTimeFormatter from './composables/useTimeFormatter'
+import useMath from './composables/useMath'
 
 export default defineComponent({
   name: 'App',
@@ -36,12 +45,19 @@ export default defineComponent({
     generateScramble()
     const newScramble = () => { generateScramble() }
 
+    const { getFormattedTime } = useTimeFormatter()
+
+
+    const { getAo5, getSessionMean, getAo12, getMo3 } = useMath()
+
     return {
       getSessionResults,
       getCurrentSessionKey,
       changeSession,
       newScramble,
-      getCurrentScramble
+      getCurrentScramble,
+      getFormattedTime,
+      getAo5, getSessionMean, getAo12, getMo3
     }
   }
 })
