@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>test</h1>
-    <TheTimerDisplay :timerState="getState" />
+    <TheTimerDisplay />
   </div>
 </template>
 
@@ -17,9 +17,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { getState, onPress, onRelease } = useTimer()
-
-
+    const { onPress, onRelease } = useTimer()
 
     onMounted(() => {
       document.addEventListener('keydown', onPress)
@@ -34,10 +32,6 @@ export default defineComponent({
       document.removeEventListener('touchstart', onPress)
       document.removeEventListener('touchend', onRelease)
     })
-
-    return {
-      getState
-    }
   }
 })
 </script>

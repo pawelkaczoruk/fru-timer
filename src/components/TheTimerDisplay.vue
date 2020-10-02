@@ -1,26 +1,26 @@
 <template>
   <span>{{ getFormattedTime(getCurrentTime) }}</span>
-  <p>{{ timerState }}</p>
+  <p>{{ getState }}</p>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import useStore from '@/composables/useStore'
 import useTimeFormatter from '@/composables/useTimeFormatter'
+import useTimer from '@/composables/useTimer'
 
 export default defineComponent({
   name: 'TheTimerDisplay',
-  props: {
-    timerState: Number,
-  },
 
   setup() {
     const { getCurrentTime } = useStore()
     const { getFormattedTime } = useTimeFormatter()
+    const { getState } = useTimer()
 
     return { 
       getCurrentTime,
-      getFormattedTime
+      getFormattedTime,
+      getState
     }
   }
 })

@@ -4,24 +4,23 @@ import useDB from './useDB'
 import useScrambleGenerator from './useScrambleGenerator'
 import { Timer, isKeyboardEvent, Result } from '@/types/Timer'
 
+const TIMER_DELAY = 550
+const KEY_CODE = 'Space'
+
+const timer: Timer = reactive({
+  state: 0,
+  interval: undefined,
+  timeout: undefined,
+  initialDate: Date.now(),
+  latestDate: Date.now(),
+
+  canStart: true,
+  isIdle: true,
+  isRunning: false,
+  isTimeAdded: true
+})
 
 export default function useTimer() {
-  const TIMER_DELAY = 550
-  const KEY_CODE = 'Space'
-
-  const timer: Timer = reactive({
-    state: 0,
-    interval: undefined,
-    timeout: undefined,
-    initialDate: Date.now(),
-    latestDate: Date.now(),
-
-    canStart: true,
-    isIdle: true,
-    isRunning: false,
-    isTimeAdded: true
-  })
-
   const { setCurrentTime } = useStore()
   const startTimer = () => {
     const initialDate = Date.now()
