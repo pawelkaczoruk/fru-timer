@@ -1,4 +1,6 @@
 <template>
+  <TheAppbar />
+
   <router-view/>
 
   <p>{{ getCurrentSessionKey }}</p>
@@ -17,6 +19,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import TheAppbar from '@/components/TheAppbar.vue'
+
 import useDB from '@/composables/useDB'
 import useStore from '@/composables/useStore'
 import useLocalStorage from './composables/useLocalStorage'
@@ -26,6 +30,9 @@ import useMath from './composables/useMath'
 
 export default defineComponent({
   name: 'App',
+  components: {
+    TheAppbar
+  },
   
   setup() {
     const { initializeSessions, fetchSession } = useDB()
@@ -66,5 +73,10 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/styles/variables';
 @import '@/assets/styles/reset';
+@import '@/assets/styles/mixins';
+
+.wrapper {
+  padding: 0 1em;
+}
 
 </style>
