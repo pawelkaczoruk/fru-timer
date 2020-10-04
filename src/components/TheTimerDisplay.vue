@@ -1,10 +1,10 @@
 <template>
-  <p 
-    class="display"
+  <span 
+    class="timer-display"
     :class="getTimerClass"
   >
     {{ getFormattedTime(getCurrentTime) }}
-  </p>
+  </span>
 </template>
 
 <script lang="ts">
@@ -32,10 +32,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/mixins';
 
-.display {
-  @include text($size: 4em, $align: center);
+.timer-display {
+  font-size: 4em;
   user-select: none;
 
   &.ready {

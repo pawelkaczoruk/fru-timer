@@ -78,7 +78,6 @@ header {
 
   svg {
     @include rect($width: 2em, $height: 2em);
-    margin-right: 0.5em;
   }
 }
 

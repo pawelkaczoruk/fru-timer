@@ -76,7 +76,7 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .wrapper {
-  padding: 0 1em;
+  padding: 0 1rem;
 }
 
 </style>
