@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
     <TheScrambleDisplay />
     <TheTimerDisplay />
   </div>
@@ -37,3 +37,13 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/styles/mixins';
+
+.timer-display {
+  @include position(absolute, $top: 50%, $left: 50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>

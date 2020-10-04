@@ -2,19 +2,6 @@
   <TheAppbar />
 
   <router-view/>
-
-  <p>{{ getCurrentSessionKey }}</p>
-  <button @click="changeSession">change session</button>
-  <p>{{ getCurrentScramble }}</p>
-  <button @click="newScramble">Generate scramble</button>
-
-  <p>{{ getSessionResults }}</p>
-  <h5>{{ getFormattedTime(getAo5(getSessionResults, 0)) }}</h5>
-  <ul>
-    <li v-for="result in getSessionResults" :key="result.date">
-      {{ getFormattedTime(result.time.value) }}
-    </li>
-  </ul>
 </template>
 
 <script lang="ts">
@@ -74,6 +61,15 @@ export default defineComponent({
 @import '@/assets/styles/variables';
 @import '@/assets/styles/reset';
 @import '@/assets/styles/mixins';
+
+#app {
+  @include flex($direction: column);
+  height: 100vh;
+
+  .home {
+    flex-grow: 1;
+  }
+}
 
 .wrapper {
   padding: 0 1rem;
