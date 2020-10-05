@@ -2,11 +2,14 @@
   <TheAppbar />
 
   <router-view/>
+
+  <TheMenuBar />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import TheAppbar from '@/components/TheAppbar.vue'
+import TheMenuBar from '@/components/TheMenuBar.vue'
 
 import useDB from '@/composables/useDB'
 import useStore from '@/composables/useStore'
@@ -18,7 +21,8 @@ import useMath from './composables/useMath'
 export default defineComponent({
   name: 'App',
   components: {
-    TheAppbar
+    TheAppbar,
+    TheMenuBar
   },
   
   setup() {
@@ -73,6 +77,26 @@ export default defineComponent({
 
 .wrapper {
   padding: 0 1rem;
+}
+
+.btn {
+  @include flex($display: inline-flex, $justify: center, $align: center);
+  @include rect(3em, 3em);
+  @include background(var(--c-primary), var(--c-dark-transparent));
+  @include hover() {
+    cursor: pointer;
+    svg { fill: var(--c-light-transparent); }    
+  }
+
+  &.rounded { border-radius: 50%; }
+  &.top-right-rounded { border-radius: 0 50% 0 0; }
+  &.top-left-rounded { border-radius: 50% 0 0 0; }
+
+  svg {
+    @include rect(60%, 60%);
+    fill: var(--c-text);
+    transition: fill 0.15s ease-in-out;
+  }
 }
 
 </style>

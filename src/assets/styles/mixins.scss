@@ -29,3 +29,16 @@
   @if $weight { font-weight: $weight; }
   @if $align { text-align: $align; }
 }
+
+@mixin hover() {
+  transition: background-color 0.15s ease-in-out;
+
+  @media screen and (min-width: 1024px) {
+    &:hover { @content; }
+  }
+}
+
+@mixin background($bg: inherit, $hover-bg: inherit) {
+  @include hover() { background: $hover-bg; }
+  background: $bg;
+}
