@@ -19,7 +19,10 @@
       </button>
     </div>
 
-    <button class="btn rounded btn-central">
+    <button
+      class="btn rounded btn-central"
+      @click="toggleCentralMenu"
+    >
       <svg viewBox="0 0 26 26">
         <path
           d="M-1338,26a2,2,0,0,1-2-2v-.413a10.859,10.859,0,0,1-2.365-.98l-.513.513a2,2,0,0,1-2.829,0l-1.414-1.414a2,2,0,0,1,0-2.829l.513-.513a10.859,10.859,0,0,1-.98-2.365H-1348a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h.412a10.868,10.868,0,0,1,.98-2.366l-.513-.513a2,2,0,0,1,0-2.829l1.414-1.414a2,2,0,0,1,2.829,0l.513.513a10.859,10.859,0,0,1,2.365-.98V2a2,2,0,0,1,2-2h2a2,2,0,0,1,2,2v.412a10.857,10.857,0,0,1,2.365.98l.513-.513a2,2,0,0,1,2.829,0l1.414,1.414a2,2,0,0,1,0,2.829l-.513.513a10.859,10.859,0,0,1,.979,2.365h.413a2,2,0,0,1,2,2v2a2,2,0,0,1-2,2h-.413a10.855,10.855,0,0,1-.98,2.365l.513.513a2,2,0,0,1,0,2.829l-1.414,1.414a2,2,0,0,1-2.829,0l-.513-.513a10.853,10.853,0,0,1-2.365.98V24a2,2,0,0,1-2,2Zm-5-13a6.007,6.007,0,0,0,6,6,6.007,6.007,0,0,0,6-6,6.007,6.007,0,0,0-6-6A6.007,6.007,0,0,0-1343,13Z"
@@ -47,8 +50,14 @@
       </button>
     </div>
 
-    <div class="expandable-central-menu">
-      <button class="btn rounded">
+    <div
+      v-if="isCentralMenuExpanded"
+      class="expandable-central-menu"
+    >
+      <button
+        class="btn rounded"
+        @click="toggleCommentModal"
+      >
         <svg viewBox="0 0 26 26">
           <path
             d="M-1338,26a2,2,0,0,1-2-2v-.413a10.859,10.859,0,0,1-2.365-.98l-.513.513a2,2,0,0,1-2.829,0l-1.414-1.414a2,2,0,0,1,0-2.829l.513-.513a10.859,10.859,0,0,1-.98-2.365H-1348a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h.412a10.868,10.868,0,0,1,.98-2.366l-.513-.513a2,2,0,0,1,0-2.829l1.414-1.414a2,2,0,0,1,2.829,0l.513.513a10.859,10.859,0,0,1,2.365-.98V2a2,2,0,0,1,2-2h2a2,2,0,0,1,2,2v.412a10.857,10.857,0,0,1,2.365.98l.513-.513a2,2,0,0,1,2.829,0l1.414,1.414a2,2,0,0,1,0,2.829l-.513.513a10.859,10.859,0,0,1,.979,2.365h.413a2,2,0,0,1,2,2v2a2,2,0,0,1-2,2h-.413a10.855,10.855,0,0,1-.98,2.365l.513.513a2,2,0,0,1,0,2.829l-1.414,1.414a2,2,0,0,1-2.829,0l-.513-.513a10.853,10.853,0,0,1-2.365.98V24a2,2,0,0,1-2,2Zm-5-13a6.007,6.007,0,0,0,6,6,6.007,6.007,0,0,0,6-6,6.007,6.007,0,0,0-6-6A6.007,6.007,0,0,0-1343,13Z"
@@ -56,7 +65,10 @@
           />
         </svg>
       </button>
-      <button class="btn rounded">
+      <button
+        class="btn rounded"
+        @click="toggleDnf"
+      >
         <svg viewBox="0 0 26 26">
           <path
             d="M-1338,26a2,2,0,0,1-2-2v-.413a10.859,10.859,0,0,1-2.365-.98l-.513.513a2,2,0,0,1-2.829,0l-1.414-1.414a2,2,0,0,1,0-2.829l.513-.513a10.859,10.859,0,0,1-.98-2.365H-1348a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h.412a10.868,10.868,0,0,1,.98-2.366l-.513-.513a2,2,0,0,1,0-2.829l1.414-1.414a2,2,0,0,1,2.829,0l.513.513a10.859,10.859,0,0,1,2.365-.98V2a2,2,0,0,1,2-2h2a2,2,0,0,1,2,2v.412a10.857,10.857,0,0,1,2.365.98l.513-.513a2,2,0,0,1,2.829,0l1.414,1.414a2,2,0,0,1,0,2.829l-.513.513a10.859,10.859,0,0,1,.979,2.365h.413a2,2,0,0,1,2,2v2a2,2,0,0,1-2,2h-.413a10.855,10.855,0,0,1-.98,2.365l.513.513a2,2,0,0,1,0,2.829l-1.414,1.414a2,2,0,0,1-2.829,0l-.513-.513a10.853,10.853,0,0,1-2.365.98V24a2,2,0,0,1-2,2Zm-5-13a6.007,6.007,0,0,0,6,6,6.007,6.007,0,0,0,6-6,6.007,6.007,0,0,0-6-6A6.007,6.007,0,0,0-1343,13Z"
@@ -64,7 +76,10 @@
           />
         </svg>
       </button>
-      <button class="btn rounded">
+      <button
+        class="btn rounded"
+        @click="togglePenalty"
+      >
         <svg viewBox="0 0 26 26">
           <path
             d="M-1338,26a2,2,0,0,1-2-2v-.413a10.859,10.859,0,0,1-2.365-.98l-.513.513a2,2,0,0,1-2.829,0l-1.414-1.414a2,2,0,0,1,0-2.829l.513-.513a10.859,10.859,0,0,1-.98-2.365H-1348a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h.412a10.868,10.868,0,0,1,.98-2.366l-.513-.513a2,2,0,0,1,0-2.829l1.414-1.414a2,2,0,0,1,2.829,0l.513.513a10.859,10.859,0,0,1,2.365-.98V2a2,2,0,0,1,2-2h2a2,2,0,0,1,2,2v.412a10.857,10.857,0,0,1,2.365.98l.513-.513a2,2,0,0,1,2.829,0l1.414,1.414a2,2,0,0,1,0,2.829l-.513.513a10.859,10.859,0,0,1,.979,2.365h.413a2,2,0,0,1,2,2v2a2,2,0,0,1-2,2h-.413a10.855,10.855,0,0,1-.98,2.365l.513.513a2,2,0,0,1,0,2.829l-1.414,1.414a2,2,0,0,1-2.829,0l-.513-.513a10.853,10.853,0,0,1-2.365.98V24a2,2,0,0,1-2,2Zm-5-13a6.007,6.007,0,0,0,6,6,6.007,6.007,0,0,0,6-6,6.007,6.007,0,0,0-6-6A6.007,6.007,0,0,0-1343,13Z"
@@ -72,7 +87,10 @@
           />
         </svg>
       </button>
-      <button class="btn rounded">
+      <button
+        class="btn rounded"
+        @click="removeLastResult"
+      >
         <svg viewBox="0 0 26 26">
           <path
             d="M-1338,26a2,2,0,0,1-2-2v-.413a10.859,10.859,0,0,1-2.365-.98l-.513.513a2,2,0,0,1-2.829,0l-1.414-1.414a2,2,0,0,1,0-2.829l.513-.513a10.859,10.859,0,0,1-.98-2.365H-1348a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h.412a10.868,10.868,0,0,1,.98-2.366l-.513-.513a2,2,0,0,1,0-2.829l1.414-1.414a2,2,0,0,1,2.829,0l.513.513a10.859,10.859,0,0,1,2.365-.98V2a2,2,0,0,1,2-2h2a2,2,0,0,1,2,2v.412a10.857,10.857,0,0,1,2.365.98l.513-.513a2,2,0,0,1,2.829,0l1.414,1.414a2,2,0,0,1,0,2.829l-.513.513a10.859,10.859,0,0,1,.979,2.365h.413a2,2,0,0,1,2,2v2a2,2,0,0,1-2,2h-.413a10.855,10.855,0,0,1-.98,2.365l.513.513a2,2,0,0,1,0,2.829l-1.414,1.414a2,2,0,0,1-2.829,0l-.513-.513a10.853,10.853,0,0,1-2.365.98V24a2,2,0,0,1-2,2Zm-5-13a6.007,6.007,0,0,0,6,6,6.007,6.007,0,0,0,6-6,6.007,6.007,0,0,0-6-6A6.007,6.007,0,0,0-1343,13Z"
@@ -81,27 +99,123 @@
         </svg>
       </button>
     </div>
+
+    <teleport
+      v-if="isModalOpen"
+      to="#modal"
+    >
+      <div class="modal-content">
+        <p class="title">Comment</p>
+        <textarea v-model="comment"></textarea>
+        <div class="btn-container">
+          <button
+            class="modal-btn"
+            @click="toggleCommentModal"
+          >Cancel</button>
+          <button
+            class="modal-btn"
+            @click="addComent"
+          >Save</button>
+        </div>
+      </div>
+    </teleport>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, toRaw } from 'vue'
+import useDB from '@/composables/useDB'
+import useStore from '@/composables/useStore'
 
 export default defineComponent({
-  name: 'TheMenuBar'
+  name: 'TheMenuBar',
+
+  setup() {
+    const isCentralMenuExpanded = ref(false);
+    const toggleCentralMenu = () => { isCentralMenuExpanded.value = !isCentralMenuExpanded.value  }
+
+    const { removeResult, updateResult } = useDB()
+    const {
+      getSessionResults,
+      setSessionResults,
+      getCurrentSessionKey,
+      getLastResult,
+      getCurrentSessionLength,
+      updateLastResult
+    } = useStore()
+
+    const removeLastResult = () => {
+      const modifiedSession = toRaw(getSessionResults.value).slice(0, getCurrentSessionLength.value - 1)
+
+      toggleCentralMenu()
+      removeResult(getCurrentSessionKey.value, modifiedSession)
+        .then(() => { setSessionResults(modifiedSession) })
+    }
+
+    const togglePenalty = () => {
+      const lastResult = toRaw(getLastResult.value)
+      if (lastResult.time.penalty === 2000) lastResult.time.penalty = 0
+      else lastResult.time.penalty = 2000
+      
+      toggleCentralMenu()
+      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, lastResult)
+        .then(() => { updateLastResult(lastResult) })
+    }
+
+    const toggleDnf = () => {
+      const lastResult = toRaw(getLastResult.value)
+      if (lastResult.time.penalty === -1) lastResult.time.penalty = 0
+      else lastResult.time.penalty = -1
+
+      toggleCentralMenu()
+      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, lastResult)
+        .then(() => { updateLastResult(lastResult) })
+    }
+
+    const isModalOpen = ref(false)
+    const comment = ref('')
+    const toggleCommentModal = () => {
+      isModalOpen.value = !isModalOpen.value
+      isCentralMenuExpanded.value = false;
+      if (isModalOpen.value) comment.value = getLastResult.value.comment
+    }
+
+    const addComent = () => {
+      const lastResult = toRaw(getLastResult.value)
+      lastResult.comment = comment.value
+
+      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, lastResult)
+        .then(() => {
+          updateLastResult(lastResult)
+          toggleCommentModal()
+        })
+    }
+
+    return {
+      toggleCentralMenu,
+      isCentralMenuExpanded,
+      removeLastResult,
+      togglePenalty,
+      toggleDnf,
+      addComent,
+      isModalOpen,
+      toggleCommentModal,
+      comment
+    }
+  }
 })
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins';
 
-.btn {
-  @include background(var(--c-menu), var(--c-dark-transparent));
-}
-
 .menu-bar {
   @include rect(100%, 3em);
   @include position(fixed, $bottom: 0);
+}
+
+.btn {
+  @include background(var(--c-menu), var(--c-dark-transparent));
 }
 
 .btn-group {
@@ -135,6 +249,13 @@ export default defineComponent({
     &:nth-child(2) { grid-area: second; }
     &:nth-child(3) { grid-area: third; }
     &:nth-child(4) { grid-area: fourth; }
+  }
+}
+
+.modal-content {
+  textarea {
+    @include rect(100%, 4em, 0.25em);
+    padding: 0.2em;
   }
 }
 

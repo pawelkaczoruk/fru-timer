@@ -48,6 +48,8 @@ export default function useStore() {
   const setSessionResults = (results: Array<Result>) => { state.sessionResults = results }
   const addSessionResult = (result: Result) => { state.sessionResults.push(result) }
   const getSessionResults = computed(() => state.sessionResults)
+  const getLastResult = computed(() => state.sessionResults[getCurrentSessionLength.value - 1])
+  const updateLastResult = (result: Result) => { state.sessionResults[getCurrentSessionLength.value - 1] = result }
 
   const getSelectedCubeType = computed(() => {
     const sessionData = getSessionsConfig.value.find((el) => el.key === getCurrentSessionKey.value)
@@ -72,6 +74,8 @@ export default function useStore() {
     setSessionResults,
     addSessionResult,
     getSessionResults,
+    getLastResult,
+    updateLastResult,
 
     getSelectedCubeType,
   }

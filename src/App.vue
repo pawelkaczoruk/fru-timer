@@ -75,6 +75,39 @@ export default defineComponent({
   }
 }
 
+#modal {
+  @include position(fixed, 50%, $left: 50%);
+  transform: translate(-50%, -50%);
+
+  .modal-content {
+    min-width: 300px;
+    padding: 1em 1em;
+    border-radius: 0.5em;
+    background:var(--c-primary);
+
+    .title {
+      @include text($size: 1.25em, $align: center);
+      margin-bottom: 0.5em;
+    }
+
+    .btn-container {
+      @include flex(flex, space-between);
+      margin-top: 0.5em;
+    }
+
+    .modal-btn {
+      border-bottom: 2px solid var(--c-text);
+      font-weight: bold;
+
+      @include hover() {
+        cursor: pointer;
+        color: var(--c-light-transparent);
+        border-bottom: 2px solid var(--c-light-transparent);
+      }
+    }
+  }
+}
+
 .wrapper {
   padding: 0 1rem;
 }
