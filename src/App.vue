@@ -13,10 +13,7 @@ import TheMenuBar from '@/components/TheMenuBar.vue'
 
 import useDB from '@/composables/useDB'
 import useStore from '@/composables/useStore'
-import useLocalStorage from './composables/useLocalStorage'
 import useScrambleGenerator from './composables/useScrambleGenerator'
-import useTimeFormatter from './composables/useTimeFormatter'
-import useMath from './composables/useMath'
 
 export default defineComponent({
   name: 'App',
@@ -27,36 +24,11 @@ export default defineComponent({
   
   setup() {
     const { initializeSessions, fetchSession } = useDB()
-    const { getSessionResults, getCurrentSessionKey, setCurrentSessionKey, getConfig, getCurrentScramble } = useStore()
+    const { getCurrentSessionKey } = useStore()
     const { generateScramble } = useScrambleGenerator()
     initializeSessions()
     fetchSession(getCurrentSessionKey.value)
-
-    const { setConfigLS } = useLocalStorage()
-    const changeSession = () => {
-      setCurrentSessionKey(getCurrentSessionKey.value === 1 ? 2 : 1) 
-      setConfigLS(getConfig.value)
-      generateScramble()
-      fetchSession(getCurrentSessionKey.value)
-    }
-
     generateScramble()
-    const newScramble = () => { generateScramble() }
-
-    const { getFormattedTime } = useTimeFormatter()
-
-
-    const { getAo5, getSessionMean, getAo12, getMo3 } = useMath()
-
-    return {
-      getSessionResults,
-      getCurrentSessionKey,
-      changeSession,
-      newScramble,
-      getCurrentScramble,
-      getFormattedTime,
-      getAo5, getSessionMean, getAo12, getMo3
-    }
   }
 })
 </script>

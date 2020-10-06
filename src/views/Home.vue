@@ -2,6 +2,7 @@
   <div class="home">
     <TheScrambleDisplay />
     <TheTimerDisplay />
+    <TheStatsDisplay />
   </div>
 </template>
 
@@ -9,13 +10,15 @@
 import { defineComponent, onMounted, onUnmounted } from 'vue'
 import TheTimerDisplay from '@/components/TheTimerDisplay.vue'
 import TheScrambleDisplay from '@/components/TheScrambleDisplay.vue'
+import TheStatsDisplay from '@/components/TheStatsDisplay.vue'
 import useTimer from '@/composables/useTimer'
 
 export default defineComponent({
   name: 'Home',
   components: {
     TheTimerDisplay,
-    TheScrambleDisplay
+    TheScrambleDisplay,
+    TheStatsDisplay
   },
 
   setup() {

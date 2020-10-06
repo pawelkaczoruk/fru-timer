@@ -2,6 +2,7 @@ import { reactive, computed } from 'vue'
 import useLocalStorage from './useLocalStorage'
 import { State } from '@/types/Store'
 import { Result } from '@/types/Timer'
+import useMath from './useMath'
 
 const { getConfigLS, getCustomSessionsConfigLS } = useLocalStorage()
 const state: State = reactive({
@@ -31,10 +32,18 @@ const state: State = reactive({
   sessionResults: []
 })
 
+const { getAverage } = useMath()
 export default function useStore() {
   const getConfig = computed(() => state.config)
   const getSessionsConfig = computed(() => [...state.sessionsConfig.basic, ...state.sessionsConfig.custom])
   const getCurrentSessionLength = computed(() => state.sessionResults.length)
+  const getCurrentSessionKey = computed(() => state.config.activeSessionKey)
+  const setCurrentSessionKey = (key: number) => { state.config.activeSessionKey = key }  
+  const getSelectedCubeType = computed(() => {
+    const sessionData = getSessionsConfig.value.find((el) => el.key === getCurrentSessionKey.value)
+    if (sessionData) return sessionData.cube
+    return state.sessionsConfig.basic[0].cube
+  })
 
   const getCurrentTime = computed(() => Math.floor(state.currentTime / 10) * 10)
   const setCurrentTime = (time: number) => { state.currentTime = time }
@@ -42,20 +51,16 @@ export default function useStore() {
   const getCurrentScramble = computed(() => state.currentScramble)
   const setCurrentScramble = (scramble: string) => { state.currentScramble = scramble }
 
-  const getCurrentSessionKey = computed(() => state.config.activeSessionKey)
-  const setCurrentSessionKey = (key: number) => { state.config.activeSessionKey = key }
-
   const setSessionResults = (results: Array<Result>) => { state.sessionResults = results }
   const addSessionResult = (result: Result) => { state.sessionResults.push(result) }
   const getSessionResults = computed(() => state.sessionResults)
   const getLastResult = computed(() => state.sessionResults[getCurrentSessionLength.value - 1])
   const updateLastResult = (result: Result) => { state.sessionResults[getCurrentSessionLength.value - 1] = result }
 
-  const getSelectedCubeType = computed(() => {
-    const sessionData = getSessionsConfig.value.find((el) => el.key === getCurrentSessionKey.value)
-    if (sessionData) return sessionData.cube
-    return state.sessionsConfig.basic[0].cube
-  })
+  const getAo5 = (startIndex: number) => getAverage('avg', getSessionResults.value, startIndex, 5)
+  const getAo12 = (startIndex: number) => getAverage('avg', getSessionResults.value, startIndex, 12)
+  const getMo3 = (startIndex: number) => getAverage('mean', getSessionResults.value, startIndex, 3)
+  const getSessionMean = () => getAverage('mean', getSessionResults.value)
 
   return {
     getConfig,
@@ -78,5 +83,10 @@ export default function useStore() {
     updateLastResult,
 
     getSelectedCubeType,
+
+    getAo5,
+    getAo12,
+    getMo3,
+    getSessionMean
   }
 }
