@@ -153,22 +153,22 @@ export default defineComponent({
     }
 
     const togglePenalty = () => {
-      const lastResult = toRaw(getLastResult.value)
+      const lastResult = getLastResult.value
       if (lastResult.time.penalty === 2000) lastResult.time.penalty = 0
       else lastResult.time.penalty = 2000
-      
+
       toggleCentralMenu()
-      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, lastResult)
+      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, toRaw(getLastResult.value))
         .then(() => { updateLastResult(lastResult) })
     }
 
     const toggleDnf = () => {
-      const lastResult = toRaw(getLastResult.value)
+      const lastResult = getLastResult.value
       if (lastResult.time.penalty === -1) lastResult.time.penalty = 0
       else lastResult.time.penalty = -1
 
       toggleCentralMenu()
-      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, lastResult)
+      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, toRaw(getLastResult.value))
         .then(() => { updateLastResult(lastResult) })
     }
 
@@ -181,10 +181,10 @@ export default defineComponent({
     }
 
     const addComent = () => {
-      const lastResult = toRaw(getLastResult.value)
+      const lastResult = getLastResult.value
       lastResult.comment = comment.value
 
-      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, lastResult)
+      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, toRaw(getLastResult.value))
         .then(() => {
           updateLastResult(lastResult)
           toggleCommentModal()

@@ -1,8 +1,8 @@
 <template>
   <div class="stats-display">
     <p>Solves: {{ getCurrentSessionLength }}</p>
-    <p>Mean: {{ getFormattedTime(getSessionMean()) }}</p>
-    <p>Mo3: {{ getCurrentSessionLength }}</p>
+    <p>Mean: {{ getSessionMean() }}</p>
+    <p>Mo3: {{ getMo3() }}</p>
     <p>Best: {{ getCurrentSessionLength }}</p>
     <p>Ao5: {{ getCurrentSessionLength }}</p>
     <p>Best Ao5: {{ getCurrentSessionLength }}</p>
