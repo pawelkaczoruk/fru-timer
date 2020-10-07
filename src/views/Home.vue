@@ -49,4 +49,8 @@ export default defineComponent({
   transform: translate(-50%, -50%);
 }
 
+.stats-display {
+  @include position(absolute, $bottom: 4em, $left: 0);
+}
+
 </style>
