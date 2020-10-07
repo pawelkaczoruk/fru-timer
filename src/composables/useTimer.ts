@@ -21,7 +21,19 @@ const timer: Timer = reactive({
 })
 
 export default function useTimer() {
-  const { setCurrentTime } = useStore()
+  const { addResult } = useDB()
+  const {
+    setCurrentTime,
+    getCurrentTime,
+    getCurrentScramble,
+    getCurrentSessionKey,
+    getCurrentSessionLength,
+    addSessionResult,
+    updateBests,
+    addToSessionHistory
+  } = useStore()
+  const { generateScramble } = useScrambleGenerator()
+
   const startTimer = () => {
     const initialDate = Date.now()
 
@@ -30,9 +42,6 @@ export default function useTimer() {
     }, 10);
   }
 
-  const { addResult } = useDB()
-  const { getCurrentTime, getCurrentScramble, getCurrentSessionKey, addSessionResult } = useStore()
-  const { generateScramble } = useScrambleGenerator()
   const onPress = (e: KeyboardEvent | TouchEvent) => {
     if (isKeyboardEvent(e) && e.code === KEY_CODE || !isKeyboardEvent(e)) {
       if (timer.isRunning) {
@@ -52,6 +61,8 @@ export default function useTimer() {
           addResult(getCurrentSessionKey.value, result)
           addSessionResult(result)
           generateScramble()
+          addToSessionHistory(updateBests(result.time, getCurrentSessionLength.value - 1))
+
           timer.isTimeAdded = true
         }
       }

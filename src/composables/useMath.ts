@@ -5,9 +5,8 @@ const DNF = -1
 const NOT_ENOUGH_TIMES = -2
 
 export default function useMath() {
-  const random = (minimum: number, range: number) => {
-    return minimum + Math.floor(Math.random() * range)
-  }
+  const random = (minimum: number, range: number) => minimum + Math.floor(Math.random() * range)
+  const cutOffMillis = (value: number) => Math.floor(value / 10) * 10
 
   const getAverage = (type: AverageType, results: Array<Result>, startIndex?: number, amount?: number) => {
     if (!results.length) return NOT_ENOUGH_TIMES
@@ -27,15 +26,23 @@ export default function useMath() {
       const max = times[dnfIndex === -1 ? times.indexOf(Math.max(...times)) : dnfIndex]
       const min = Math.min(...times)
 
-      return (sum - (max + min)) / (times.length - 2)
+      return cutOffMillis((sum - (max + min)) / (times.length - 2))
     }
 
     if (dnfIndex !== -1) return DNF
-    return sum / times.length
+    return cutOffMillis(sum / times.length)
+  }
+
+  const isBetter = (value: number, best: number) => {
+    return value >= DNF && best === NOT_ENOUGH_TIMES
+      || best === DNF && value > 0
+      || value > 0 && value < best
   }
 
   return {
     random,
-    getAverage
+    cutOffMillis,
+    getAverage,
+    isBetter
   }
 }

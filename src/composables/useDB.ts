@@ -42,11 +42,14 @@ export default function useDB() {
     await db.sessions.update(sessionKey, { [index]: result })
   }
 
-  const { setSessionResults } = useStore()
+  const { setSessionResults, setAveragesAndBests } = useStore()
   const fetchSession = async (sessionKey: number) => {
     return await db.sessions.get(sessionKey)
       .then((response) => {
-        if (response) setSessionResults(response)
+        if (response) {
+          setSessionResults(response)
+          setAveragesAndBests()
+        }
       })
   }
 

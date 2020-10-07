@@ -1,9 +1,11 @@
 import { reactive, computed } from 'vue'
 import useLocalStorage from './useLocalStorage'
-import { State } from '@/types/Store'
-import { Result } from '@/types/Timer'
+import { SessionStats, State } from '@/types/Store'
+import { Result, Time } from '@/types/Timer'
 import useMath from './useMath'
 
+const DNF = -1
+const NOT_ENOUGH_TIMES = -2
 const { getConfigLS, getCustomSessionsConfigLS } = useLocalStorage()
 const state: State = reactive({
   currentTime: 0,
@@ -29,10 +31,22 @@ const state: State = reactive({
     ],
     custom: getCustomSessionsConfigLS()
   },
-  sessionResults: []
+  sessionResults: [],
+  sessionHistory: {
+    single: [],
+    mo3: [],
+    ao5: [],
+    ao12: []
+  },
+  sessionBests: {
+    single: NOT_ENOUGH_TIMES,
+    mo3: NOT_ENOUGH_TIMES,
+    ao5: NOT_ENOUGH_TIMES,
+    ao12: NOT_ENOUGH_TIMES,
+  }
 })
 
-const { getAverage } = useMath()
+const { getAverage, cutOffMillis } = useMath()
 export default function useStore() {
   const getConfig = computed(() => state.config)
   const getSessionsConfig = computed(() => [...state.sessionsConfig.basic, ...state.sessionsConfig.custom])
@@ -45,7 +59,7 @@ export default function useStore() {
     return state.sessionsConfig.basic[0].cube
   })
 
-  const getCurrentTime = computed(() => Math.floor(state.currentTime / 10) * 10)
+  const getCurrentTime = computed(() => cutOffMillis(state.currentTime))
   const setCurrentTime = (time: number) => { state.currentTime = time }
 
   const getCurrentScramble = computed(() => state.currentScramble)
@@ -61,6 +75,52 @@ export default function useStore() {
   const getAo12 = (startIndex: number) => getAverage('avg', getSessionResults.value, startIndex, 12)
   const getMo3 = (startIndex: number) => getAverage('mean', getSessionResults.value, startIndex, 3)
   const getSessionMean = () => getAverage('mean', getSessionResults.value)
+
+  const setBestSingle = (value: number) => { state.sessionBests.single = value }
+  const setBestMo3 = (value: number) => { state.sessionBests.mo3 = value }
+  const setBestAo5 = (value: number) => { state.sessionBests.ao5 = value }
+  const setBestAo12 = (value: number) => { state.sessionBests.ao12 = value }
+  const getBestSingle = computed(() => state.sessionBests.single)
+  const getBestMo3 = computed(() => state.sessionBests.mo3)
+  const getBestAo5 = computed(() => state.sessionBests.ao5)
+  const getBestAo12 = computed(() => state.sessionBests.ao12)
+  const getCurrentMo3 = computed(() => getCurrentSessionLength.value === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.mo3[getCurrentSessionLength.value - 1])
+  const getCurrentAo5 = computed(() => getCurrentSessionLength.value === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.ao5[getCurrentSessionLength.value - 1])
+  const getCurrentAo12 = computed(() => getCurrentSessionLength.value === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.ao12[getCurrentSessionLength.value - 1])
+
+  const { isBetter } = useMath()
+
+  const updateBests = (time: Time, index: number) => {
+    const single = time.penalty === DNF ? DNF : time.penalty + time.value
+    const mo3 = getMo3(index - 2)
+    const ao5 = getAo5(index - 4)
+    const ao12 = getAo12(index - 11)
+
+    if (isBetter(single, getBestSingle.value)) setBestSingle(single)
+    if (isBetter(mo3, getBestMo3.value)) setBestMo3(mo3)
+    if (isBetter(ao5, getBestAo5.value)) setBestAo5(ao5)
+    if (isBetter(ao12, getBestAo12.value)) setBestAo12(ao12)
+
+    return {
+      single,
+      mo3,
+      ao5,
+      ao12
+    }
+  }
+
+  const addToSessionHistory = ({ single, mo3, ao5, ao12 }: SessionStats) => {
+    state.sessionHistory.single.push(single)
+    state.sessionHistory.mo3.push(mo3)
+    state.sessionHistory.ao5.push(ao5)
+    state.sessionHistory.ao12.push(ao12)    
+  }
+
+  const setAveragesAndBests = () => {
+    getSessionResults.value.forEach(({ time }, index) => {
+      addToSessionHistory(updateBests(time, index))
+    })
+  }
 
   return {
     getConfig,
@@ -87,6 +147,22 @@ export default function useStore() {
     getAo5,
     getAo12,
     getMo3,
-    getSessionMean
+    getSessionMean,
+
+    setBestSingle,
+    setBestMo3,
+    setBestAo5,
+    setBestAo12,
+    getBestSingle,
+    getBestMo3,
+    getBestAo5,
+    getBestAo12,
+    getCurrentMo3,
+    getCurrentAo5,
+    getCurrentAo12,
+
+    updateBests,
+    addToSessionHistory,
+    setAveragesAndBests
   }
 }

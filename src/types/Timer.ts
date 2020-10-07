@@ -11,11 +11,13 @@ export interface Timer {
   isTimeAdded: boolean;
 }
 
+export interface Time {
+  penalty: number;
+  value: number;
+}
+
 export interface Result {
-  time: {
-    penalty: number;
-    value: number;
-  };
+  time: Time;
   scramble: string;
   comment: string;
   date: number;
