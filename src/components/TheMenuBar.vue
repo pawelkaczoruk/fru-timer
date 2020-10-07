@@ -126,6 +126,7 @@
 import { defineComponent, ref, toRaw } from 'vue'
 import useDB from '@/composables/useDB'
 import useStore from '@/composables/useStore'
+import useMath from '@/composables/useMath'
 
 export default defineComponent({
   name: 'TheMenuBar',
@@ -137,19 +138,49 @@ export default defineComponent({
     const { removeResult, updateResult } = useDB()
     const {
       getSessionResults,
-      setSessionResults,
+      removeLastSessionResult,
       getCurrentSessionKey,
       getLastResult,
       getCurrentSessionLength,
-      updateLastResult
+      updateLastResult,
+      getBestSingle,
+      getBestMo3,
+      getBestAo5,
+      getBestAo12,
+      getCurrentSingle,
+      getCurrentMo3,
+      getCurrentAo5,
+      getCurrentAo12,
+      getSessionHistory,
+      setBestSingle,
+      setBestMo3,
+      setBestAo5,
+      setBestAo12,
+      removeLastFromHistory
     } = useStore()
+    const { findBest } = useMath()
 
     const removeLastResult = () => {
       const modifiedSession = toRaw(getSessionResults.value).slice(0, getCurrentSessionLength.value - 1)
 
       toggleCentralMenu()
       removeResult(getCurrentSessionKey.value, modifiedSession)
-        .then(() => { setSessionResults(modifiedSession) })
+        .then(() => {
+          removeLastSessionResult()
+
+          const latestSingle = getCurrentSingle.value
+          const latestMo3 = toRaw(getCurrentMo3.value)
+          const latestAo5 = toRaw(getCurrentAo5.value)
+          const latestAo12 = toRaw(getCurrentAo12.value)
+
+          removeLastFromHistory()
+
+          if (latestSingle === getBestSingle.value) setBestSingle(findBest(getSessionHistory.value.single))
+          if (latestMo3 === getBestMo3.value) setBestMo3(findBest(getSessionHistory.value.mo3))
+          if (latestAo5 === getBestAo5.value) setBestAo5(findBest(getSessionHistory.value.ao5))
+          if (latestAo12 === getBestAo12.value) setBestAo12(findBest(getSessionHistory.value.ao12))
+
+        })
     }
 
     const togglePenalty = () => {

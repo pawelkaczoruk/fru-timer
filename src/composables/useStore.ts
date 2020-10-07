@@ -69,6 +69,7 @@ export default function useStore() {
   const addSessionResult = (result: Result) => { state.sessionResults.push(result) }
   const getSessionResults = computed(() => state.sessionResults)
   const getLastResult = computed(() => state.sessionResults[getCurrentSessionLength.value - 1])
+  const removeLastSessionResult = () => { state.sessionResults.pop() }
   const updateLastResult = (result: Result) => { state.sessionResults[getCurrentSessionLength.value - 1] = result }
 
   const getAo5 = (startIndex: number) => getAverage('avg', getSessionResults.value, startIndex, 5)
@@ -84,9 +85,18 @@ export default function useStore() {
   const getBestMo3 = computed(() => state.sessionBests.mo3)
   const getBestAo5 = computed(() => state.sessionBests.ao5)
   const getBestAo12 = computed(() => state.sessionBests.ao12)
-  const getCurrentMo3 = computed(() => getCurrentSessionLength.value === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.mo3[getCurrentSessionLength.value - 1])
-  const getCurrentAo5 = computed(() => getCurrentSessionLength.value === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.ao5[getCurrentSessionLength.value - 1])
-  const getCurrentAo12 = computed(() => getCurrentSessionLength.value === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.ao12[getCurrentSessionLength.value - 1])
+  const getCurrentSingle = computed(() => state.sessionHistory.single.length === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.single[state.sessionHistory.single.length - 1])
+  const getCurrentMo3 = computed(() => state.sessionHistory.mo3.length === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.mo3[state.sessionHistory.mo3.length - 1])
+  const getCurrentAo5 = computed(() => state.sessionHistory.ao5.length === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.ao5[state.sessionHistory.ao5.length - 1])
+  const getCurrentAo12 = computed(() => state.sessionHistory.ao12.length === 0 ? NOT_ENOUGH_TIMES : state.sessionHistory.ao12[state.sessionHistory.ao12.length - 1])
+  const getSessionHistory = computed(() => state.sessionHistory)
+
+  const removeLastFromHistory = () => {
+    state.sessionHistory.single.pop()
+    state.sessionHistory.mo3.pop()
+    state.sessionHistory.ao5.pop()
+    state.sessionHistory.ao12.pop()
+  }
 
   const { isBetter } = useMath()
 
@@ -140,6 +150,7 @@ export default function useStore() {
     addSessionResult,
     getSessionResults,
     getLastResult,
+    removeLastSessionResult,
     updateLastResult,
 
     getSelectedCubeType,
@@ -157,10 +168,13 @@ export default function useStore() {
     getBestMo3,
     getBestAo5,
     getBestAo12,
+    getCurrentSingle,
     getCurrentMo3,
     getCurrentAo5,
     getCurrentAo12,
+    getSessionHistory,
 
+    removeLastFromHistory,
     updateBests,
     addToSessionHistory,
     setAveragesAndBests

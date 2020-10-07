@@ -39,10 +39,22 @@ export default function useMath() {
       || value > 0 && value < best
   }
 
+  const findBest = (values: Array<number>) => {
+    if (!values.length) return NOT_ENOUGH_TIMES
+
+    let best = NOT_ENOUGH_TIMES
+    values.forEach((value) => {
+      if(isBetter(value, best)) best = value
+    })
+
+    return best
+  }
+
   return {
     random,
     cutOffMillis,
     getAverage,
-    isBetter
+    isBetter,
+    findBest
   }
 }
