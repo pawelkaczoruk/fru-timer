@@ -2,7 +2,8 @@ import { Config } from '@/types/Store'
 import { SessionConfigItem } from '@/types/DB'
 
 const CONFIG: Config = {
-  activeSessionKey: 1
+  activeSessionKey: 1,
+  areStatsVisible: false
 }
 const CONFIG_KEY = 'config'
 const CUSTOM_SESSIONS_CONFIG: Array<SessionConfigItem> = []

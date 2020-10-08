@@ -9,7 +9,10 @@
           />
         </svg>
       </button>
-      <button class="btn top-right-rounded">
+      <button
+        class="btn top-right-rounded"
+        @click="showStatsDisplay()"
+      >
         <svg viewBox="0 0 26 26">
           <path
             d="M-1338,26a2,2,0,0,1-2-2v-.413a10.859,10.859,0,0,1-2.365-.98l-.513.513a2,2,0,0,1-2.829,0l-1.414-1.414a2,2,0,0,1,0-2.829l.513-.513a10.859,10.859,0,0,1-.98-2.365H-1348a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h.412a10.868,10.868,0,0,1,.98-2.366l-.513-.513a2,2,0,0,1,0-2.829l1.414-1.414a2,2,0,0,1,2.829,0l.513.513a10.859,10.859,0,0,1,2.365-.98V2a2,2,0,0,1,2-2h2a2,2,0,0,1,2,2v.412a10.857,10.857,0,0,1,2.365.98l.513-.513a2,2,0,0,1,2.829,0l1.414,1.414a2,2,0,0,1,0,2.829l-.513.513a10.859,10.859,0,0,1,.979,2.365h.413a2,2,0,0,1,2,2v2a2,2,0,0,1-2,2h-.413a10.855,10.855,0,0,1-.98,2.365l.513.513a2,2,0,0,1,0,2.829l-1.414,1.414a2,2,0,0,1-2.829,0l-.513-.513a10.853,10.853,0,0,1-2.365.98V24a2,2,0,0,1-2,2Zm-5-13a6.007,6.007,0,0,0,6,6,6.007,6.007,0,0,0,6-6,6.007,6.007,0,0,0-6-6A6.007,6.007,0,0,0-1343,13Z"
@@ -127,6 +130,7 @@ import { defineComponent, ref, toRaw } from 'vue'
 
 import useConfig from '@/composables/store/useConfig'
 import useDB from '@/composables/useDB'
+import useLocalStorage from '@/composables/useLocalStorage'
 import useSessionBests from '@/composables/store/useSessionBests'
 import useSessionHistory from '@/composables/store/useSessionHistory'
 import useSessionResults from '@/composables/store/useSessionResults'
@@ -142,8 +146,9 @@ export default defineComponent({
     const toggleCentralMenu = () => { isCentralMenuExpanded.value = !isCentralMenuExpanded.value  }
 
     const { removeResult, updateResult } = useDB()
-    const { getCurrentSessionKey } = useConfig()
+    const { getCurrentSessionKey, toggleStatsVisibility, getConfig } = useConfig()
     const { findBest } = useMath()
+    const { setConfigLS } = useLocalStorage()
 
     const {
       getBestSingle,
@@ -258,6 +263,11 @@ export default defineComponent({
         })
     }
 
+    const showStatsDisplay = () => {
+      toggleStatsVisibility()
+      setConfigLS(getConfig.value)
+    }
+
     return {
       toggleCentralMenu,
       isCentralMenuExpanded,
@@ -267,7 +277,8 @@ export default defineComponent({
       addComent,
       isModalOpen,
       toggleCommentModal,
-      comment
+      comment,
+      showStatsDisplay
     }
   }
 })

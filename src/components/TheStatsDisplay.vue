@@ -1,5 +1,8 @@
 <template>
-  <div class="stats-display wrapper">
+  <div
+    class="stats-display wrapper"
+    v-if="getStatsVisibility"
+  >
     <div class="column">
       <span>Solves: {{ getSessionLength }}</span>
       <span>Best: {{ getFormattedTime(getBestSingle) }}</span>
@@ -19,6 +22,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+import useConfig from '@/composables/store/useConfig'
 import useSessionBests from '@/composables/store/useSessionBests'
 import useSessionHistory from '@/composables/store/useSessionHistory'
 import useSessionResults from '@/composables/store/useSessionResults'
@@ -32,6 +36,7 @@ export default defineComponent({
     const { getBestSingle, getBestMo3, getBestAo5, getBestAo12 } = useSessionBests()
     const { getCurrentMo3, getCurrentAo5, getCurrentAo12 } = useSessionHistory()
     const { getSessionLength, getSessionMean } = useSessionResults()
+    const { getStatsVisibility } = useConfig()
 
     return {
       getFormattedTime,
@@ -46,7 +51,9 @@ export default defineComponent({
       getCurrentMo3,
 
       getSessionLength,
-      getSessionMean
+      getSessionMean,
+
+      getStatsVisibility
     }
   }
 })

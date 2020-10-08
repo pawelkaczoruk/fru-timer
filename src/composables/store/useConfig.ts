@@ -8,6 +8,9 @@ export default function useConfig() {
   const getConfig = computed(() => state.config)
   const getSessionsConfig = computed(() => [...state.sessionsConfig.basic, ...state.sessionsConfig.custom])
 
+  const getStatsVisibility = computed(() => getConfig.value.areStatsVisible)
+  const toggleStatsVisibility = () => getConfig.value.areStatsVisible = !getConfig.value.areStatsVisible
+
   const getCurrentSessionKey = computed(() => state.config.activeSessionKey)
   const setCurrentSessionKey = (key: number) => { state.config.activeSessionKey = key }  
 
@@ -19,6 +22,9 @@ export default function useConfig() {
   return {
     getConfig,
     getSessionsConfig,
+
+    getStatsVisibility,
+    toggleStatsVisibility,
 
     getCurrentSessionKey,
     setCurrentSessionKey,
