@@ -178,9 +178,11 @@ export default defineComponent({
     }
 
     const removeLastResult = () => {
+      toggleCentralMenu()
+      if (!getCurrentSessionLength.value) return
+
       const modifiedSession = toRaw(getSessionResults.value).slice(0, getCurrentSessionLength.value - 1)
 
-      toggleCentralMenu()
       removeResult(getCurrentSessionKey.value, modifiedSession)
         .then(() => {
           removeLastSessionResult()
@@ -189,11 +191,13 @@ export default defineComponent({
     }
 
     const togglePenalty = () => {
+      toggleCentralMenu()
+      if (!getCurrentSessionLength.value) return
+
       const lastResult = getLastResult.value
       if (lastResult.time.penalty === 2000) lastResult.time.penalty = 0
       else lastResult.time.penalty = 2000
 
-      toggleCentralMenu()
       updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, toRaw(getLastResult.value))
         .then(() => {
           removeLastSessionResult()
@@ -204,11 +208,13 @@ export default defineComponent({
     }
 
     const toggleDnf = () => {
+      toggleCentralMenu()
+      if (!getCurrentSessionLength.value) return
+
       const lastResult = getLastResult.value
       if (lastResult.time.penalty === -1) lastResult.time.penalty = 0
       else lastResult.time.penalty = -1
 
-      toggleCentralMenu()
       updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, toRaw(getLastResult.value))
         .then(() => {
           removeLastSessionResult()
@@ -221,8 +227,10 @@ export default defineComponent({
     const isModalOpen = ref(false)
     const comment = ref('')
     const toggleCommentModal = () => {
-      isModalOpen.value = !isModalOpen.value
       isCentralMenuExpanded.value = false;
+      if (!getCurrentSessionLength.value) return
+
+      isModalOpen.value = !isModalOpen.value
       if (isModalOpen.value) comment.value = getLastResult.value.comment
     }
 
