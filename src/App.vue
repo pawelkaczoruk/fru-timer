@@ -8,11 +8,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import TheAppbar from '@/components/TheAppbar.vue'
-import TheMenuBar from '@/components/TheMenuBar.vue'
 
-import useDB from '@/composables/useDB'
-import useStore from '@/composables/useStore'
+import TheAppbar from './components/TheAppbar.vue'
+import TheMenuBar from './components/TheMenuBar.vue'
+
+import useConfig from './composables/store/useConfig'
+import useDB from './composables/useDB'
 import useScrambleGenerator from './composables/useScrambleGenerator'
 
 export default defineComponent({
@@ -24,8 +25,9 @@ export default defineComponent({
   
   setup() {
     const { initializeSessions, fetchSession } = useDB()
-    const { getCurrentSessionKey } = useStore()
+    const { getCurrentSessionKey } = useConfig()
     const { generateScramble } = useScrambleGenerator()
+
     initializeSessions()
     fetchSession(getCurrentSessionKey.value)
     generateScramble()

@@ -1,14 +1,20 @@
 import { reactive, computed } from 'vue'
-import useStore from './useStore'
+
+import useConfig from './store/useConfig'
+import useCurrentData from './store/useCurrentData'
 import useDB from './useDB'
 import useScrambleGenerator from './useScrambleGenerator'
-import { Timer, isKeyboardEvent, Result } from '@/types/Timer'
+import useSessionBests from './store/useSessionBests'
+import useSessionHistory from './store/useSessionHistory'
+import useSessionResults from './store/useSessionResults'
+
+import { Timer, isKeyboardEvent, Result, TimerState, ResultState } from '@/types/Timer'
 
 const TIMER_DELAY = 550
 const KEY_CODE = 'Space'
 
 const timer: Timer = reactive({
-  state: 0,
+  state: TimerState.IDLE,
   interval: undefined,
   timeout: undefined,
   initialDate: Date.now(),
@@ -22,16 +28,11 @@ const timer: Timer = reactive({
 
 export default function useTimer() {
   const { addResult } = useDB()
-  const {
-    setCurrentTime,
-    getCurrentTime,
-    getCurrentScramble,
-    getCurrentSessionKey,
-    getCurrentSessionLength,
-    addSessionResult,
-    updateBests,
-    addToSessionHistory
-  } = useStore()
+  const { setCurrentTime, getCurrentTime, getCurrentScramble } = useCurrentData()
+  const { getSessionLength, addSessionResult } = useSessionResults()
+  const { updateBests } = useSessionBests()
+  const { getCurrentSessionKey } = useConfig()
+  const { addToSessionHistory } = useSessionHistory()
   const { generateScramble } = useScrambleGenerator()
 
   const startTimer = () => {
@@ -53,7 +54,7 @@ export default function useTimer() {
             date: Date.now(),
             scramble: getCurrentScramble.value,
             time: {
-              penalty: 0,
+              penalty: ResultState.NO_PENALTY,
               value: getCurrentTime.value
             }            
           }
@@ -61,7 +62,7 @@ export default function useTimer() {
           addResult(getCurrentSessionKey.value, result)
           addSessionResult(result)
           generateScramble()
-          addToSessionHistory(updateBests(result.time, getCurrentSessionLength.value - 1))
+          addToSessionHistory(updateBests(result.time, getSessionLength.value - 1))
 
           timer.isTimeAdded = true
         }
@@ -70,11 +71,11 @@ export default function useTimer() {
       if (timer.canStart && timer.isIdle) {
         timer.initialDate = timer.latestDate = Date.now()
         timer.isIdle = false
-        timer.state = -1
+        timer.state = TimerState.NOT_READY
 
         timer.timeout = setTimeout(() => {
           timer.latestDate = Date.now()
-          timer.state = 1
+          timer.state = TimerState.READY
         }, 550)
       }
     }
@@ -85,7 +86,7 @@ export default function useTimer() {
       clearTimeout(timer.timeout)
 
       if (timer.canStart) {
-        timer.state = 0
+        timer.state = TimerState.IDLE
         timer.isIdle = true
 
         if (timer.latestDate - timer.initialDate >= TIMER_DELAY) {

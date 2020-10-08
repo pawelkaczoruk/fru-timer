@@ -1,5 +1,9 @@
 import Dexie from 'dexie'
-import useStore from '@/composables/useStore'
+
+import useSessionResults from './store/useSessionResults'
+import useSessionHistory from './store/useSessionHistory'
+import useConfig from './store/useConfig'
+
 import { Result } from '@/types/Timer'
 
 const DB_NAME = 'fruTimer'
@@ -29,9 +33,9 @@ export default function useDB() {
     await db.sessions.delete(sessionKey)
   }
 
-  const { getCurrentSessionLength } = useStore()
+  const { getSessionLength, setSessionResults } = useSessionResults()
   const addResult = async (sessionKey: number, result: Result) => {
-    await db.sessions.update(sessionKey, { [getCurrentSessionLength.value]: result })
+    await db.sessions.update(sessionKey, { [getSessionLength.value]: result })
   }
 
   const removeResult = async (sessionKey: number, modifiedSession: Array<Result>) => {
@@ -42,18 +46,18 @@ export default function useDB() {
     await db.sessions.update(sessionKey, { [index]: result })
   }
 
-  const { setSessionResults, setAveragesAndBests } = useStore()
+  const { setSessionHistory } = useSessionHistory()
   const fetchSession = async (sessionKey: number) => {
     return await db.sessions.get(sessionKey)
       .then((response) => {
         if (response) {
           setSessionResults(response)
-          setAveragesAndBests()
+          setSessionHistory()
         }
       })
   }
 
-  const { getSessionsConfig } = useStore()
+  const { getSessionsConfig } = useConfig()
   const initializeSessions = () => {
     getSessionsConfig.value.forEach(async (session) => {
       await db.sessions.get(session.key)

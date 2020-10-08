@@ -14,14 +14,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+
+import useCurrentData from '@/composables/store/useCurrentData'
 import useScrambleGenerator from '@/composables/useScrambleGenerator'
-import useStore from '@/composables/useStore'
 
 export default defineComponent({
   name: 'TheScrambleDisplay',
 
   setup() {
-    const { getCurrentScramble } = useStore()
+    const { getCurrentScramble } = useCurrentData()
     const { generateScramble } = useScrambleGenerator()
 
     return {

@@ -1,5 +1,7 @@
 import useMath from './useMath'
-import useStore from './useStore'
+import useConfig from './store/useConfig'
+import useCurrentData from './store/useCurrentData'
+
 import { ScramblesConfig } from '@/types/Scramble'
 
 const NxN = {
@@ -26,7 +28,9 @@ const CONFIG: ScramblesConfig = {
 
 export default function useScrambleGenerator() {
   const { random } = useMath()
-  const { getSelectedCubeType, setCurrentScramble } = useStore()
+  const { getSelectedCubeType } = useConfig()
+  const { setCurrentScramble } = useCurrentData()
+
   const generateScramble = () => {
     const config = CONFIG[getSelectedCubeType.value]
     const length = random(config.length.min, config.length.maxAdd + 1)

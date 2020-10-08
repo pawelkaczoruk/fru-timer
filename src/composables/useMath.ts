@@ -1,23 +1,19 @@
-import { Result, AverageType } from '@/types/Timer'
-
-
-const DNF = -1
-const NOT_ENOUGH_TIMES = -2
+import { Result, AverageType, ResultState } from '@/types/Timer'
 
 export default function useMath() {
   const random = (minimum: number, range: number) => minimum + Math.floor(Math.random() * range)
   const cutOffMillis = (value: number) => Math.floor(value / 10) * 10
 
   const getAverage = (type: AverageType, results: Array<Result>, startIndex?: number, amount?: number) => {
-    if (!results.length) return NOT_ENOUGH_TIMES
+    if (!results.length) return ResultState.NOT_ENOUGH_TIMES
     if (startIndex !== undefined && amount !== undefined) {
       results = results.slice(startIndex, startIndex + amount)
-      if (amount !== results.length) return NOT_ENOUGH_TIMES
+      if (amount !== results.length) return ResultState.NOT_ENOUGH_TIMES
     }
 
     const penalties = results.map((result) => result.time.penalty)
-    const dnfIndex = penalties.indexOf(DNF)
-    if ( dnfIndex !== penalties.lastIndexOf(DNF)) return DNF
+    const dnfIndex = penalties.indexOf(ResultState.DNF)
+    if ( dnfIndex !== penalties.lastIndexOf(ResultState.DNF)) return ResultState.DNF
 
     const times = results.map((result) => result.time.value + result.time.penalty)
     const sum = [...times].reduce((sum, value) => sum + value, 0)
@@ -29,23 +25,21 @@ export default function useMath() {
       return cutOffMillis((sum - (max + min)) / (times.length - 2))
     }
 
-    if (dnfIndex !== -1) return DNF
+    if (dnfIndex !== -1) return ResultState.DNF
     return cutOffMillis(sum / times.length)
   }
 
   const isBetter = (value: number, best: number) => {
-    return value >= DNF && best === NOT_ENOUGH_TIMES
-      || best === DNF && value > 0
+    return value >= ResultState.DNF && best === ResultState.NOT_ENOUGH_TIMES
+      || best === ResultState.DNF && value > 0
       || value > 0 && value < best
   }
 
   const findBest = (values: Array<number>) => {
-    if (!values.length) return NOT_ENOUGH_TIMES
+    if (!values.length) return ResultState.NOT_ENOUGH_TIMES
 
-    let best = NOT_ENOUGH_TIMES
-    values.forEach((value) => {
-      if(isBetter(value, best)) best = value
-    })
+    let best = ResultState.NOT_ENOUGH_TIMES
+    values.forEach((value) => { if(isBetter(value, best)) best = value })
 
     return best
   }

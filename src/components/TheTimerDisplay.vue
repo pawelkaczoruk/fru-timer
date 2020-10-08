@@ -9,18 +9,25 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import useStore from '@/composables/useStore'
+
+import useCurrentData from '@/composables/store/useCurrentData'
 import useTimeFormatter from '@/composables/useTimeFormatter'
 import useTimer from '@/composables/useTimer'
+
+import { TimerState } from '@/types/Timer'
 
 export default defineComponent({
   name: 'TheTimerDisplay',
 
   setup() {
-    const { getCurrentTime } = useStore()
+    const { getCurrentTime } = useCurrentData()
     const { getFormattedTime } = useTimeFormatter()
     const { getState } = useTimer()
-    const getTimerClass = computed(() => getState.value === 1 ? 'ready' : getState.value === -1 ? 'not-ready' : '')
+
+    const getTimerClass = computed(() => getState.value === TimerState.READY ?
+      'ready' : getState.value === TimerState.NOT_READY ?
+      'not-ready' : ''
+    )
 
     return { 
       getCurrentTime,

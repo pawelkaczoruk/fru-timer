@@ -124,9 +124,15 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRaw } from 'vue'
+
+import useConfig from '@/composables/store/useConfig'
 import useDB from '@/composables/useDB'
-import useStore from '@/composables/useStore'
+import useSessionBests from '@/composables/store/useSessionBests'
+import useSessionHistory from '@/composables/store/useSessionHistory'
+import useSessionResults from '@/composables/store/useSessionResults'
 import useMath from '@/composables/useMath'
+
+import { ResultState } from '@/types/Timer'
 
 export default defineComponent({
   name: 'TheMenuBar',
@@ -136,32 +142,39 @@ export default defineComponent({
     const toggleCentralMenu = () => { isCentralMenuExpanded.value = !isCentralMenuExpanded.value  }
 
     const { removeResult, updateResult } = useDB()
+    const { getCurrentSessionKey } = useConfig()
+    const { findBest } = useMath()
+
     const {
-      getSessionResults,
-      removeLastSessionResult,
-      getCurrentSessionKey,
-      getLastResult,
-      getCurrentSessionLength,
-      updateLastResult,
       getBestSingle,
+      setBestSingle,
       getBestMo3,
+      setBestMo3,
       getBestAo5,
+      setBestAo5,
       getBestAo12,
+      setBestAo12,
+      updateBests
+    } = useSessionBests()
+
+    const {
+      getSessionLength,
+      getSessionResults,
+      getLastSessionResult,
+      addSessionResult,
+      updateLastSessionResult,
+      removeLastSessionResult
+    } = useSessionResults()
+
+    const {
       getCurrentSingle,
       getCurrentMo3,
       getCurrentAo5,
       getCurrentAo12,
       getSessionHistory,
-      setBestSingle,
-      setBestMo3,
-      setBestAo5,
-      setBestAo12,
-      removeLastFromHistory,
       addToSessionHistory,
-      addSessionResult,
-      updateBests
-    } = useStore()
-    const { findBest } = useMath()
+      removeLastFromSessionHistory
+    } = useSessionHistory()
 
     const setBests = () => {
       const latestSingle = getCurrentSingle.value
@@ -169,7 +182,7 @@ export default defineComponent({
       const latestAo5 = getCurrentAo5.value
       const latestAo12 = getCurrentAo12.value
 
-      removeLastFromHistory()
+      removeLastFromSessionHistory()
 
       if (latestSingle === getBestSingle.value) setBestSingle(findBest(getSessionHistory.value.single))
       if (latestMo3 === getBestMo3.value) setBestMo3(findBest(getSessionHistory.value.mo3))
@@ -179,9 +192,9 @@ export default defineComponent({
 
     const removeLastResult = () => {
       toggleCentralMenu()
-      if (!getCurrentSessionLength.value) return
+      if (!getSessionLength.value) return
 
-      const modifiedSession = toRaw(getSessionResults.value).slice(0, getCurrentSessionLength.value - 1)
+      const modifiedSession = toRaw(getSessionResults.value).slice(0, getSessionLength.value - 1)
 
       removeResult(getCurrentSessionKey.value, modifiedSession)
         .then(() => {
@@ -192,35 +205,35 @@ export default defineComponent({
 
     const togglePenalty = () => {
       toggleCentralMenu()
-      if (!getCurrentSessionLength.value) return
+      if (!getSessionLength.value) return
 
-      const lastResult = getLastResult.value
-      if (lastResult.time.penalty === 2000) lastResult.time.penalty = 0
-      else lastResult.time.penalty = 2000
+      const lastResult = getLastSessionResult.value
+      lastResult.time.penalty = lastResult.time.penalty === ResultState.PLUS_TWO ?
+        ResultState.NO_PENALTY : ResultState.PLUS_TWO
 
-      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, toRaw(getLastResult.value))
+      updateResult(getCurrentSessionKey.value, getSessionLength.value - 1, toRaw(getLastSessionResult.value))
         .then(() => {
           removeLastSessionResult()
           setBests()
           addSessionResult(lastResult)
-          addToSessionHistory(updateBests(lastResult.time, getCurrentSessionLength.value - 1))
+          addToSessionHistory(updateBests(lastResult.time, getSessionLength.value - 1))
         })
     }
 
     const toggleDnf = () => {
       toggleCentralMenu()
-      if (!getCurrentSessionLength.value) return
+      if (!getSessionLength.value) return
 
-      const lastResult = getLastResult.value
-      if (lastResult.time.penalty === -1) lastResult.time.penalty = 0
-      else lastResult.time.penalty = -1
+      const lastResult = getLastSessionResult.value
+      lastResult.time.penalty = lastResult.time.penalty === ResultState.DNF ?
+        ResultState.NO_PENALTY : ResultState.DNF
 
-      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, toRaw(getLastResult.value))
+      updateResult(getCurrentSessionKey.value, getSessionLength.value - 1, toRaw(getLastSessionResult.value))
         .then(() => {
           removeLastSessionResult()
           setBests()
           addSessionResult(lastResult)
-          addToSessionHistory(updateBests(lastResult.time, getCurrentSessionLength.value - 1))
+          addToSessionHistory(updateBests(lastResult.time, getSessionLength.value - 1))
         })
     }
 
@@ -228,19 +241,19 @@ export default defineComponent({
     const comment = ref('')
     const toggleCommentModal = () => {
       isCentralMenuExpanded.value = false;
-      if (!getCurrentSessionLength.value) return
+      if (!getSessionLength.value) return
 
       isModalOpen.value = !isModalOpen.value
-      if (isModalOpen.value) comment.value = getLastResult.value.comment
+      if (isModalOpen.value) comment.value = getLastSessionResult.value.comment
     }
 
     const addComent = () => {
-      const lastResult = getLastResult.value
+      const lastResult = getLastSessionResult.value
       lastResult.comment = comment.value
 
-      updateResult(getCurrentSessionKey.value, getCurrentSessionLength.value - 1, toRaw(getLastResult.value))
+      updateResult(getCurrentSessionKey.value, getSessionLength.value - 1, toRaw(getLastSessionResult.value))
         .then(() => {
-          updateLastResult(lastResult)
+          updateLastSessionResult(lastResult)
           toggleCommentModal()
         })
     }

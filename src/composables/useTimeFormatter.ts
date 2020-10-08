@@ -1,10 +1,12 @@
+import { ResultState } from '@/types/Timer'
+
 const DNF = 'dnf'
 const NO_VALID_TIME = '-'
 
 export default function useTimeFormatter() {
-  const getFormattedTime = (time: number, penalty = 0) => { 
-    if (penalty === -1 || time === -1) return DNF
-    if (time === -2) return NO_VALID_TIME
+  const getFormattedTime = (time: number, penalty = ResultState.NO_PENALTY) => { 
+    if (penalty === ResultState.DNF || time === ResultState.DNF) return DNF
+    if (time === ResultState.NOT_ENOUGH_TIMES) return NO_VALID_TIME
 
     const total = time + penalty
     const min = Math.floor(total / 60 / 1000)
@@ -14,7 +16,7 @@ export default function useTimeFormatter() {
     const minFormat = min < 1 ? '' : `${min}:`
     const sFormat = (min > 0 && s < 10) ? `0${s}.` : `${s}.`
     const msFormat = ms < 10 ? `0${ms}` : `${ms}`
-    const penaltyFormat = penalty === 2000 ? '+' : ''
+    const penaltyFormat = penalty === ResultState.PLUS_TWO ? '+' : ''
 
     return minFormat + sFormat + msFormat + penaltyFormat
   }

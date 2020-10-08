@@ -1,7 +1,7 @@
 <template>
   <div class="stats-display wrapper">
     <div class="column">
-      <span>Solves: {{ getCurrentSessionLength }}</span>
+      <span>Solves: {{ getSessionLength }}</span>
       <span>Best: {{ getFormattedTime(getBestSingle) }}</span>
       <span>Best Mo3: {{ getFormattedTime(getBestMo3) }}</span>
       <span>Best Ao5: {{ getFormattedTime(getBestAo5) }}</span>
@@ -18,43 +18,35 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+
+import useSessionBests from '@/composables/store/useSessionBests'
+import useSessionHistory from '@/composables/store/useSessionHistory'
+import useSessionResults from '@/composables/store/useSessionResults'
 import useTimeFormatter from '@/composables/useTimeFormatter'
-import useStore from '@/composables/useStore'
 
 export default defineComponent({
   name: 'TheStatsDisplay',
 
   setup() {
     const { getFormattedTime } = useTimeFormatter()
-    const {
-      getCurrentSessionLength,
-      getSessionMean,
-      getMo3,
-      getAo5,
-      getAo12,
-      getBestSingle,
-      getBestMo3,
-      getBestAo5,
-      getBestAo12,
-      getCurrentMo3,
-      getCurrentAo5,
-      getCurrentAo12
-    } = useStore()
+    const { getBestSingle, getBestMo3, getBestAo5, getBestAo12 } = useSessionBests()
+    const { getCurrentMo3, getCurrentAo5, getCurrentAo12 } = useSessionHistory()
+    const { getSessionLength, getSessionMean } = useSessionResults()
 
     return {
       getFormattedTime,
-      getCurrentSessionLength,
-      getSessionMean,
-      getMo3,
-      getAo5,
-      getAo12,
-      getBestSingle,
-      getBestMo3,
+
       getBestAo5,
       getBestAo12,
-      getCurrentMo3,
+      getBestMo3,
+      getBestSingle,
+
       getCurrentAo5,
-      getCurrentAo12
+      getCurrentAo12,
+      getCurrentMo3,
+
+      getSessionLength,
+      getSessionMean
     }
   }
 })
