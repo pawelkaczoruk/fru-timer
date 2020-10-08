@@ -123,7 +123,7 @@ export default function useStore() {
     state.sessionHistory.single.push(single)
     state.sessionHistory.mo3.push(mo3)
     state.sessionHistory.ao5.push(ao5)
-    state.sessionHistory.ao12.push(ao12)    
+    state.sessionHistory.ao12.push(ao12)
   }
 
   const setAveragesAndBests = () => {
