@@ -212,10 +212,13 @@ export default defineComponent({
     const isOptionMenuVisible = ref(false);
     const toggleOptionMenuVisibility = () => { isOptionMenuVisible.value = !isOptionMenuVisible.value  }
 
-    const { removeResult, updateResult } = useDB()
+    const {
+      updateSession: updateSessionDB,
+      updateResult: updateResultDB
+    } = useDB()
     const { getCurrentSessionKey, toggleStatsVisibility, getConfig } = useConfig()
     const { findBest } = useMath()
-    const { setConfigLS } = useLocalStorage()
+    const { setConfig: setConfigLS } = useLocalStorage()
 
     const {
       getBestSingle,
@@ -266,13 +269,13 @@ export default defineComponent({
       toggleOptionMenuVisibility()
       if (!getSessionLength.value) return
 
-      const modifiedSession = toRaw(getSessionResults.value).slice(0, getSessionLength.value - 1)
+      const results = toRaw(getSessionResults.value).slice(0, getSessionLength.value - 1)
 
-      removeResult(getCurrentSessionKey.value, modifiedSession)
-        .then(() => {
-          removeLastSessionResult()
-          setBests()
-        })
+      updateSessionDB(getCurrentSessionKey.value, results)
+      .then(() => {
+        removeLastSessionResult()
+        setBests()
+      })
     }
 
     const togglePenalty = () => {
@@ -283,13 +286,13 @@ export default defineComponent({
       lastResult.time.penalty = lastResult.time.penalty === ResultState.PLUS_TWO ?
         ResultState.NO_PENALTY : ResultState.PLUS_TWO
 
-      updateResult(getCurrentSessionKey.value, getSessionLength.value - 1, toRaw(getLastSessionResult.value))
-        .then(() => {
-          removeLastSessionResult()
-          setBests()
-          addSessionResult(lastResult)
-          addToSessionHistory(updateBests(lastResult.time, getSessionLength.value - 1))
-        })
+      updateResultDB(getCurrentSessionKey.value, getSessionLength.value - 1, toRaw(getLastSessionResult.value))
+      .then(() => {
+        removeLastSessionResult()
+        setBests()
+        addSessionResult(lastResult)
+        addToSessionHistory(updateBests(lastResult.time, getSessionLength.value - 1))
+      })
     }
 
     const toggleDnf = () => {
@@ -300,13 +303,13 @@ export default defineComponent({
       lastResult.time.penalty = lastResult.time.penalty === ResultState.DNF ?
         ResultState.NO_PENALTY : ResultState.DNF
 
-      updateResult(getCurrentSessionKey.value, getSessionLength.value - 1, toRaw(getLastSessionResult.value))
-        .then(() => {
-          removeLastSessionResult()
-          setBests()
-          addSessionResult(lastResult)
-          addToSessionHistory(updateBests(lastResult.time, getSessionLength.value - 1))
-        })
+      updateResultDB(getCurrentSessionKey.value, getSessionLength.value - 1, toRaw(getLastSessionResult.value))
+      .then(() => {
+        removeLastSessionResult()
+        setBests()
+        addSessionResult(lastResult)
+        addToSessionHistory(updateBests(lastResult.time, getSessionLength.value - 1))
+      })
     }
 
     const isModalOpen = ref(false)
@@ -323,11 +326,11 @@ export default defineComponent({
       const lastResult = getLastSessionResult.value
       lastResult.comment = comment.value
 
-      updateResult(getCurrentSessionKey.value, getSessionLength.value - 1, toRaw(getLastSessionResult.value))
-        .then(() => {
-          updateLastSessionResult(lastResult)
-          toggleCommentModal()
-        })
+      updateResultDB(getCurrentSessionKey.value, getSessionLength.value - 1, toRaw(getLastSessionResult.value))
+      .then(() => {
+        updateLastSessionResult(lastResult)
+        toggleCommentModal()
+      })
     }
 
     const showStatsDisplay = () => {

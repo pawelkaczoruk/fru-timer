@@ -1,19 +1,10 @@
-import { SessionsConfig } from './DB'
-import { Result } from './Timer'
+import { Values } from './Timer'
 
-export interface State {
-  currentTime: number;
-  currentScramble: string;
-  config: Config;
-  sessionResults: Array<Result>;
-  sessionsConfig: SessionsConfig;
-  sessionHistory: {
-    single: Array<number>;
-    mo3: Array<number>;
-    ao5: Array<number>;
-    ao12: Array<number>;
-  }
-  sessionBests: SessionStats
+export interface SessionHistory {
+  single: Values;
+  mo3: Values;
+  ao5: Values;
+  ao12: Values;  
 }
 
 export interface SessionStats {

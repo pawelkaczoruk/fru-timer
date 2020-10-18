@@ -1,21 +1,22 @@
-import { Result, AverageType, ResultState } from '@/types/Timer'
+import { Results, AverageType, ResultState, Values } from '@/types/Timer'
+
 
 export default function useMath() {
   const random = (minimum: number, range: number) => minimum + Math.floor(Math.random() * range)
   const cutOffMillis = (value: number) => Math.floor(value / 10) * 10
 
-  const getAverage = (type: AverageType, results: Array<Result>, startIndex?: number, amount?: number) => {
+  const getAverage = (type: AverageType, results: Results, startIndex?: number, amount?: number) => {
     if (!results.length) return ResultState.NOT_ENOUGH_TIMES
     if (startIndex !== undefined && amount !== undefined) {
       results = results.slice(startIndex, startIndex + amount)
       if (amount !== results.length) return ResultState.NOT_ENOUGH_TIMES
     }
 
-    const penalties = results.map((result) => result.time.penalty)
+    const penalties = results.map(({ time }) => time.penalty)
     const dnfIndex = penalties.indexOf(ResultState.DNF)
     if ( dnfIndex !== penalties.lastIndexOf(ResultState.DNF)) return ResultState.DNF
 
-    const times = results.map((result) => result.time.value + result.time.penalty)
+    const times = results.map(({ time }) => time.value + time.penalty)
     const sum = [...times].reduce((sum, value) => sum + value, 0)
 
     if (type === 'avg') {
@@ -35,11 +36,13 @@ export default function useMath() {
       || value > 0 && value < best
   }
 
-  const findBest = (values: Array<number>) => {
+  const findBest = (values: Values) => {
     if (!values.length) return ResultState.NOT_ENOUGH_TIMES
 
     let best = ResultState.NOT_ENOUGH_TIMES
-    values.forEach((value) => { if(isBetter(value, best)) best = value })
+    values.forEach((value) => {
+      if(isBetter(value, best)) best = value
+    })
 
     return best
   }

@@ -16,6 +16,7 @@ export interface Time {
   value: number;
 }
 
+export type Results = Array<Result>
 export interface Result {
   time: Time;
   scramble: string;
@@ -41,3 +42,5 @@ export enum TimerState {
   IDLE = 0,
   READY = 1
 }
+
+export type Values = Array<number>

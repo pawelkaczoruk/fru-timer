@@ -1,46 +1,52 @@
-import { computed } from 'vue'
-
+import { computed, reactive } from 'vue'
 import useSessionBests from './useSessionBests'
-import useState from './useState'
-
-import { SessionStats } from '@/types/Store'
+import useSessionResults from './useSessionResults'
+import { SessionHistory, SessionStats } from '@/types/Store'
 import { ResultState } from '@/types/Timer'
 
+
+const sessionHistory: SessionHistory = reactive({
+  single: [],
+  mo3: [],
+  ao5: [],
+  ao12: []
+})
+
+
 export default function useSessionHistory() {
-  const { state } = useState()
+  const getSessionHistory = computed(() => sessionHistory)
 
-  const getSessionHistory = computed(() => state.sessionHistory)
-
-  const getCurrentSingle = computed(() => state.sessionHistory.single.length === 0 ?
-    ResultState.NOT_ENOUGH_TIMES : state.sessionHistory.single[state.sessionHistory.single.length - 1]
+  const getCurrentSingle = computed(() => sessionHistory.single.length === 0 ?
+    ResultState.NOT_ENOUGH_TIMES : sessionHistory.single[sessionHistory.single.length - 1]
   )
-  const getCurrentMo3 = computed(() => state.sessionHistory.mo3.length === 0 ?
-    ResultState.NOT_ENOUGH_TIMES : state.sessionHistory.mo3[state.sessionHistory.mo3.length - 1]
+  const getCurrentMo3 = computed(() => sessionHistory.mo3.length === 0 ?
+    ResultState.NOT_ENOUGH_TIMES : sessionHistory.mo3[sessionHistory.mo3.length - 1]
   )
-  const getCurrentAo5 = computed(() => state.sessionHistory.ao5.length === 0 ?
-    ResultState.NOT_ENOUGH_TIMES : state.sessionHistory.ao5[state.sessionHistory.ao5.length - 1]
+  const getCurrentAo5 = computed(() => sessionHistory.ao5.length === 0 ?
+    ResultState.NOT_ENOUGH_TIMES : sessionHistory.ao5[sessionHistory.ao5.length - 1]
   )
-  const getCurrentAo12 = computed(() => state.sessionHistory.ao12.length === 0 ?
-    ResultState.NOT_ENOUGH_TIMES : state.sessionHistory.ao12[state.sessionHistory.ao12.length - 1]
+  const getCurrentAo12 = computed(() => sessionHistory.ao12.length === 0 ?
+    ResultState.NOT_ENOUGH_TIMES : sessionHistory.ao12[sessionHistory.ao12.length - 1]
   )
   
   const removeLastFromSessionHistory = () => {
-    state.sessionHistory.single.pop()
-    state.sessionHistory.mo3.pop()
-    state.sessionHistory.ao5.pop()
-    state.sessionHistory.ao12.pop()
+    sessionHistory.single.pop()
+    sessionHistory.mo3.pop()
+    sessionHistory.ao5.pop()
+    sessionHistory.ao12.pop()
   }
 
   const addToSessionHistory = ({ single, mo3, ao5, ao12 }: SessionStats) => {
-    state.sessionHistory.single.push(single)
-    state.sessionHistory.mo3.push(mo3)
-    state.sessionHistory.ao5.push(ao5)
-    state.sessionHistory.ao12.push(ao12)
+    sessionHistory.single.push(single)
+    sessionHistory.mo3.push(mo3)
+    sessionHistory.ao5.push(ao5)
+    sessionHistory.ao12.push(ao12)
   }
   
   const { updateBests } = useSessionBests()
+  const { getSessionResults } = useSessionResults()
   const setSessionHistory = () => {
-    state.sessionResults.forEach(({ time }, index) => {
+    getSessionResults.value.forEach(({ time }, index) => {
       addToSessionHistory(updateBests(time, index))
     })
   }

@@ -1,8 +1,8 @@
 import useMath from './useMath'
 import useConfig from './store/useConfig'
 import useCurrentData from './store/useCurrentData'
-
 import { ScramblesConfig } from '@/types/Scramble'
+
 
 const NxN = {
   suffixes: ['', '2', '\''],
@@ -26,6 +26,7 @@ const CONFIG: ScramblesConfig = {
   },
 }
 
+
 export default function useScrambleGenerator() {
   const { random } = useMath()
   const { getSelectedCubeType } = useConfig()
@@ -42,7 +43,7 @@ export default function useScrambleGenerator() {
       let groupIndex: number
 
       do groupIndex = random(0, config.moveGroups.length)
-      while (groupIndex === lastGroupIndex)
+      while (groupIndex === lastGroupIndex);
 
       const group = config.moveGroups[groupIndex]
       const letter = group[random(0, group.length)]

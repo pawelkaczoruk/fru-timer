@@ -1,30 +1,35 @@
-import { computed } from 'vue'
-
+import { computed, reactive } from 'vue'
 import useMath from '../useMath'
 import useSessionResults from './useSessionResults'
-import useState from './useState'
-
 import { Time, ResultState } from '@/types/Timer'
+import { SessionStats } from '@/types/Store'
+
+
+const sessionBests: SessionStats = reactive({
+  single: ResultState.NOT_ENOUGH_TIMES,
+  mo3: ResultState.NOT_ENOUGH_TIMES,
+  ao5: ResultState.NOT_ENOUGH_TIMES,
+  ao12: ResultState.NOT_ENOUGH_TIMES,
+})
+
 
 export default function useSessionBests() {
-  const { state } = useState()
+  const getBestSingle = computed(() => sessionBests.single)
+  const setBestSingle = (value: number) => { sessionBests.single = value }
 
-  const getBestSingle = computed(() => state.sessionBests.single)
-  const setBestSingle = (value: number) => { state.sessionBests.single = value }
+  const getBestMo3 = computed(() => sessionBests.mo3)
+  const setBestMo3 = (value: number) => { sessionBests.mo3 = value }
 
-  const getBestMo3 = computed(() => state.sessionBests.mo3)
-  const setBestMo3 = (value: number) => { state.sessionBests.mo3 = value }
+  const getBestAo5 = computed(() => sessionBests.ao5)
+  const setBestAo5 = (value: number) => { sessionBests.ao5 = value }
 
-  const getBestAo5 = computed(() => state.sessionBests.ao5)
-  const setBestAo5 = (value: number) => { state.sessionBests.ao5 = value }
-
-  const getBestAo12 = computed(() => state.sessionBests.ao12)
-  const setBestAo12 = (value: number) => { state.sessionBests.ao12 = value }
+  const getBestAo12 = computed(() => sessionBests.ao12)
+  const setBestAo12 = (value: number) => { sessionBests.ao12 = value }
 
   const { getAo5, getAo12, getMo3 } = useSessionResults()
   const { isBetter } = useMath()
-  const updateBests = (time: Time, index: number) => {
-    const single = time.penalty === ResultState.DNF ? ResultState.DNF : time.penalty + time.value
+  const updateBests = ({ penalty, value }: Time, index: number) => {
+    const single = penalty === ResultState.DNF ? ResultState.DNF : penalty + value
     const mo3 = getMo3(index - 2)
     const ao5 = getAo5(index - 4)
     const ao12 = getAo12(index - 11)

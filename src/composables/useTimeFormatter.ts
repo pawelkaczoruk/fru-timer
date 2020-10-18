@@ -1,7 +1,9 @@
 import { ResultState } from '@/types/Timer'
 
+
 const DNF = 'dnf'
 const NO_VALID_TIME = '-'
+
 
 export default function useTimeFormatter() {
   const getFormattedTime = (time: number, penalty = ResultState.NO_PENALTY) => { 

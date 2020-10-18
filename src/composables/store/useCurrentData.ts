@@ -1,17 +1,18 @@
-import { computed } from 'vue'
-
+import { computed, Ref, ref } from 'vue'
 import useMath from '../useMath'
-import useState from './useState'
+
+
+const currentTime: Ref<number> = ref(0)
+const currentScramble: Ref<string> = ref('')
+
 
 export default function useCurrentData() {
-  const { state } = useState()
-
   const { cutOffMillis } = useMath()
-  const getCurrentTime = computed(() => cutOffMillis(state.currentTime))
-  const setCurrentTime = (time: number) => { state.currentTime = time }
+  const getCurrentTime = computed(() => cutOffMillis(currentTime.value))
+  const setCurrentTime = (time: number) => { currentTime.value = time }
   
-  const getCurrentScramble = computed(() => state.currentScramble)
-  const setCurrentScramble = (scramble: string) => { state.currentScramble = scramble }
+  const getCurrentScramble = computed(() => currentScramble.value)
+  const setCurrentScramble = (scramble: string) => { currentScramble.value = scramble }
 
   return {
     getCurrentTime,

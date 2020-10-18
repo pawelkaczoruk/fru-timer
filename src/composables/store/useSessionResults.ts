@@ -1,22 +1,21 @@
-import { computed } from 'vue'
-
+import { computed, Ref, ref } from 'vue'
 import useMath from '../useMath'
-import useState from './useState'
+import { Result, Results } from '@/types/Timer'
 
-import { Result } from '@/types/Timer'
+
+const sessionResults: Ref<Results> = ref([])
+
 
 export default function useSessionResults() {
-  const { state } = useState()
+  const getSessionLength = computed(() => sessionResults.value.length)
 
-  const getSessionLength = computed(() => state.sessionResults.length)
+  const getSessionResults = computed(() => sessionResults.value)
+  const setSessionResults = (results: Results) => { sessionResults.value = results }
 
-  const getSessionResults = computed(() => state.sessionResults)
-  const setSessionResults = (results: Array<Result>) => { state.sessionResults = results }
-
-  const addSessionResult = (result: Result) => { state.sessionResults.push(result) }
-  const getLastSessionResult = computed(() => state.sessionResults[getSessionLength.value - 1])
-  const removeLastSessionResult = () => { state.sessionResults.pop() }
-  const updateLastSessionResult = (result: Result) => { state.sessionResults[getSessionLength.value - 1] = result }
+  const addSessionResult = (result: Result) => { sessionResults.value.push(result) }
+  const getLastSessionResult = computed(() => sessionResults.value[getSessionLength.value - 1])
+  const removeLastSessionResult = () => { sessionResults.value.pop() }
+  const updateLastSessionResult = (result: Result) => { sessionResults.value[getSessionLength.value - 1] = result }
 
   const { getAverage } = useMath()
   const getAo5 = (startIndex: number) => getAverage('avg', getSessionResults.value, startIndex, 5)

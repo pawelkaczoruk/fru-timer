@@ -4,11 +4,13 @@ export interface ScramblesConfig {
   c3x3: ScrambleConfig;
 }
 
+export type MoveGroups = Array<Array<string>>
+export type Suffixes = Array<string>
 export interface ScrambleConfig {
   length: {
     min: number;
     maxAdd: number;
   };
-  moveGroups: Array<Array<string>>;
-  suffixes: Array<string>;
+  moveGroups: MoveGroups;
+  suffixes: Suffixes;
 }

@@ -10,6 +10,7 @@ import useSessionResults from './store/useSessionResults'
 
 import { Timer, isKeyboardEvent, Result, TimerState, ResultState } from '@/types/Timer'
 
+
 const TIMER_DELAY = 550
 const KEY_CODE = 'Space'
 
@@ -26,8 +27,9 @@ const timer: Timer = reactive({
   isTimeAdded: true
 })
 
+
 export default function useTimer() {
-  const { addResult } = useDB()
+  const { addResult: addResultDB } = useDB()
   const { setCurrentTime, getCurrentTime, getCurrentScramble } = useCurrentData()
   const { getSessionLength, addSessionResult } = useSessionResults()
   const { updateBests } = useSessionBests()
@@ -59,7 +61,7 @@ export default function useTimer() {
             }            
           }
 
-          addResult(getCurrentSessionKey.value, result)
+          addResultDB(getCurrentSessionKey.value, result)
           addSessionResult(result)
           generateScramble()
           addToSessionHistory(updateBests(result.time, getSessionLength.value - 1))

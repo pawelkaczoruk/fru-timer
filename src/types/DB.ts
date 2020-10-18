@@ -1,10 +1,11 @@
-export interface SessionConfigItem {
+export type SessionsConfig = Array<SessionConfig>
+export interface SessionConfig {
   name: string;
   key: number;
   cube: string;
 }
 
-export interface SessionsConfig {
-  basic: Array<SessionConfigItem>;
-  custom: Array<SessionConfigItem>;
+export interface BasicCustomSessionsConfigs {
+  basic: SessionsConfig;
+  custom: SessionsConfig;
 }
