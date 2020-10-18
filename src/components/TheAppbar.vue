@@ -72,11 +72,6 @@ export default defineComponent({
   margin-top: 0.875em;
 }
 
-.center-content {
-  @include flex(inline-flex, center, center);
-}
-
-
 .logo { margin-left: 1.375em; }
 .nav { margin-right: 1.375em; }
 .nav-link:first-child { margin-right: 1.125em; }

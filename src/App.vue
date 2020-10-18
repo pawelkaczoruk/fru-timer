@@ -43,12 +43,20 @@ export default defineComponent({
 #app {
   @include flex($direction: column);
   height: 100vh;
+  background: linear-gradient(
+    180deg,
+    var(--c-bg-first) 0%,
+    var(--c-bg-second) 75%,
+    var(--c-bg-second) 100%);
 
-  .home {
-    flex-grow: 1;
-  }
+  .home { flex-grow: 1; }
 }
 
+.center-content {
+  @include flex(inline-flex, center, center);
+}
+
+// below to be changed
 #modal {
   @include position(fixed, 50%, $left: 50%);
   transform: translate(-50%, -50%);
@@ -58,26 +66,26 @@ export default defineComponent({
     padding: 1em 1em;
     border-radius: 0.5em;
     background:var(--c-primary);
+  }
 
-    .title {
-      @include text($size: 1.25em, $align: center);
-      margin-bottom: 0.5em;
-    }
+  .modal-title {
+    @include text($size: 1.25em, $align: center);
+    margin-bottom: 0.5em;
+  }
 
-    .btn-container {
-      @include flex(flex, space-between);
-      margin-top: 0.5em;
-    }
+  .button-container {
+    @include flex(flex, space-between);
+    margin-top: 0.5em;
+  }
 
-    .modal-btn {
-      border-bottom: 2px solid var(--c-text);
-      font-weight: bold;
+  .modal-button {
+    border-bottom: 2px solid var(--c-text);
+    font-weight: bold;
 
-      @include hover() {
-        cursor: pointer;
-        color: var(--c-light-transparent);
-        border-bottom: 2px solid var(--c-light-transparent);
-      }
+    @include hover() {
+      cursor: pointer;
+      color: var(--c-light-transparent);
+      border-bottom: 2px solid var(--c-light-transparent);
     }
   }
 }
