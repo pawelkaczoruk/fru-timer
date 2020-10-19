@@ -45,12 +45,12 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .timer-display {
-  @include position(absolute, $top: 50%, $left: 50%);
+  @include position(fixed, $top: 50%, $left: 50%);
   transform: translate(-50%, -50%);
 }
 
 .stats-display {
-  @include position(absolute, $bottom: 4em, $left: 0);
+  @include position(fixed, $bottom: 5.5625em, $left: 0);
 }
 
 </style>

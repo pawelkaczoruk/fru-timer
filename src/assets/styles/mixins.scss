@@ -23,8 +23,7 @@
   @if $z-index { z-index: $z-index; }
 }
 
-@mixin text($color: false, $size: false, $weight: false, $align: false) {
-  @if $color { color: $color; }
+@mixin text($size: false, $weight: false, $align: false) {
   @if $size { font-size: $size; }
   @if $weight { font-weight: $weight; }
   @if $align { text-align: $align; }

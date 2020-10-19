@@ -67,7 +67,10 @@ export default defineComponent({
   width: 100%;
   user-select: none;
 
-  span { font-size: 0.875em; }
+  span {
+    color: var(--c-text-secondary);
+    line-height: 1.375em;
+  }
 
   .column {
     display: grid;

@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Barlow Semi Condensed'),
+       local('BarlowSemiCondensed'),
+       url('./assets/fonts/barlow-semi-condensed-regular.woff2') format('woff2'),
+       url('./assets/fonts/barlow-semi-condensed-regular.woff') format('woff'),
+       url('./assets/fonts/barlow-semi-condensed-regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Barlow Semi Condensed'),
+       local('BarlowSemiCondensed'),
+       url('./assets/fonts/barlow-semi-condensed-medium.woff2') format('woff2'),
+       url('./assets/fonts/barlow-semi-condensed-medium.woff') format('woff'),
+       url('./assets/fonts/barlow-semi-condensed-medium.ttf') format('truetype');
+}

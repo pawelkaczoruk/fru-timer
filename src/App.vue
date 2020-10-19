@@ -36,6 +36,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/fonts';
 @import '@/assets/styles/variables';
 @import '@/assets/styles/reset';
 @import '@/assets/styles/mixins';
@@ -69,7 +70,7 @@ export default defineComponent({
   }
 
   .modal-title {
-    @include text($size: 1.25em, $align: center);
+    @include text(1.25em, $align: center);
     margin-bottom: 0.5em;
   }
 
