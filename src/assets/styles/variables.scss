@@ -1,8 +1,4 @@
 :root {
-  --c-success: rgb(31, 185, 31);
-  --c-error: rgb(189, 27, 35);
-
-
   --c-bg-first: #484f5c;
   --c-bg-second: #252930;
 
@@ -18,8 +14,8 @@
   --c-menu-icon-active: #B3ECB9; // ?
 
   --c-timer-idle: #FFF;
-  --c-timer-ready: #FFF; // ?
-  --c-timer-not-ready: #FFF; // ?
+  --c-timer-ready: rgb(31, 185, 31); // ?
+  --c-timer-not-ready: rgb(189, 27, 35); // ?
   --c-timer-info: var(--c-text-secondary);
   --s-timer: 3.3125em;
   --s-timer-info: 1em;
