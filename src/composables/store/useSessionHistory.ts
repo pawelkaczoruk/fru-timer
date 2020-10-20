@@ -46,6 +46,11 @@ export default function useSessionHistory() {
   const { updateBests } = useSessionBests()
   const { getSessionResults } = useSessionResults()
   const setSessionHistory = () => {
+    sessionHistory.single = []
+    sessionHistory.mo3 = []
+    sessionHistory.ao5 = []
+    sessionHistory.ao12 = []
+
     getSessionResults.value.forEach(({ time }, index) => {
       addToSessionHistory(updateBests(time, index))
     })

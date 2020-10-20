@@ -46,7 +46,7 @@ export default function useDB() {
   const fetchSession = async (sessionKey: number) => {
     return await db.sessions.get(sessionKey)
     .then((response) => {
-      if (!response) return
+      if (!response) return response
       setSessionResults(response)
       setSessionHistory()
     })

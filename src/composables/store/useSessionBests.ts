@@ -41,6 +41,12 @@ export default function useSessionBests() {
   
     return { single, mo3, ao5, ao12 }
   }
+  const resetBests = () => {
+    setBestSingle(ResultState.NOT_ENOUGH_TIMES)
+    setBestMo3(ResultState.NOT_ENOUGH_TIMES)
+    setBestAo5(ResultState.NOT_ENOUGH_TIMES)
+    setBestAo12(ResultState.NOT_ENOUGH_TIMES)
+  }
 
   return {
     getBestSingle,
@@ -55,6 +61,7 @@ export default function useSessionBests() {
     getBestAo12,
     setBestAo12,
 
-    updateBests
+    updateBests,
+    resetBests
   }
 }

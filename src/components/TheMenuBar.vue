@@ -4,7 +4,7 @@
     <button
       class="home-button center-content"
       :class="isOptionMenuVisible ? 'active' : ''"
-      @click="toggleOptionMenuVisibility"
+      @click="toggleOptionMenuVisibility()"
     >
       <svg
         class="menu-icon"
@@ -42,7 +42,7 @@
         </button>
         <button
           class="menu-button center-content"
-          @click="showStatsDisplay()"
+          @click="toggleStatsDisplay()"
         >
           <svg
             class="menu-icon"
@@ -92,7 +92,11 @@
             </g>
           </svg>
         </button>
-        <button class="menu-button center-content">
+        <button
+          class="menu-button center-content"
+          :class="isSessionSelectOpen ? 'active' : ''"
+          @click="toggleSessionSelect()"
+        >
           <svg
             class="menu-icon"
             viewBox="0 0 26.925 30.659"
@@ -170,6 +174,10 @@
       </div>
     </transition>
 
+    <transition name="expand">
+      <TheSessionSelect v-if="isSessionSelectOpen" />
+    </transition>
+
     <teleport
       v-if="isModalOpen"
       to="#modal"
@@ -189,11 +197,13 @@
         </div>
       </div>
     </teleport>
+
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRaw } from 'vue'
+import { defineComponent, provide, ref, toRaw } from 'vue'
+import TheSessionSelect from './TheSessionSelect.vue'
 
 import useConfig from '@/composables/store/useConfig'
 import useDB from '@/composables/useDB'
@@ -207,10 +217,23 @@ import { ResultState } from '@/types/Timer'
 
 export default defineComponent({
   name: 'TheMenuBar',
+  components: {
+    TheSessionSelect
+  },
 
   setup() {
-    const isOptionMenuVisible = ref(false);
-    const toggleOptionMenuVisibility = () => { isOptionMenuVisible.value = !isOptionMenuVisible.value  }
+    const isOptionMenuVisible = ref(false)
+    const isSessionSelectOpen = ref(false)
+    const toggleOptionMenuVisibility = (state?: boolean) => {
+      isOptionMenuVisible.value = state === undefined ? !isOptionMenuVisible.value : state
+      isSessionSelectOpen.value = false
+    }
+
+    const toggleSessionSelect = () => {
+      if (isOptionMenuVisible.value) toggleOptionMenuVisibility(false)
+      isSessionSelectOpen.value = !isSessionSelectOpen.value
+    }
+    provide('toggleSessionMenuVisibility', toggleSessionSelect)
 
     const {
       updateSession: updateSessionDB,
@@ -266,7 +289,7 @@ export default defineComponent({
     }
 
     const removeLastResult = () => {
-      toggleOptionMenuVisibility()
+      toggleOptionMenuVisibility(false)
       if (!getSessionLength.value) return
 
       const results = toRaw(getSessionResults.value).slice(0, getSessionLength.value - 1)
@@ -279,7 +302,7 @@ export default defineComponent({
     }
 
     const togglePenalty = () => {
-      toggleOptionMenuVisibility()
+      toggleOptionMenuVisibility(false)
       if (!getSessionLength.value) return
 
       const lastResult = getLastSessionResult.value
@@ -296,7 +319,7 @@ export default defineComponent({
     }
 
     const toggleDnf = () => {
-      toggleOptionMenuVisibility()
+      toggleOptionMenuVisibility(false)
       if (!getSessionLength.value) return
 
       const lastResult = getLastSessionResult.value
@@ -315,7 +338,7 @@ export default defineComponent({
     const isModalOpen = ref(false)
     const comment = ref('')
     const toggleCommentModal = () => {
-      isOptionMenuVisible.value = false;
+      toggleOptionMenuVisibility(false);
       if (!getSessionLength.value) return
 
       isModalOpen.value = !isModalOpen.value
@@ -333,7 +356,7 @@ export default defineComponent({
       })
     }
 
-    const showStatsDisplay = () => {
+    const toggleStatsDisplay = () => {
       toggleStatsVisibility()
       setConfigLS(getConfig.value)
     }
@@ -348,7 +371,9 @@ export default defineComponent({
       isModalOpen,
       toggleCommentModal,
       comment,
-      showStatsDisplay
+      toggleStatsDisplay,
+      toggleSessionSelect,
+      isSessionSelectOpen
     }
   }
 })
@@ -379,7 +404,10 @@ export default defineComponent({
   .menu-icon {
     height: 1.75em;
     fill: var(--c-menu-icon);
+    transition: all 0.4s ease-in-out;
   }
+
+  &.active .menu-icon { fill: var(--c-menu-icon-active); }
 }
 
 .home-button {
@@ -422,7 +450,6 @@ export default defineComponent({
   &.grow-enter-from,
   &.grow-leave-to {
     transform: translate(-50%, -1.875em) scale(0.2);
-    
   }
 }
 

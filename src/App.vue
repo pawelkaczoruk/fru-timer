@@ -7,13 +7,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, watch } from 'vue'
 
 import TheAppbar from './components/TheAppbar.vue'
 import TheMenuBar from './components/TheMenuBar.vue'
 
 import useConfig from './composables/store/useConfig'
+import useSessionBests from './composables/store/useSessionBests'
 import useDB from './composables/useDB'
+import useLocalStorage from './composables/useLocalStorage'
 import useScrambleGenerator from './composables/useScrambleGenerator'
 
 export default defineComponent({
@@ -25,12 +27,20 @@ export default defineComponent({
   
   setup() {
     const { initializeSessions, fetchSession } = useDB()
-    const { getCurrentSessionKey } = useConfig()
+    const { getCurrentSessionKey, getConfig } = useConfig()
     const { generateScramble } = useScrambleGenerator()
-
+    const { setConfig: setConfigLS } = useLocalStorage()
+    const { resetBests } = useSessionBests()
     initializeSessions()
     fetchSession(getCurrentSessionKey.value)
     generateScramble()
+
+    watch(getCurrentSessionKey, (key) => {
+      setConfigLS(getConfig.value)
+      resetBests()
+      fetchSession(key)
+      generateScramble()
+    })
   }
 })
 </script>

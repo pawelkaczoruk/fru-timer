@@ -1,7 +1,7 @@
 import { computed, reactive } from 'vue'
 import useLocalStorage from '../useLocalStorage'
 import { Config } from '@/types/Store'
-import { BasicCustomSessionsConfigs } from '@/types/DB'
+import { BasicCustomSessionsConfigs, SessionConfig } from '@/types/DB'
 
 
 const {
@@ -36,6 +36,7 @@ const sessionsConfig: BasicCustomSessionsConfigs = reactive({
 export default function useConfig() {
   const getConfig = computed(() => config)
   const getSessionsConfig = computed(() => [...sessionsConfig.basic, ...sessionsConfig.custom])
+  const getCustomSessionsConfig = computed(() => sessionsConfig.custom)
 
   const getStatsVisibility = computed(() => config.areStatsVisible)
   const toggleStatsVisibility = () => config.areStatsVisible = !config.areStatsVisible
@@ -48,9 +49,12 @@ export default function useConfig() {
     return sessionData ? sessionData.cube : sessionsConfig.basic[0].cube
   })
 
+  const addSessionConfig = (config: SessionConfig) => { sessionsConfig.custom.push(config) }
+
   return {
     getConfig,
     getSessionsConfig,
+    getCustomSessionsConfig,
 
     getStatsVisibility,
     toggleStatsVisibility,
@@ -58,6 +62,8 @@ export default function useConfig() {
     getCurrentSessionKey,
     setCurrentSessionKey,
 
-    getSelectedCubeType
+    getSelectedCubeType,
+
+    addSessionConfig
   }
 }
