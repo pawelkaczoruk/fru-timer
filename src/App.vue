@@ -16,7 +16,7 @@ import useConfig from './composables/store/useConfig'
 import useSessionBests from './composables/store/useSessionBests'
 import useDB from './composables/useDB'
 import useLocalStorage from './composables/useLocalStorage'
-import useScrambleGenerator from './composables/useScrambleGenerator'
+import useScrambleGenerator from './composables/scrambler/useScrambleGenerator'
 
 export default defineComponent({
   name: 'App',

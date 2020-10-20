@@ -77,7 +77,7 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .session-select {
-  @include rect(8em, 10em, 0.75em, var(--c-menu));
+  @include rect(8em, 20em, 0.75em, var(--c-menu));
   @include position(absolute, $right: 0.5em, $bottom: 4.125em, $z-index: -1);
   overflow: hidden;
 

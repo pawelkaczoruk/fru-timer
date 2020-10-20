@@ -3,7 +3,7 @@ import { SessionsConfig } from '@/types/DB'
 
 
 const CONFIG: Config = {
-  activeSessionKey: 1,
+  activeSessionKey: 2,
   areStatsVisible: false
 }
 const CONFIG_KEY = 'config'
