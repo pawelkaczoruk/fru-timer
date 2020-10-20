@@ -1,8 +1,7 @@
 import { computed, reactive } from 'vue'
 import useSessionBests from './useSessionBests'
-import useSessionResults from './useSessionResults'
 import { SessionHistory, SessionStats } from '@/types/Store'
-import { ResultState } from '@/types/Timer'
+import { Results, ResultState } from '@/types/Timer'
 
 
 const sessionHistory: SessionHistory = reactive({
@@ -44,14 +43,13 @@ export default function useSessionHistory() {
   }
   
   const { updateBests } = useSessionBests()
-  const { getSessionResults } = useSessionResults()
-  const setSessionHistory = () => {
+  const setSessionHistory = (results: Results) => {
     sessionHistory.single = []
     sessionHistory.mo3 = []
     sessionHistory.ao5 = []
     sessionHistory.ao12 = []
 
-    getSessionResults.value.forEach(({ time }, index) => {
+    results.forEach(({ time }, index) => {
       addToSessionHistory(updateBests(time, index))
     })
   }

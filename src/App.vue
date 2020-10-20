@@ -31,6 +31,7 @@ export default defineComponent({
     const { generateScramble } = useScrambleGenerator()
     const { setConfig: setConfigLS } = useLocalStorage()
     const { resetBests } = useSessionBests()
+
     initializeSessions()
     fetchSession(getCurrentSessionKey.value)
     generateScramble()

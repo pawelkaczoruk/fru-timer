@@ -48,7 +48,7 @@ export default function useDB() {
     .then((response) => {
       if (!response) return response
       setSessionResults(response)
-      setSessionHistory()
+      setSessionHistory(response)
     })
   }
 
@@ -57,7 +57,7 @@ export default function useDB() {
     getSessionsConfig.value.forEach(async ({ key }) => {
       await db.sessions.get(key)
       .then((response) => {
-        if (response) return
+        if (response) return response
         createSession(key)
       })
     })

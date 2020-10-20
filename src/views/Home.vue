@@ -1,5 +1,8 @@
 <template>
-  <div class="home">
+  <div
+    class="home"
+    ref="home"
+  >
     <TheScrambleDisplay />
     <TheTimerDisplay />
     <TheStatsDisplay />
@@ -7,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted } from 'vue'
+import { defineComponent, onMounted, onUnmounted, ref, Ref } from 'vue'
 import TheTimerDisplay from '@/components/TheTimerDisplay.vue'
 import TheScrambleDisplay from '@/components/TheScrambleDisplay.vue'
 import TheStatsDisplay from '@/components/TheStatsDisplay.vue'
@@ -23,20 +26,23 @@ export default defineComponent({
 
   setup() {
     const { onPress, onRelease } = useTimer()
+    const home: Ref<HTMLDivElement | null> = ref(null)
 
     onMounted(() => {
-      document.addEventListener('keydown', onPress)
-      document.addEventListener('keyup', onRelease)
-      document.addEventListener('touchstart', onPress)
-      document.addEventListener('touchend', onRelease)
+      home.value?.addEventListener('keydown', onPress)
+      home.value?.addEventListener('keyup', onRelease)
+      home.value?.addEventListener('touchstart', onPress)
+      home.value?.addEventListener('touchend', onRelease)
     })
 
     onUnmounted(() => {
-      document.removeEventListener('keydown', onPress)
-      document.removeEventListener('keyup', onRelease)
-      document.removeEventListener('touchstart', onPress)
-      document.removeEventListener('touchend', onRelease)
+      home.value?.removeEventListener('keydown', onPress)
+      home.value?.removeEventListener('keyup', onRelease)
+      home.value?.removeEventListener('touchstart', onPress)
+      home.value?.removeEventListener('touchend', onRelease)
     })
+
+    return { home }
   }
 })
 </script>
