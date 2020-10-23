@@ -3,9 +3,12 @@
     class="home"
     ref="home"
   >
+
     <TheScrambleDisplay />
     <TheTimerDisplay />
     <TheStatsDisplay />
+    <TheListDisplay v-if="false"/>
+
   </div>
 </template>
 
@@ -14,6 +17,7 @@ import { defineComponent, onMounted, onUnmounted, ref, Ref } from 'vue'
 import TheTimerDisplay from '@/components/TheTimerDisplay.vue'
 import TheScrambleDisplay from '@/components/TheScrambleDisplay.vue'
 import TheStatsDisplay from '@/components/TheStatsDisplay.vue'
+import TheListDisplay from '@/components/TheListDisplay.vue'
 import useTimer from '@/composables/useTimer'
 
 export default defineComponent({
@@ -21,7 +25,8 @@ export default defineComponent({
   components: {
     TheTimerDisplay,
     TheScrambleDisplay,
-    TheStatsDisplay
+    TheStatsDisplay,
+    TheListDisplay
   },
 
   setup() {
