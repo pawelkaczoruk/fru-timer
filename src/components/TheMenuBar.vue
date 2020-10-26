@@ -115,10 +115,7 @@
         v-if="isOptionMenuVisible"
         class="option-menu"
       >
-        <button
-          class="option-button center-content"
-          @click="toggleCommentModal"
-        >
+        <OptionButton @click="toggleCommentModal">
           <svg
             class="menu-icon"
             viewBox="0 0 28 21.995"
@@ -128,19 +125,10 @@
               transform="translate(1740 658)"
             />
           </svg>
-        </button>
-        <button
-          class="option-button center-content"
-          @click="toggleDnf"
-        >dnf</button>
-        <button
-          class="option-button center-content"
-          @click="togglePenalty"
-        >+2</button>
-        <button
-          class="option-button center-content"
-          @click="removeLastResult"
-        >
+        </OptionButton>
+        <OptionButton @click="toggleDnf">dnf</OptionButton>
+        <OptionButton @click="togglePenalty">+2</OptionButton>
+        <OptionButton @click="removeLastResult">
           <svg
             class="menu-icon"
             viewBox="0 0 15.999 28"
@@ -150,7 +138,8 @@
               transform="translate(1740 658)"
             />
           </svg>
-        </button>
+        </OptionButton>
+
       </div>
     </transition>
 
@@ -184,6 +173,7 @@
 <script lang="ts">
 import { defineComponent, provide, ref, toRaw } from 'vue'
 import TheSessionSelect from './TheSessionSelect.vue'
+import OptionButton from './menu/OptionButton.vue'
 
 import useConfig from '@/composables/store/useConfig'
 import useDB from '@/composables/useDB'
@@ -198,7 +188,8 @@ import { ResultState } from '@/types/Timer'
 export default defineComponent({
   name: 'TheMenuBar',
   components: {
-    TheSessionSelect
+    TheSessionSelect,
+    OptionButton
   },
 
   setup() {
@@ -433,11 +424,6 @@ export default defineComponent({
 }
 
 .option-button {
-  @include rect(2.5em, 2.5em, 50%, var(--c-menu));
-  color: var(--c-menu-icon);
-  font-weight: bold;
-  pointer-events: auto;
-
   &:first-child { grid-area: first; }
   &:nth-child(2) { grid-area: second; }
   &:nth-child(3) { grid-area: third; }
