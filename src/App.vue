@@ -3,14 +3,14 @@
 
   <router-view/>
 
-  <TheMenuBar />
+  <TheMenu />
 </template>
 
 <script lang="ts">
 import { defineComponent, watch } from 'vue'
 
 import TheAppbar from './components/TheAppbar.vue'
-import TheMenuBar from './components/TheMenuBar.vue'
+import TheMenu from './components/menu/TheMenu.vue'
 
 import useConfig from './composables/store/useConfig'
 import useSessionBests from './composables/store/useSessionBests'
@@ -22,7 +22,7 @@ export default defineComponent({
   name: 'App',
   components: {
     TheAppbar,
-    TheMenuBar
+    TheMenu
   },
   
   setup() {

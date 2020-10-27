@@ -1,7 +1,7 @@
 <template>
-  <div class="session-select">
+  <div class="session-menu">
 
-    <ul class="sessions-menu">
+    <ul class="session-list">
       <li
         v-for="session in getSessionsConfig"
         :key="session.key"
@@ -23,17 +23,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, nextTick } from 'vue'
+import { defineComponent } from 'vue'
 import useConfig from '@/composables/store/useConfig'
 import useDB from '@/composables/useDB'
 import useLocalStorage from '@/composables/useLocalStorage'
+import useMenuController from '@/composables/menu/useMenuController'
 
 export default defineComponent({
-  name: 'TheSessionSelect',
+  name: 'TheSessionMenu',
 
   setup() {
-    const toggleMenuVisibility = inject<(state?: boolean) => void>('toggleSessionMenuVisibility')
-
+    const { toggleSessionMenu } = useMenuController()
+    const { createSession: createSessionDB } = useDB()
+    const { setCustomSessionsConfig: setCustomSessionsConfigLS } = useLocalStorage()
     const {
       getCustomSessionsConfig,
       getSessionsConfig,
@@ -42,14 +44,10 @@ export default defineComponent({
       addSessionConfig
     } = useConfig()
 
-    const { createSession: createSessionDB } = useDB()
-    const { setCustomSessionsConfig: setCustomSessionsConfigLS } = useLocalStorage()
 
     const selectSession = (key: number) => {
       setCurrentSessionKey(key)
-      nextTick(() => {
-        if (toggleMenuVisibility) toggleMenuVisibility(false)
-      })
+      toggleSessionMenu()
     }  
 
     const createSession = () => {
@@ -76,22 +74,12 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins';
 
-.session-select {
+.session-menu {
   @include rect(8em, 20em, 0.75em, var(--c-menu));
-  @include position(absolute, $right: 0.5em, $bottom: 4.125em, $z-index: -1);
   overflow: hidden;
-
-  &.expand-enter-active,
-  &.expand-leave-active {
-    transition: height 0.4s ease-in-out;
-  }
-  &.expand-enter-from,
-  &.expand-leave-to {
-    height: 0;
-  }
 }
 
-.sessions-menu {
+.session-list {
   padding: 0.5em;
   text-align: right;
 }

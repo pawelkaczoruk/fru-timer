@@ -1,15 +1,16 @@
 <template>
   <button class="option-button center-content">
-    <slot></slot>
+
+    <i class="option-icon center-content">
+      <slot></slot>
+    </i>
+
   </button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'OptionButton',
-})
+export default defineComponent({ name: 'OptionButton' })
 </script>
 
 <style lang="scss" scoped>
@@ -17,9 +18,13 @@ export default defineComponent({
 
 .option-button {
   @include rect(2.5em, 2.5em, 50%, var(--c-menu));
-  color: var(--c-menu-icon);
+}
+
+.option-icon {
   font-weight: bold;
-  pointer-events: auto;
+  font-style: normal;
+  color: var(--c-menu-icon);
+  fill: var(--c-menu-icon);
 }
 
 </style>
