@@ -6,7 +6,7 @@
     <div class="button-container">
       <button
         class="modal-button"
-        @click="toggleModal"
+        @click="toggleCommentModal"
       >Cancel</button>
       <button
         class="modal-button"
@@ -18,17 +18,17 @@
 </template>
 
 <script lang="ts">
+import useMenuController from '@/composables/menu/useMenuController'
 import useConfig from '@/composables/store/useConfig'
 import useSessionResults from '@/composables/store/useSessionResults'
 import useDB from '@/composables/useDB'
-import { defineComponent, inject, onMounted, ref, toRaw } from 'vue'
+import { defineComponent, onMounted, ref, toRaw } from 'vue'
 
 export default defineComponent({
   name: 'TheCommentModal',
 
   setup() {
-    const toggleModal = inject<() => void>('toggleCommentModal')
-
+    const { toggleCommentModal } = useMenuController()
     const { getCurrentSessionKey } = useConfig()
     const { updateResult: updateResultDB } = useDB()
     const {
@@ -51,12 +51,12 @@ export default defineComponent({
       updateResultDB(getCurrentSessionKey.value, getSessionLength.value - 1, lastResult)
       .then(() => {
         updateLastSessionResult(lastResult)
-        if (toggleModal) toggleModal()
+        toggleCommentModal()
       })
     }
 
     return {
-      toggleModal,
+      toggleCommentModal,
       comment,
       addComment
     }
