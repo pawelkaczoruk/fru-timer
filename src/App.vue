@@ -70,7 +70,7 @@ export default defineComponent({
 
 // below to be changed
 #modal {
-  @include position(fixed, 50%, $left: 50%);
+  @include position(fixed, 50%, $l: 50%);
   transform: translate(-50%, -50%);
 
   .modal-content {

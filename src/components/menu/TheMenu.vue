@@ -57,7 +57,7 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .menu {
-  @include position(fixed, $left: 50%, $bottom: 0);
+  @include position(fixed, $l: 50%, $b: 0);
   transform: translateX(-50%);
   width: 100%;
   max-width: 22.5em;
@@ -66,7 +66,7 @@ export default defineComponent({
 }
 
 .option-menu {
-  @include position(absolute, $bottom: 0, $left: 50%);
+  @include position(absolute, $b: 0, $l: 50%);
   transform: translate(-50%, -4.875em);
 
   &.grow-enter-active,
@@ -76,7 +76,7 @@ export default defineComponent({
 }
 
 .session-menu {
-  @include position(absolute, $right: 0.5em, $bottom: 4.125em, $z-index: -1);
+  @include position(absolute, $r: 0.5em, $b: 4.125em, $z: -1);
 
   &.expand-enter-active,
   &.expand-leave-active { transition: height 0.4s ease-in-out; }

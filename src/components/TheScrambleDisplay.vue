@@ -42,7 +42,7 @@ export default defineComponent({
 
 button {
   @include rect(2.5em, 2.5em, 50% 0 50% 50%, var(--c-primary-transparent-35));
-  @include position(absolute, $right: 0);
+  @include position(absolute, $r: 0);
   @include flex(inline-flex, center, center);
 
   svg {

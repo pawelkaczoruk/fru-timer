@@ -39,7 +39,7 @@ export default defineComponent({
 
 .home-button {
   @include rect(4.25em, 4.25em, 0.9375em, var(--c-menu));
-  @include position(absolute, $bottom: 0, $left: 50%, $z-index: 10);
+  @include position(absolute, $b: 0, $l: 50%, $z: 10);
   transform: translate(-50%, -1.0625em);
   box-shadow: 0 0 0 0.5625em var(--c-bg-second);
   transition: all 0.4s ease-in-out;

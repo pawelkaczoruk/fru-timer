@@ -56,12 +56,12 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .timer-display {
-  @include position(fixed, $top: 50%, $left: 50%);
+  @include position(fixed, $t: 50%, $l: 50%);
   transform: translate(-50%, -50%);
 }
 
 .stats-display {
-  @include position(fixed, $bottom: 5.5625em, $left: 0);
+  @include position(fixed, $b: 5.5625em, $l: 0);
 }
 
 </style>
