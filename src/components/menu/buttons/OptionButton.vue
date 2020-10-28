@@ -18,6 +18,7 @@ export default defineComponent({ name: 'OptionButton' })
 
 .option-button {
   @include rect(2.5em, 2.5em, 50%, var(--c-menu));
+  box-shadow: 0 0 0 0.5625em var(--c-bg-second);
 }
 
 .option-icon {

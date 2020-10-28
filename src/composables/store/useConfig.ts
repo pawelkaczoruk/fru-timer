@@ -40,7 +40,10 @@ export default function useConfig() {
   const getCustomSessionsConfig = computed(() => sessionsConfig.custom)
 
   const getStatsVisibility = computed(() => config.areStatsVisible)
-  const toggleStatsVisibility = () => config.areStatsVisible = !config.areStatsVisible
+  const toggleStatsVisibility = () => { config.areStatsVisible = !config.areStatsVisible }
+
+  const getTimesListVisibility = computed(() => config.isTimesListVisible)
+  const toggleTimesListVisibility = () => { config.isTimesListVisible = !config.isTimesListVisible }
 
   const getCurrentSessionKey = computed(() => config.activeSessionKey)
   const setCurrentSessionKey = (key: number) => { config.activeSessionKey = key }  
@@ -59,6 +62,9 @@ export default function useConfig() {
 
     getStatsVisibility,
     toggleStatsVisibility,
+
+    getTimesListVisibility,
+    toggleTimesListVisibility,
 
     getCurrentSessionKey,
     setCurrentSessionKey,

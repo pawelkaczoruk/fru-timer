@@ -62,7 +62,6 @@ button {
 
 .scramble {
   @include text(1.4375em, 500, center);
-  padding-top: 0.5em;
   white-space: pre-wrap;
 }
 

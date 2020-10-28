@@ -36,7 +36,7 @@
     </div>
 
     <div>
-      <MenuButton>
+      <MenuButton @click="toggleTimesList()">
         <svg
           class="icon"
           viewBox="0 0 27.171 26.186"
@@ -97,12 +97,14 @@ export default defineComponent({
   setup() {
     const {
       toggleStatsDisplay,
+      toggleTimesList,
       toggleSessionMenu,
       getSessionMenuVisibility
     } = useMenuController()
 
     return {
       toggleStatsDisplay,
+      toggleTimesList,
       toggleSessionMenu,
       getSessionMenuVisibility
     }

@@ -67,9 +67,8 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .appbar {
-  @include rect(100%, 2em);
+  @include rect(100%, 3.75em);
   @include flex(flex, space-between, center);
-  margin-top: 0.875em;
 }
 
 .logo { margin-left: 1.375em; }

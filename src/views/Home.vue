@@ -7,7 +7,7 @@
     <TheScrambleDisplay />
     <TheTimerDisplay />
     <TheStatsDisplay />
-    <TheListDisplay v-if="false"/>
+    <TheListDisplay v-show="getTimesListVisibility" />
 
   </div>
 </template>
@@ -19,6 +19,7 @@ import TheScrambleDisplay from '@/components/TheScrambleDisplay.vue'
 import TheStatsDisplay from '@/components/TheStatsDisplay.vue'
 import TheListDisplay from '@/components/TheListDisplay.vue'
 import useTimer from '@/composables/useTimer'
+import useConfig from '@/composables/store/useConfig'
 
 export default defineComponent({
   name: 'Home',
@@ -30,6 +31,7 @@ export default defineComponent({
   },
 
   setup() {
+    const { getTimesListVisibility } = useConfig()
     const { onPress, onRelease } = useTimer()
     const home: Ref<HTMLDivElement | null> = ref(null)
 
@@ -47,13 +49,17 @@ export default defineComponent({
       home.value?.removeEventListener('touchend', onRelease)
     })
 
-    return { home }
+    return { home, getTimesListVisibility }
   }
 })
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins';
+
+.home {
+  padding: 0 0.5em;
+}
 
 .timer-display {
   @include position(fixed, $t: 50%, $l: 50%);
@@ -62,6 +68,11 @@ export default defineComponent({
 
 .stats-display {
   @include position(fixed, $b: 5.5625em, $l: 0);
+}
+
+.list-display {
+  @include position(fixed, 3.75em, $l: 50%);
+  transform: translateX(-50%);
 }
 
 </style>

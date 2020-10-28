@@ -1,22 +1,25 @@
 <template>
   <div class="list-display">
-    <button @click="orderBy = OrderBy.DESC_DATE">DESC_DATE</button> |
-    <button @click="orderBy = OrderBy.ASC_DATE">ASC_DATE</button> |
-    <button @click="orderBy = OrderBy.DESC_COMMENT">DESC_COMMENT</button> |
-    <button @click="orderBy = OrderBy.ASC_COMMENT">ASC_COMMENT</button> |
-    <ul>
-      <li
-        v-for="(item) in getOrderedData"
-        :key="item.id"
-      >
-        <!-- {{ getSessionHistory.single.length - index }} -->
-        {{ item.single }}
-        {{ item.mo3 }}
-        {{ item.ao5 }}
-        {{ item.ao12 }}
-        <!-- {{ getOrderedData.results[index] }} -->
-      </li>
-    </ul>
+
+    <div class="list">
+      <button @click="orderBy = OrderBy.DESC_DATE">DESC_DATE</button> |
+      <button @click="orderBy = OrderBy.ASC_DATE">ASC_DATE</button> |
+      <button @click="orderBy = OrderBy.DESC_COMMENT">DESC_COMMENT</button> |
+      <button @click="orderBy = OrderBy.ASC_COMMENT">ASC_COMMENT</button> |
+      <ul>
+        <li
+          v-for="(item) in getOrderedData"
+          :key="item.id"
+        >
+          <!-- {{ getSessionHistory.single.length - index }} -->
+          {{ item.single }}
+          {{ item.mo3 }}
+          {{ item.ao5 }}
+          {{ item.ao12 }}
+          <!-- {{ getOrderedData.results[index] }} -->
+        </li>
+      </ul>
+    </div>
 
   </div>
 </template>
@@ -95,5 +98,16 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins';
 
+.list-display {
+  @include rect(100%, calc(100% - 3.75em - 2 * 0.625em - 3.5625em));
+  max-width: 22.5em;
+  padding: 0 0.5em;
+}
+
+.list {
+  height: 100%;
+  border-radius: 0.5em;
+  background: var(--c-menu);
+}
 
 </style>
