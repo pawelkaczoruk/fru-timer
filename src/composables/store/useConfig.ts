@@ -42,8 +42,8 @@ export default function useConfig() {
   const getStatsVisibility = computed(() => config.areStatsVisible)
   const toggleStatsVisibility = () => { config.areStatsVisible = !config.areStatsVisible }
 
-  const getTimesListVisibility = computed(() => config.isTimesListVisible)
-  const toggleTimesListVisibility = () => { config.isTimesListVisible = !config.isTimesListVisible }
+  const getListVisibility = computed(() => config.isListVisible)
+  const toggleListVisibility = () => { config.isListVisible = !config.isListVisible }
 
   const getCurrentSessionKey = computed(() => config.activeSessionKey)
   const setCurrentSessionKey = (key: number) => { config.activeSessionKey = key }  
@@ -63,8 +63,8 @@ export default function useConfig() {
     getStatsVisibility,
     toggleStatsVisibility,
 
-    getTimesListVisibility,
-    toggleTimesListVisibility,
+    getListVisibility,
+    toggleListVisibility,
 
     getCurrentSessionKey,
     setCurrentSessionKey,

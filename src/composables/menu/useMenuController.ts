@@ -11,7 +11,7 @@ const isCommentModalVisible = ref(false)
 
 export default function useMenuController() {
   const { getSessionLength } = useSessionResults()
-  const { toggleStatsVisibility, toggleTimesListVisibility, getConfig } = useConfig()
+  const { toggleStatsVisibility, toggleListVisibility, getConfig } = useConfig()
   const { setConfig: setConfigLS } = useLocalStorage()
 
   const getOptionMenuVisibility = computed(() => isOptionMenuVisible.value)
@@ -34,7 +34,7 @@ export default function useMenuController() {
   }
 
   const toggleTimesList = () => {
-    toggleTimesListVisibility()
+    toggleListVisibility()
     setConfigLS(getConfig.value)
   }
 

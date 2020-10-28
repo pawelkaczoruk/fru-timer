@@ -5,7 +5,7 @@ import { SessionsConfig } from '@/types/DB'
 const CONFIG: Config = {
   activeSessionKey: 2,
   areStatsVisible: false,
-  isTimesListVisible: false
+  isListVisible: false
 }
 const CONFIG_KEY = 'config'
 const CUSTOM_SESSIONS_CONFIG: SessionsConfig = []

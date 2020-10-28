@@ -1,13 +1,13 @@
 <template>
   <div
     class="home"
-    ref="home"
+    ref="homeRef"
   >
 
     <TheScrambleDisplay />
     <TheTimerDisplay />
-    <TheStatsDisplay />
-    <TheListDisplay v-show="getTimesListVisibility" />
+    <TheStatsDisplay v-if="getStatsVisibility" />
+    <TheListDisplay v-if="getListVisibility" />
 
   </div>
 </template>
@@ -31,25 +31,33 @@ export default defineComponent({
   },
 
   setup() {
-    const { getTimesListVisibility } = useConfig()
     const { onPress, onRelease } = useTimer()
-    const home: Ref<HTMLDivElement | null> = ref(null)
+    const homeRef: Ref<HTMLDivElement | null> = ref(null)
 
     onMounted(() => {
-      home.value?.addEventListener('keydown', onPress)
-      home.value?.addEventListener('keyup', onRelease)
-      home.value?.addEventListener('touchstart', onPress)
-      home.value?.addEventListener('touchend', onRelease)
+      homeRef.value?.addEventListener('keydown', onPress)
+      homeRef.value?.addEventListener('keyup', onRelease)
+      homeRef.value?.addEventListener('touchstart', onPress)
+      homeRef.value?.addEventListener('touchend', onRelease)
     })
 
     onUnmounted(() => {
-      home.value?.removeEventListener('keydown', onPress)
-      home.value?.removeEventListener('keyup', onRelease)
-      home.value?.removeEventListener('touchstart', onPress)
-      home.value?.removeEventListener('touchend', onRelease)
+      homeRef.value?.removeEventListener('keydown', onPress)
+      homeRef.value?.removeEventListener('keyup', onRelease)
+      homeRef.value?.removeEventListener('touchstart', onPress)
+      homeRef.value?.removeEventListener('touchend', onRelease)
     })
 
-    return { home, getTimesListVisibility }
+    const {
+      getListVisibility,
+      getStatsVisibility
+    } = useConfig()
+
+    return {
+      homeRef,
+      getListVisibility,
+      getStatsVisibility
+    }
   }
 })
 </script>
