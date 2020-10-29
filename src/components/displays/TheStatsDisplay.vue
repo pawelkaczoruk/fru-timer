@@ -1,18 +1,18 @@
 <template>
-  <div class="stats-display wrapper">
+  <div class="stats-display">
 
     <div class="column">
-      <span>Solves: {{ getSessionLength }}</span>
-      <span>Best: {{ getFormattedTime(getBestSingle) }}</span>
-      <span>Best Mo3: {{ getFormattedTime(getBestMo3) }}</span>
-      <span>Best Ao5: {{ getFormattedTime(getBestAo5) }}</span>
-      <span>Best Ao12: {{ getFormattedTime(getBestAo12) }}</span>
+      <span class="stat-item">Solves: {{ getSessionLength }}</span>
+      <span class="stat-item">Best: {{ getFormattedTime(getBestSingle) }}</span>
+      <span class="stat-item">Best Mo3: {{ getFormattedTime(getBestMo3) }}</span>
+      <span class="stat-item">Best Ao5: {{ getFormattedTime(getBestAo5) }}</span>
+      <span class="stat-item">Best Ao12: {{ getFormattedTime(getBestAo12) }}</span>
     </div>
     <div class="column right">
-      <span>Mean: {{ getFormattedTime(getSessionMean()) }}</span>
-      <span>Mo3: {{ getFormattedTime(getCurrentMo3) }}</span>
-      <span>Ao5: {{ getFormattedTime(getCurrentAo5) }}</span>
-      <span>Ao12: {{ getFormattedTime(getCurrentAo12) }}</span>
+      <span class="stat-item">Mean: {{ getFormattedTime(getSessionMean()) }}</span>
+      <span class="stat-item">Mo3: {{ getFormattedTime(getCurrentMo3) }}</span>
+      <span class="stat-item">Ao5: {{ getFormattedTime(getCurrentAo5) }}</span>
+      <span class="stat-item">Ao12: {{ getFormattedTime(getCurrentAo12) }}</span>
     </div>
   </div>
 
@@ -59,16 +59,18 @@ export default defineComponent({
 .stats-display {
   @include flex(flex, space-between, flex-end);
   width: 100%;
+  padding: 0.625em;
+  max-width: 22.5em;
   user-select: none;
 
-  span {
-    color: var(--c-text-secondary);
-    line-height: 1.375em;
-  }
+  @include media(landscapeShort) { max-width: 39em; }
+
+  .stat-item { color: var(--c-text-secondary); }
 
   .column {
     display: grid;
     grid-template: auto / 1fr;
+    gap: 0.25em;
 
     &.right { text-align: end; }
   }

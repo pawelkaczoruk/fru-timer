@@ -17,9 +17,9 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref, Ref } from 'vue'
-import TheTimerDisplay from '@/components/TheTimerDisplay.vue'
-import TheScrambleDisplay from '@/components/TheScrambleDisplay.vue'
-import TheStatsDisplay from '@/components/TheStatsDisplay.vue'
+import TheTimerDisplay from '@/components/displays/TheTimerDisplay.vue'
+import TheScrambleDisplay from '@/components/displays/TheScrambleDisplay.vue'
+import TheStatsDisplay from '@/components/displays/TheStatsDisplay.vue'
 import TheListDisplay from '@/components/list/TheListDisplay.vue'
 import useTimer from '@/composables/useTimer'
 import useConfig from '@/composables/store/useConfig'
@@ -68,9 +68,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins';
 
-.home {
-  padding: 0 0.5em;
-}
+.home { padding: 0 0.5em; }
 
 .timer-display {
   @include position(fixed, $t: 50%, $l: 50%);
@@ -78,7 +76,12 @@ export default defineComponent({
 }
 
 .stats-display {
-  @include position(fixed, $b: 5.5625em, $l: 0);
+  @include position(fixed, $b: 5em, $l: 50%);
+  transform: translateX(-50%);
+
+  @include media(landscapeShort) {
+    bottom: 0em;
+  }
 }
 
 .list-display {
