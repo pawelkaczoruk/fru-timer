@@ -14,8 +14,22 @@
     </div>
 
     <nav class="nav center-content">
+      <button
+        class="nav-item center-content"
+        @click="generateScramble()"
+      >
+        <svg
+          class="nav-icon"
+          viewBox="0 0 21.261 20"
+        >
+          <path
+            d="M-1737.8-1304h-.46a1,1,0,0,1-.864-1.5l1.76-3.015a1,1,0,0,1,1.727,0l1.76,3.015a1,1,0,0,1-.833,1.5,6.981,6.981,0,0,0,1.763,2.949A6.955,6.955,0,0,0-1728-1299a7.008,7.008,0,0,0,7-7,7.008,7.008,0,0,0-7-7c-1.1,0-2-.671-2-1.5s.9-1.5,2-1.5a10.011,10.011,0,0,1,10,10,10.011,10.011,0,0,1-10,10A10.017,10.017,0,0,1-1737.8-1304Z"
+            transform="translate(1739.261 1316)"
+          />
+        </svg>
+      </button>
       <router-link
-        class="nav-link center-content"
+        class="nav-item center-content"
         to="/about"
       >
         <svg
@@ -34,7 +48,7 @@
         </svg>
       </router-link>
       <router-link
-        class="nav-link center-content"
+        class="nav-item center-content"
         to="/settings"
       >
         <svg
@@ -57,9 +71,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import useScrambleGenerator from '@/composables/scrambler/useScrambleGenerator'
 
 export default defineComponent({
   name: 'TheAppbar',
+
+  setup() {
+    const { generateScramble } = useScrambleGenerator()
+
+    return { generateScramble }
+  }
 })
 </script>
 
@@ -72,8 +93,18 @@ export default defineComponent({
 }
 
 .logo { margin-left: 1.375em; }
-.nav { margin-right: 1.375em; }
-.nav-link:first-child { margin-right: 1.125em; }
+.nav { margin-right: calc(1.375em - 0.9365em / 2); }
+
+.nav-item {
+  @include rect(2.5em, 2.5em, 50%);
+
+  @include hover() {
+    .nav-icon {
+      fill: var(--c-menu-icon-active);
+      transition: all 0.15s ease-in-out;
+    }
+  }
+}
 
 .logo-icon {
   height: 2em;
@@ -83,6 +114,7 @@ export default defineComponent({
 .nav-icon {
   height: 1.5625em;
   fill: var(--c-nav-icon);
+  transition: all 0.4s ease-in-out;
 }
 
 </style>

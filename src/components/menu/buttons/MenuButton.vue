@@ -25,7 +25,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins';
 
-.menu-button { @include rect(3.5625em, 3.5625em); }
+.menu-button {
+  @include rect(3.5625em, 3.5625em);
+  @include hover() {
+    .menu-icon {
+      transition: all 0.15s ease-in-out;
+      fill: var(--c-menu-icon-active);
+    }
+  }
+}
 
 .menu-icon {
   fill: var(--c-menu-icon);

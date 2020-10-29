@@ -1,7 +1,10 @@
 <template>
   <div class="option-menu">
 
-    <OptionButton @click="toggleCommentModal">
+    <OptionButton
+      :highlight="getLastSessionResult && !!getLastSessionResult.comment"
+      @click="toggleCommentModal"
+    >
       <svg
         class="icon"
         viewBox="0 0 28 21.995"
@@ -12,8 +15,14 @@
         />
       </svg>
     </OptionButton>
-    <OptionButton @click="toggleDnf">dnf</OptionButton>
-    <OptionButton @click="togglePenalty">+2</OptionButton>
+    <OptionButton
+      :highlight="getLastSessionResult && getLastSessionResult.time.penalty === ResultState.DNF"
+      @click="toggleDnf"
+    >dnf</OptionButton>
+    <OptionButton
+      :highlight="getLastSessionResult && getLastSessionResult.time.penalty === ResultState.PLUS_TWO"
+      @click="togglePenalty"
+    >+2</OptionButton>
     <OptionButton @click="removeLastResult">
       <svg
         class="icon"
@@ -165,7 +174,9 @@ export default defineComponent({
       togglePenalty,
       toggleDnf,
       getCommentModalVisibility,
-      toggleCommentModal
+      toggleCommentModal,
+      getLastSessionResult,
+      ResultState
     }
   }
 })

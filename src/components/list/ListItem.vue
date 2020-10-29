@@ -72,6 +72,8 @@ export default defineComponent({
   transition: color 0.4s ease-in-out;
 
   &.active { color: var(--c-menu-icon-active); }
+
+  @include hover() { color: var(--c-menu-icon-active); }
 }
 
 .icon {

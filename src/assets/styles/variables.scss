@@ -1,9 +1,9 @@
 :root {
-  --c-bg-first: #484f5c;
-  --c-bg-second: #252930;
+  --c-bg: #252930;
 
   --c-text-primary: #FFF;
   --c-text-secondary: #6C717A;
+  --c-text-scramble: rgb(190, 190, 190);
 
   --c-logo: #F2F2F2;
 
@@ -19,5 +19,4 @@
   --c-timer-not-ready: rgb(189, 27, 35); // ?
   --c-timer-info: var(--c-text-secondary);
   --s-timer: 3.3125em;
-  --s-timer-info: 1em;
 }

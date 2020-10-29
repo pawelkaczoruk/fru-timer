@@ -28,6 +28,14 @@ export default defineComponent({
 .order-button {
   width: 100%;
   padding: 0.5em 0;
+
+  @include hover() {
+    .order-icon {
+      transition: all 0.15s ease-in-out;
+      color: var(--c-menu-icon-active);
+      fill: var(--c-menu-icon-active);
+    }
+  }
 }
 
 .order-icon {

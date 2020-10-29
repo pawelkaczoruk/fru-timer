@@ -29,11 +29,14 @@
   @if $align { text-align: $align; }
 }
 
-@mixin hover() {
-  transition: all 0.15s ease-in-out;
+@mixin hover($duration: 0.15s) {
+  @media screen and (any-hover: hover) {
+    transition: all $duration ease-in-out;
 
-  @media screen and (min-width: 1024px) {
-    &:hover { @content; }
+    &:hover {
+      cursor: pointer;
+      @content;
+    }
   }
 }
 
@@ -63,5 +66,7 @@
     (max-height: 768px) and
     (min-width: 634px) and
     (max-width: 1024px) { @content; }
+  } @else if $type == big {
+    @media screen and (min-width: 1366px) { @content; }
   }
 }

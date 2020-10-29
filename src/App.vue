@@ -1,4 +1,4 @@
-<template>
+<template class="darken">
   <TheAppbar />
 
   <router-view/>
@@ -55,11 +55,7 @@ export default defineComponent({
 #app {
   @include flex($direction: column);
   height: 100vh;
-  background: linear-gradient(
-    180deg,
-    var(--c-bg-first) 0%,
-    var(--c-bg-second) 75%,
-    var(--c-bg-second) 100%);
+  background: var(--c-bg);
 
   .home { flex-grow: 1; }
 }

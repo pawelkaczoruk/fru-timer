@@ -17,7 +17,10 @@
           </g>
         </svg>
       </MenuButton>
-      <MenuButton @click="toggleStatsDisplay()">
+      <MenuButton
+        :highlight="getStatsVisibility"
+        @click="toggleStatsDisplay()"
+      >
         <svg
           class="icon"
           viewBox="0 0 27.384 27.384"
@@ -36,7 +39,10 @@
     </div>
 
     <div>
-      <MenuButton @click="toggleTimesList()">
+      <MenuButton
+        :highlight="getListVisibility"
+        @click="toggleTimesList()"
+      >
         <svg
           class="icon"
           viewBox="0 0 27.171 26.186"
@@ -89,6 +95,7 @@
 import { defineComponent } from 'vue'
 import MenuButton from './buttons/MenuButton.vue'
 import useMenuController from '@/composables/menu/useMenuController'
+import useConfig from '@/composables/store/useConfig'
 
 export default defineComponent({
   name: 'TheMenuBar',
@@ -102,11 +109,18 @@ export default defineComponent({
       getSessionMenuVisibility
     } = useMenuController()
 
+    const {
+      getStatsVisibility,
+      getListVisibility
+    } = useConfig()
+
     return {
       toggleStatsDisplay,
       toggleTimesList,
       toggleSessionMenu,
-      getSessionMenuVisibility
+      getSessionMenuVisibility,
+      getListVisibility,
+      getStatsVisibility
     }
   }
 })

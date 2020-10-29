@@ -78,16 +78,19 @@ export default defineComponent({
 .stats-display {
   @include position(fixed, $b: 5em, $l: 50%);
   transform: translateX(-50%);
-
-  @include media(landscapeShort) {
-    bottom: 0em;
-  }
+  @include media(landscapeShort) { bottom: 0em; }
 }
 
 .list-display {
   @include position(fixed, $b: 4.6875em, $l: 50%);
   @include expandAnimation();
   transform: translateX(-50%);
+  @include media(big) {
+    bottom: 0.625em;
+    right: 0;
+    left: unset;
+    transform: unset;
+  }
 }
 
 </style>

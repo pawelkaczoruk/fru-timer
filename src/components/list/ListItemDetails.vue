@@ -3,7 +3,7 @@
 
     <span class="date">Date: {{ new Date(item.result.date).toLocaleString() }}</span>
     <span>Comment: {{ item.result.comment }}</span>
-    <span>Scramble: {{ item.result.scramble }}</span>
+    <span class="scramble">Scramble: {{ item.result.scramble }}</span>
 
   </li>
 </template>
@@ -37,8 +37,10 @@ export default defineComponent({
   border-top: 0.125rem solid var(--c-text-secondary);
   color: var(--c-text-secondary);
   font-size: 0.875em;
+  user-select: text;
 }
 
 .date { padding-top: 0.5em; }
+.scramble { padding-bottom: 0.5em; }
 
 </style>

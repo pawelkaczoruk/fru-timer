@@ -41,7 +41,7 @@ export default defineComponent({
   @include rect(4.25em, 4.25em, 0.9375em, var(--c-menu));
   @include position(absolute, $b: 0, $l: 50%, $z: 10);
   transform: translate(-50%, -1.0625em);
-  box-shadow: 0 0 0 0.5625em var(--c-bg-second);
+  box-shadow: 0 0 0 0.5625em var(--c-bg);
   transition: all 0.4s ease-in-out;
 
   .home-icon {
@@ -58,6 +58,12 @@ export default defineComponent({
       fill: var(--c-menu);
       transform: rotate(45deg);
     }
+  }
+
+  @include hover(0.4s) {
+    background: var(--c-menu-icon-active);
+
+    .home-icon { fill: var(--c-menu); }
   }
 }
 
