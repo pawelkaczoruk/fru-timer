@@ -77,11 +77,7 @@ export default defineComponent({
 
 .session-menu {
   @include position(absolute, $r: 0.5em, $b: 4.125em, $z: -1);
-
-  &.expand-enter-active,
-  &.expand-leave-active { transition: height 0.4s ease-in-out; }
-  &.expand-enter-from,
-  &.expand-leave-to { height: 0; }
+  @include expandAnimation();
 }
 
 </style>

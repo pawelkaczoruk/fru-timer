@@ -41,3 +41,17 @@
   @include hover() { background: $hover-bg; }
   background: $bg;
 }
+
+@mixin expandAnimation() {
+  &.expand-enter-active,
+  &.expand-leave-active { transition: height 0.4s ease-in-out; }
+  &.expand-enter-from,
+  &.expand-leave-to { height: 0; }
+}
+
+@mixin scrollReset() {
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none }
+}

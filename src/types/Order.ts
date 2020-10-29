@@ -15,8 +15,9 @@ export enum OrderBy {
   DESC_COMMENT = 'desc_comment',
 }
 
-interface SortableListElement {
+export interface SortableListItem {
   id: string;
+  number: number;
   result: Result;
   single: number;
   mo3: number;
@@ -25,4 +26,4 @@ interface SortableListElement {
 }
 
 export type SortingProps = 'single' | 'mo3' | 'ao5' |'ao12' | 'comment'
-export type SortableList = Array<SortableListElement>
+export type SortableList = Array<SortableListItem>

@@ -7,7 +7,10 @@
     <TheScrambleDisplay />
     <TheTimerDisplay />
     <TheStatsDisplay v-if="getStatsVisibility" />
-    <TheListDisplay v-if="getListVisibility" />
+
+    <transition name="expand">
+      <TheListDisplay v-if="getListVisibility" />
+    </transition>
 
   </div>
 </template>
@@ -17,7 +20,7 @@ import { defineComponent, onMounted, onUnmounted, ref, Ref } from 'vue'
 import TheTimerDisplay from '@/components/TheTimerDisplay.vue'
 import TheScrambleDisplay from '@/components/TheScrambleDisplay.vue'
 import TheStatsDisplay from '@/components/TheStatsDisplay.vue'
-import TheListDisplay from '@/components/TheListDisplay.vue'
+import TheListDisplay from '@/components/list/TheListDisplay.vue'
 import useTimer from '@/composables/useTimer'
 import useConfig from '@/composables/store/useConfig'
 
@@ -79,7 +82,8 @@ export default defineComponent({
 }
 
 .list-display {
-  @include position(fixed, 3.75em, $l: 50%);
+  @include position(fixed, $b: 4.6875em, $l: 50%);
+  @include expandAnimation();
   transform: translateX(-50%);
 }
 
