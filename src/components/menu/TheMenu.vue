@@ -68,16 +68,12 @@ export default defineComponent({
 .option-menu {
   @include position(absolute, $b: 0, $l: 50%);
   transform: translate(-50%, -4.875em);
-
-  &.grow-enter-active,
-  &.grow-leave-active { transition: transform 0.4s ease-in-out; }
-  &.grow-enter-from,
-  &.grow-leave-to { transform: translate(-50%, -1.875em) scale(0.2); }
+  @include animation(grow);
 }
 
 .session-menu {
   @include position(absolute, $r: 0.5em, $b: 4.125em, $z: -1);
-  @include expandAnimation();
+  @include animation(expand);
 }
 
 </style>

@@ -70,8 +70,7 @@ export default defineComponent({
   setup() {
     const {
       getCommentModalVisibility,
-      toggleCommentModal,
-      toggleOptionMenu
+      toggleCommentModal
     } = useMenuController()
 
     const { findBest } = useMath()
@@ -128,7 +127,6 @@ export default defineComponent({
     }
 
     const removeLastResult = () => {
-      toggleOptionMenu(false)
       if (!getSessionLength.value) return
 
       const results = toRaw(getSessionResults.value).slice(0, getSessionLength.value - 1)
@@ -138,7 +136,6 @@ export default defineComponent({
     }
 
     const togglePenalty = () => {
-      toggleOptionMenu(false)
       if (!getSessionLength.value) return
 
       const lastResult = { ...toRaw(getLastSessionResult.value) }
@@ -154,7 +151,6 @@ export default defineComponent({
     }
 
     const toggleDnf = () => {
-      toggleOptionMenu(false)
       if (!getSessionLength.value) return
 
       const lastResult = { ...toRaw(getLastSessionResult.value) }

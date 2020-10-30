@@ -6,7 +6,9 @@
 
     <TheScrambleDisplay />
     <TheTimerDisplay />
-    <TheStatsDisplay v-if="getStatsVisibility" />
+    <transition name="fade">
+      <TheStatsDisplay v-if="getStatsVisibility" />
+    </transition>
 
     <transition name="expand">
       <TheListDisplay v-if="getListVisibility" />
@@ -79,11 +81,12 @@ export default defineComponent({
   @include position(fixed, $b: 5em, $l: 50%);
   transform: translateX(-50%);
   @include media(landscapeShort) { bottom: 0em; }
+  @include animation(fade);
 }
 
 .list-display {
   @include position(fixed, $b: 4.6875em, $l: 50%);
-  @include expandAnimation();
+  @include animation(expand);
   transform: translateX(-50%);
   @include media(big) {
     bottom: 0.625em;

@@ -1,6 +1,4 @@
-html {
-  font-size: 16px;
-}
+html { font-size: 16px; }
 
 body {
   min-height: 100vh;
@@ -26,16 +24,17 @@ body {
 }
 
 ul,
-ol {
-  list-style: none;
-}
+ol { list-style: none; }
 
-a {
-  text-decoration: none;
-}
+a { text-decoration: none; }
 
 button {
   background: none;
   border: none;
   color: var(--c-text);
 }
+
+button,
+a,
+input,
+textarea { outline: none; }

@@ -23,7 +23,7 @@
 
   <transition name="expand">
     <ListItemDetails
-      v-show="isExpanded"
+      v-if="isExpanded"
       :item="item"
     />
   </transition>
@@ -81,6 +81,6 @@ export default defineComponent({
   fill: var(--c-text-secondary);
 }
 
-.list-item-details { @include expandAnimation(); }
+.list-item-details { @include animation(expand); }
 
 </style>

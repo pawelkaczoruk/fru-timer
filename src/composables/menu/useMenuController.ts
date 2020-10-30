@@ -20,11 +20,9 @@ export default function useMenuController() {
 
   const toggleOptionMenu = (state?: boolean) => {
     isOptionMenuVisible.value = state === undefined ? !isOptionMenuVisible.value : state
-    isSessionMenuVisible.value = false
   }
 
   const toggleSessionMenu = () => {
-    if (isOptionMenuVisible.value) toggleOptionMenu(false)
     isSessionMenuVisible.value = !isSessionMenuVisible.value
   }
 
@@ -39,7 +37,6 @@ export default function useMenuController() {
   }
 
   const toggleCommentModal = () => {
-    toggleOptionMenu(false)
     if (!getSessionLength.value) return
     isCommentModalVisible.value = !isCommentModalVisible.value
   }

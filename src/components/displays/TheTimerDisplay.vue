@@ -1,24 +1,24 @@
 <template>
   <div class="timer-display">
-    <p 
+
+    <span 
       class="timer"
       :class="getTimerClass"
-    >{{ getFormattedTime(getCurrentTime) }}</p>
-    <p
+    >{{ getFormattedTime(getCurrentTime) }}</span>
+    <span
       class="timer-info"
       v-if="!getSessionLength"
-    >Press and hold to start the timer</p>
+    >Press spacebar/screen and hold to start the timer</span>
   </div>
+
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-
 import useCurrentData from '@/composables/store/useCurrentData'
 import useTimeFormatter from '@/composables/useTimeFormatter'
 import useTimer from '@/composables/useTimer'
 import useSessionResults from '@/composables/store/useSessionResults'
-
 import { TimerState } from '@/types/Timer'
 
 export default defineComponent({
@@ -52,6 +52,9 @@ export default defineComponent({
   text-align: center;
   user-select: none;
 }
+
+.timer,
+.timer-info { display: block; }
 
 .timer {
   font-size: 4em;
