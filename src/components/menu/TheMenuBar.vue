@@ -18,8 +18,8 @@
         </svg>
       </MenuButton>
       <MenuButton
-        :highlight="getStatsVisibility"
-        @click="toggleStatsDisplay()"
+        :highlight="getDisplayMenuVisibility"
+        @click="toggleDisplayMenu()"
       >
         <svg
           class="icon"
@@ -103,24 +103,22 @@ export default defineComponent({
 
   setup() {
     const {
-      toggleStatsDisplay,
+      toggleDisplayMenu,
       toggleTimesList,
       toggleSessionMenu,
+      getDisplayMenuVisibility,
       getSessionMenuVisibility
     } = useMenuController()
 
-    const {
-      getStatsVisibility,
-      getListVisibility
-    } = useConfig()
+    const { getListVisibility } = useConfig()
 
     return {
-      toggleStatsDisplay,
+      toggleDisplayMenu,
       toggleTimesList,
       toggleSessionMenu,
+      getDisplayMenuVisibility,
       getSessionMenuVisibility,
-      getListVisibility,
-      getStatsVisibility
+      getListVisibility
     }
   }
 })

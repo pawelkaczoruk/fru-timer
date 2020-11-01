@@ -42,6 +42,9 @@ export default function useConfig() {
   const getStatsVisibility = computed(() => config.areStatsVisible)
   const toggleStatsVisibility = () => { config.areStatsVisible = !config.areStatsVisible }
 
+  const getScrambleVisibility = computed(() => config.isScrambleVisible)
+  const toggleScrambleVisibility = () => { config.isScrambleVisible = !config.isScrambleVisible }
+
   const getListVisibility = computed(() => config.isListVisible)
   const toggleListVisibility = () => { config.isListVisible = !config.isListVisible }
 
@@ -62,6 +65,9 @@ export default function useConfig() {
 
     getStatsVisibility,
     toggleStatsVisibility,
+
+    getScrambleVisibility,
+    toggleScrambleVisibility,
 
     getListVisibility,
     toggleListVisibility,

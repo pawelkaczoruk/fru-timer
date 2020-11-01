@@ -4,6 +4,7 @@ import useSessionResults from '../store/useSessionResults'
 import useLocalStorage from '../useLocalStorage'
 
 
+const isDisplayMenuVisible = ref(false)
 const isOptionMenuVisible = ref(false)
 const isSessionMenuVisible = ref(false)
 const isCommentModalVisible = ref(false)
@@ -11,23 +12,44 @@ const isCommentModalVisible = ref(false)
 
 export default function useMenuController() {
   const { getSessionLength } = useSessionResults()
-  const { toggleStatsVisibility, toggleListVisibility, getConfig } = useConfig()
   const { setConfig: setConfigLS } = useLocalStorage()
+  const {
+    toggleStatsVisibility,
+    toggleScrambleVisibility,
+    toggleListVisibility,
+    getConfig
+  } = useConfig()
 
+  const getDisplayMenuVisibility = computed(() => isDisplayMenuVisible.value)
   const getOptionMenuVisibility = computed(() => isOptionMenuVisible.value)
   const getSessionMenuVisibility = computed(() => isSessionMenuVisible.value)
   const getCommentModalVisibility = computed(() => isCommentModalVisible.value)
 
+  const toggleDisplayMenu = (state?: boolean) => {
+    isDisplayMenuVisible.value = state === undefined ? !isDisplayMenuVisible.value : state
+    isOptionMenuVisible.value = false
+    isSessionMenuVisible.value = false
+  } 
+
   const toggleOptionMenu = (state?: boolean) => {
     isOptionMenuVisible.value = state === undefined ? !isOptionMenuVisible.value : state
+    isSessionMenuVisible.value = false
+    isDisplayMenuVisible.value = false
   }
 
-  const toggleSessionMenu = () => {
-    isSessionMenuVisible.value = !isSessionMenuVisible.value
+  const toggleSessionMenu = (state?: boolean) => {
+    isSessionMenuVisible.value = state === undefined ? !isSessionMenuVisible.value : state
+    isOptionMenuVisible.value = false
+    isDisplayMenuVisible.value = false
   }
 
   const toggleStatsDisplay = () => {
     toggleStatsVisibility()
+    setConfigLS(getConfig.value)
+  }
+
+  const toggleScrambleDisplay = () => {
+    toggleScrambleVisibility()
     setConfigLS(getConfig.value)
   }
 
@@ -42,12 +64,15 @@ export default function useMenuController() {
   }
 
   return {
+    getDisplayMenuVisibility,
     getOptionMenuVisibility,
     getSessionMenuVisibility,
     getCommentModalVisibility,
+    toggleDisplayMenu,
     toggleOptionMenu,
     toggleSessionMenu,
     toggleStatsDisplay,
+    toggleScrambleDisplay,
     toggleTimesList,
     toggleCommentModal
   }

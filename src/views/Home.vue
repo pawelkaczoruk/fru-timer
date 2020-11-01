@@ -4,8 +4,12 @@
     ref="homeRef"
   >
 
-    <TheScrambleDisplay />
+    <transition name="fade">
+      <TheScrambleDisplay v-if="getScrambleVisibility" />
+    </transition>
+
     <TheTimerDisplay />
+
     <transition name="fade">
       <TheStatsDisplay v-if="getStatsVisibility" />
     </transition>
@@ -55,13 +59,15 @@ export default defineComponent({
 
     const {
       getListVisibility,
-      getStatsVisibility
+      getStatsVisibility,
+      getScrambleVisibility
     } = useConfig()
 
     return {
       homeRef,
       getListVisibility,
-      getStatsVisibility
+      getStatsVisibility,
+      getScrambleVisibility
     }
   }
 })
@@ -75,6 +81,10 @@ export default defineComponent({
 .timer-display {
   @include position(fixed, $t: 50%, $l: 50%);
   transform: translate(-50%, -50%);
+}
+
+.scramble-display {
+  @include animation(fade);
 }
 
 .stats-display {

@@ -17,5 +17,6 @@ export interface SessionStats {
 export interface Config {
   activeSessionKey: number;
   areStatsVisible: boolean;
+  isScrambleVisible: boolean;
   isListVisible: boolean;
 }

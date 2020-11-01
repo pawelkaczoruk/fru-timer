@@ -5,13 +5,14 @@
       :highlight="getOptionMenuVisibility"
       @click="toggleOptionMenu()"
     />
-
     <TheMenuBar />
 
     <transition name="grow">
       <TheOptionMenu v-show="getOptionMenuVisibility" />
     </transition>
-
+    <transition name="expand">
+      <TheDisplayMenu v-show="getDisplayMenuVisibility" />
+    </transition>
     <transition name="expand">
       <TheSessionMenu v-show="getSessionMenuVisibility" />
     </transition>
@@ -21,6 +22,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import TheDisplayMenu from './expandables/TheDisplayMenu.vue'
 import TheSessionMenu from './expandables/TheSessionMenu.vue'
 import TheOptionMenu from './expandables/TheOptionMenu.vue'
 import TheHomeButton from './buttons/TheHomeButton.vue'
@@ -31,6 +33,7 @@ import useMenuController from '@/composables/menu/useMenuController'
 export default defineComponent({
   name: 'TheMenu',
   components: {
+    TheDisplayMenu,
     TheSessionMenu,
     TheOptionMenu,
     TheHomeButton,
@@ -39,12 +42,14 @@ export default defineComponent({
 
   setup() {
     const {
+      getDisplayMenuVisibility,
       getOptionMenuVisibility,
       getSessionMenuVisibility,
       toggleOptionMenu
     } = useMenuController()
 
     return {
+      getDisplayMenuVisibility,
       getOptionMenuVisibility,
       getSessionMenuVisibility,
       toggleOptionMenu
@@ -73,6 +78,11 @@ export default defineComponent({
 
 .session-menu {
   @include position(absolute, $r: 0.5em, $b: 4.125em, $z: -1);
+  @include animation(expand);
+}
+
+.display-menu {
+  @include position(absolute, $l: 0.5em, $b: 4.125em, $z: -1);
   @include animation(expand);
 }
 
