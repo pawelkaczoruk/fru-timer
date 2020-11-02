@@ -35,21 +35,12 @@
       </svg>
     </OptionButton>
 
-    <teleport
-      v-if="getCommentModalVisibility"
-      to="#modal"
-    >
-      <TheCommentModal />
-    </teleport>
-
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, toRaw } from 'vue'
 import OptionButton from '../buttons/OptionButton.vue'
-import TheCommentModal from '@/components/modals/TheCommentModal.vue'
-
 import useSessionHistory from '@/composables/store/useSessionHistory'
 import useSessionBests from '@/composables/store/useSessionBests'
 import useMath from '@/composables/useMath'
@@ -57,21 +48,14 @@ import useSessionResults from '@/composables/store/useSessionResults'
 import useDB from '@/composables/useDB'
 import useConfig from '@/composables/store/useConfig'
 import useMenuController from '@/composables/menu/useMenuController'
-
 import { ResultState } from '@/types/Timer'
 
 export default defineComponent({
   name: 'TheOptionMenu',
-  components: {
-    OptionButton,
-    TheCommentModal
-  },
+  components: { OptionButton },
 
   setup() {
-    const {
-      getCommentModalVisibility,
-      toggleCommentModal
-    } = useMenuController()
+    const { toggleCommentModal } = useMenuController()
 
     const { findBest } = useMath()
     const { getCurrentSessionKey } = useConfig()
@@ -169,7 +153,6 @@ export default defineComponent({
       removeLastResult,
       togglePenalty,
       toggleDnf,
-      getCommentModalVisibility,
       toggleCommentModal,
       getLastSessionResult,
       ResultState

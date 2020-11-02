@@ -18,6 +18,8 @@
       <TheListDisplay v-if="getListVisibility" />
     </transition>
 
+    <TheCommentModal v-if="getCommentModalVisibility" />
+
   </div>
 </template>
 
@@ -27,8 +29,10 @@ import TheTimerDisplay from '@/components/displays/TheTimerDisplay.vue'
 import TheScrambleDisplay from '@/components/displays/TheScrambleDisplay.vue'
 import TheStatsDisplay from '@/components/displays/TheStatsDisplay.vue'
 import TheListDisplay from '@/components/list/TheListDisplay.vue'
+import TheCommentModal from '@/components/modals/TheCommentModal.vue'
 import useTimer from '@/composables/useTimer'
 import useConfig from '@/composables/store/useConfig'
+import useMenuController from '@/composables/menu/useMenuController'
 
 export default defineComponent({
   name: 'Home',
@@ -36,7 +40,8 @@ export default defineComponent({
     TheTimerDisplay,
     TheScrambleDisplay,
     TheStatsDisplay,
-    TheListDisplay
+    TheListDisplay,
+    TheCommentModal
   },
 
   setup() {
@@ -63,11 +68,14 @@ export default defineComponent({
       getScrambleVisibility
     } = useConfig()
 
+    const { getCommentModalVisibility } = useMenuController()
+
     return {
       homeRef,
       getListVisibility,
       getStatsVisibility,
-      getScrambleVisibility
+      getScrambleVisibility,
+      getCommentModalVisibility
     }
   }
 })
@@ -83,9 +91,7 @@ export default defineComponent({
   transform: translate(-50%, -50%);
 }
 
-.scramble-display {
-  @include animation(fade);
-}
+.scramble-display { @include animation(fade); }
 
 .stats-display {
   @include position(fixed, $b: 5em, $l: 50%);

@@ -64,33 +64,4 @@ export default defineComponent({
   @include flex(inline-flex, center, center);
 }
 
-#modal {
-  @include position(fixed, 50%, $l: 50%);
-  transform: translate(-50%, -50%);
-
-  .modal-content {
-    @include shadow();
-    min-width: 300px;
-    padding: 1em;
-    border-radius: 0.75em;
-    background: var(--c-menu);
-    color: var(--c-text-secondary);
-  }
-
-  .modal-title {
-    @include text(1.25em, $a: center, $w: 500);
-    margin-bottom: 1rem;
-  }
-
-  .button-container {
-    @include flex(flex, space-between);
-    margin-top: 1rem;
-  }
-
-  .modal-button {
-    font-weight: bold;
-    @include hover() { color: var(--c-menu-icon-active); }
-  }
-}
-
 </style>
