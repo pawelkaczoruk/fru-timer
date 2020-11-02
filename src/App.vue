@@ -70,14 +70,15 @@ export default defineComponent({
   transform: translate(-50%, -50%);
 
   .modal-content {
+    @include shadow();
     min-width: 300px;
     padding: 1em 1em;
     border-radius: 0.5em;
-    background:var(--c-primary);
+    background: var(--c-menu);
   }
 
   .modal-title {
-    @include text(1.25em, $align: center);
+    @include text(1.25em, $a: center);
     margin-bottom: 0.5em;
   }
 
@@ -95,30 +96,6 @@ export default defineComponent({
       color: var(--c-light-transparent);
       border-bottom: 2px solid var(--c-light-transparent);
     }
-  }
-}
-
-.wrapper {
-  padding: 0 1rem;
-}
-
-.btn {
-  @include flex($display: inline-flex, $justify: center, $align: center);
-  @include rect(3em, 3em);
-  @include background(var(--c-primary), var(--c-dark-transparent));
-  @include hover() {
-    cursor: pointer;
-    svg { fill: var(--c-light-transparent); }    
-  }
-
-  &.rounded { border-radius: 50%; }
-  &.top-right-rounded { border-radius: 0 50% 0 0; }
-  &.top-left-rounded { border-radius: 50% 0 0 0; }
-
-  svg {
-    @include rect(60%, 60%);
-    fill: var(--c-text);
-    transition: fill 0.15s ease-in-out;
   }
 }
 

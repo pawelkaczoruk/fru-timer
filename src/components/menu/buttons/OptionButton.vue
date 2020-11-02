@@ -26,7 +26,7 @@ export default defineComponent({
 
 .option-button {
   @include rect(2.5em, 2.5em, 50%, var(--c-menu));
-  box-shadow: 0 0 0 0.5625em var(--c-bg);
+  @include shadow();
   @include hover() {
     .option-icon {
       transition: all 0.15s ease-in-out;
@@ -37,10 +37,8 @@ export default defineComponent({
 }
 
 .option-icon {
+  @include text($w: bold, $s: normal, $c: var(--c-menu-icon));
   user-select: none;
-  font-weight: bold;
-  font-style: normal;
-  color: var(--c-menu-icon);
   fill: var(--c-menu-icon);
   transition: all 0.4s ease-in-out;
 

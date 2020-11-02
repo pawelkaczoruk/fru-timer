@@ -25,8 +25,7 @@ export default defineComponent({
 
 .display-button {
   @include rect(100%, 2em);
-  color: var(--c-menu-icon);
-  font-weight: bold;
+  @include text($c: var(--c-menu-icon), $w: bold);
   transition: all 0.4s ease-in-out;
   @include hover() { color: var(--c-menu-icon-active); }
 

@@ -28,6 +28,7 @@ export default defineComponent({
 
 .list-item-details {
   @include scrollReset();
+  @include text(0.875em, $c: var(--c-text-secondary));
   display: grid;
   grid-template-rows: repeat(3, auto) 1fr;
   gap: 0.5em;
@@ -35,8 +36,6 @@ export default defineComponent({
   padding: 0 0.5em;
   border-bottom: 0.125rem solid var(--c-text-secondary);
   border-top: 0.125rem solid var(--c-text-secondary);
-  color: var(--c-text-secondary);
-  font-size: 0.875em;
   user-select: text;
 }
 

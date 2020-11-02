@@ -23,10 +23,13 @@
   @if $z { z-index: $z; }
 }
 
-@mixin text($size: false, $weight: false, $align: false) {
+@mixin text($size: false, $w: false, $a: false, $c: false, $s: false, $f: false) {
   @if $size { font-size: $size; }
-  @if $weight { font-weight: $weight; }
-  @if $align { text-align: $align; }
+  @if $w { font-weight: $w; }
+  @if $a { text-align: $a; }
+  @if $c { color: $c; }
+  @if $s { font-style: $s; }
+  @if $f { font-family: $f; }  
 }
 
 @mixin hover($duration: 0.15s) {
@@ -40,6 +43,10 @@
   }
 }
 
+@mixin shadow() {
+  box-shadow: 0 0 0 0.5625em var(--c-bg);
+}
+// bg
 @mixin background($bg: inherit, $hover-bg: inherit) {
   @include hover() { background: $hover-bg; }
   background: $bg;

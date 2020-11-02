@@ -39,8 +39,7 @@ export default defineComponent({
 }
 
 .order-icon {
-  font-weight: bold;
-  font-style: normal;
+  @include text($w: bold, $s: normal);
   fill: var(--c-text-secondary);
   transition: all 0.4s ease-in-out;
 

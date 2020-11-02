@@ -46,6 +46,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/mixins';
 
 .timer-display {
   min-width: 250px;
@@ -57,8 +58,7 @@ export default defineComponent({
 .timer-info { display: block; }
 
 .timer {
-  font-size: 4em;
-  color: var(--c-timer-idle);
+  @include text(4em, $c: var(--c-timer-idle));
 
   &.ready { color: var(--c-timer-ready); }
   &.not-ready { color: var(--c-timer-not-ready); }

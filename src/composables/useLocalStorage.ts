@@ -4,8 +4,8 @@ import { SessionsConfig } from '@/types/DB'
 
 const CONFIG: Config = {
   activeSessionKey: 2,
-  areStatsVisible: false,
-  isScrambleVisible: false,
+  areStatsVisible: true,
+  isScrambleVisible: true,
   isListVisible: false
 }
 const CONFIG_KEY = 'config'

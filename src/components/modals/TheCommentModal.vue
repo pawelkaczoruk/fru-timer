@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-content">
+  <div class="comment-modal modal-content">
 
     <p class="modal-title">Comment</p>
     <textarea v-model="comment"></textarea>
@@ -18,11 +18,11 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, onMounted, ref, toRaw } from 'vue'
 import useMenuController from '@/composables/menu/useMenuController'
 import useConfig from '@/composables/store/useConfig'
 import useSessionResults from '@/composables/store/useSessionResults'
 import useDB from '@/composables/useDB'
-import { defineComponent, onMounted, ref, toRaw } from 'vue'
 
 export default defineComponent({
   name: 'TheCommentModal',
@@ -67,7 +67,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins';
 
-.modal-content {
+.comment-modal {
   textarea {
     @include rect(100%, 4em, 0.25em);
     padding: 0.2em;

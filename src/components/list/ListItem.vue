@@ -62,13 +62,12 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .list-item {
+  @include text(0.875em, $c: var(--c-text-secondary));
   display: grid;
   grid-template-columns: 2em repeat(4, 1fr) 1em;
   align-items: center;
   justify-items: center;
   padding: 0.5em;
-  font-size: 0.875em;
-  color: var(--c-text-secondary);
   transition: color 0.4s ease-in-out;
 
   &.active { color: var(--c-menu-icon-active); }

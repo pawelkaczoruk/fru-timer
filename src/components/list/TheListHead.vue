@@ -82,13 +82,12 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .list-head {
+  @include text(0.875em, $c: var(--c-text-secondary));
   display: grid;
   grid-template-columns: 2em repeat(4, 1fr) 1em;
   gap: 0.25em;
   padding: 0 0.5em;
   border-bottom: 0.25rem solid var(--c-text-secondary);
-  font-size: 0.875em;
-  color: var(--c-text-secondary);
 }
 
 .icon { width: 100%; }

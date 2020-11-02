@@ -184,9 +184,9 @@ export default defineComponent({
 .option-menu {
   pointer-events: none;
   display: grid;
-  grid-template: ". second . third ." 2.5675em
-                 "first . . . fourth" 2.5675em
-                 / 2.5675em 2.5675em 1.125em 2.5675em 2.5675em;
+  grid-template: ". second . third ." 2.8125em
+                 "first . . . fourth" 2.8125em
+                 / 2.8125em 2.8125em 1.125em 2.8125em 2.8125em;
 }
 
 .option-button {

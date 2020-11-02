@@ -25,8 +25,7 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .scramble {
-  @include text(1.4375em, 500, center);
-  color: var(--c-text-scramble);
+  @include text(1.4375em, 500, center, var(--c-text-scramble));
   white-space: pre-wrap;
   user-select: none;
 

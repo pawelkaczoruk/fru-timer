@@ -39,7 +39,8 @@ export default function useScrambleGenerator() {
   const generateScramble = () => {
     const cube = getSelectedCubeType.value
     if (cube === 'square1' || cube === 'clock') {
-      return setCurrentScramble(`${cube} is not yet supported by the scramble generator`)
+      setCurrentScramble(`${cube} is not yet supported by the scramble generator`)
+      return
     }
 
     const config = CONFIG[cube]

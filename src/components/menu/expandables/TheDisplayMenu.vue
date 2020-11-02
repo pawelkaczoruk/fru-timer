@@ -54,23 +54,10 @@ export default defineComponent({
 
 .display-menu {
   @include rect(8em, 5em, 0.75em, var(--c-menu));
-  box-shadow: 0 0 0 0.5625em var(--c-bg);
+  @include shadow();
   overflow: hidden;
 }
 
-.menu-list {
-  padding: 0.5em;
-}
-
-// .session-list {
-//   padding: 0.5em;
-//   text-align: right;
-// }
-
-// .session-button {
-//   color: var(--c-text-secondary);
-
-//   &.active { color: var(--c-menu-icon-active); }
-// }
+.menu-list { padding: 0.5em; }
 
 </style>
