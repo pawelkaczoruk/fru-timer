@@ -19,3 +19,13 @@
        url('./assets/fonts/barlow-semi-condensed-medium.woff') format('woff'),
        url('./assets/fonts/barlow-semi-condensed-medium.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato'),
+       url('./assets/fonts/lato-regular.woff2') format('woff2'),
+       url('./assets/fonts/lato-regular.woff') format('woff'),
+       url('./assets/fonts/lato-regular.ttf') format('truetype');
+}
