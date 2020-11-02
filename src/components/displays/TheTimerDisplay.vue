@@ -58,7 +58,7 @@ export default defineComponent({
 .timer-info { display: block; }
 
 .timer {
-  @include text(4em, $c: var(--c-timer-idle));
+  @include text(var(--s-timer), $c: var(--c-timer-idle));
 
   &.ready { color: var(--c-timer-ready); }
   &.not-ready { color: var(--c-timer-not-ready); }

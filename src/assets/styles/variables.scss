@@ -8,15 +8,17 @@
   --c-logo: #F2F2F2;
 
   --c-nav-icon: #9CB4BB;
-  --c-nav-icon-active: #9CB4BB; // ?
 
   --c-menu: #343940;
   --c-menu-icon: var(--c-text-secondary);
-  --c-menu-icon-active: #B3ECB9; // ?
+  --c-menu-icon-active: #B3ECB9;
 
   --c-timer-idle: #FFF;
-  --c-timer-ready: rgb(31, 185, 31); // ?
-  --c-timer-not-ready: rgb(189, 27, 35); // ?
+  --c-timer-ready: rgb(31, 185, 31);
+  --c-timer-not-ready: rgb(189, 27, 35);
   --c-timer-info: var(--c-text-secondary);
-  --s-timer: 3.3125em;
+  --s-timer: 4em;
+
+  --c-input: #a8a8a8;
+  --c-input-bg: #4e555e;
 }

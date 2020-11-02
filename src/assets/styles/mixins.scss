@@ -46,11 +46,6 @@
 @mixin shadow() {
   box-shadow: 0 0 0 0.5625em var(--c-bg);
 }
-// bg
-@mixin background($bg: inherit, $hover-bg: inherit) {
-  @include hover() { background: $hover-bg; }
-  background: $bg;
-}
 
 @mixin animation($name) {
   @if $name == expand {

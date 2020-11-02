@@ -2,7 +2,11 @@
   <div class="comment-modal modal-content">
 
     <p class="modal-title">Comment</p>
-    <textarea v-model="comment"></textarea>
+    <textarea
+      class="comment-input"
+      v-model="comment"
+      placeholder="Comment here..."
+    ></textarea>
     <div class="button-container">
       <button
         class="modal-button"
@@ -67,11 +71,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins';
 
-.comment-modal {
-  textarea {
-    @include rect(100%, 4em, 0.25em);
-    padding: 0.2em;
-  }
-}
+.comment-input { @include rect(100%, 4em); }
 
 </style>

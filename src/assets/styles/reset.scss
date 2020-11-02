@@ -38,3 +38,12 @@ button,
 a,
 input,
 textarea { outline: none; }
+
+input,
+textarea {
+  padding: 0.5em;
+  border: none;
+  border-radius: 0.25em;
+  background: var(--c-input-bg);
+  color: var(--c-input);
+}

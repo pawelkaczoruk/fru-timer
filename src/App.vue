@@ -64,7 +64,6 @@ export default defineComponent({
   @include flex(inline-flex, center, center);
 }
 
-// below to be changed
 #modal {
   @include position(fixed, 50%, $l: 50%);
   transform: translate(-50%, -50%);
@@ -72,30 +71,25 @@ export default defineComponent({
   .modal-content {
     @include shadow();
     min-width: 300px;
-    padding: 1em 1em;
-    border-radius: 0.5em;
+    padding: 1em;
+    border-radius: 0.75em;
     background: var(--c-menu);
+    color: var(--c-text-secondary);
   }
 
   .modal-title {
-    @include text(1.25em, $a: center);
-    margin-bottom: 0.5em;
+    @include text(1.25em, $a: center, $w: 500);
+    margin-bottom: 1rem;
   }
 
   .button-container {
     @include flex(flex, space-between);
-    margin-top: 0.5em;
+    margin-top: 1rem;
   }
 
   .modal-button {
-    border-bottom: 2px solid var(--c-text);
     font-weight: bold;
-
-    @include hover() {
-      cursor: pointer;
-      color: var(--c-light-transparent);
-      border-bottom: 2px solid var(--c-light-transparent);
-    }
+    @include hover() { color: var(--c-menu-icon-active); }
   }
 }
 
