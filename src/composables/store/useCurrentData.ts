@@ -14,11 +14,15 @@ export default function useCurrentData() {
   const getCurrentScramble = computed(() => currentScramble.value)
   const setCurrentScramble = (scramble: string) => { currentScramble.value = scramble }
 
+  const resetTime = () => currentTime.value = 0;
+
   return {
     getCurrentTime,
     setCurrentTime,
 
     getCurrentScramble,
-    setCurrentScramble
+    setCurrentScramble,
+
+    resetTime
   }
 }

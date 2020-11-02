@@ -17,6 +17,7 @@ import useSessionBests from './composables/store/useSessionBests'
 import useDB from './composables/useDB'
 import useLocalStorage from './composables/useLocalStorage'
 import useScrambleGenerator from './composables/scrambler/useScrambleGenerator'
+import useCurrentData from './composables/store/useCurrentData'
 
 export default defineComponent({
   name: 'App',
@@ -31,6 +32,7 @@ export default defineComponent({
     const { generateScramble } = useScrambleGenerator()
     const { setConfig: setConfigLS } = useLocalStorage()
     const { resetBests } = useSessionBests()
+    const { resetTime } = useCurrentData()
 
     initializeSessions()
     fetchSession(getCurrentSessionKey.value)
@@ -41,6 +43,7 @@ export default defineComponent({
       resetBests()
       fetchSession(key)
       generateScramble()
+      resetTime()
     })
   }
 })

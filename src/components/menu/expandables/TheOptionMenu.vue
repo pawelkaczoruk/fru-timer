@@ -48,6 +48,7 @@ import useSessionResults from '@/composables/store/useSessionResults'
 import useDB from '@/composables/useDB'
 import useConfig from '@/composables/store/useConfig'
 import useMenuController from '@/composables/menu/useMenuController'
+import useCurrentData from '@/composables/store/useCurrentData'
 import { ResultState } from '@/types/Timer'
 
 export default defineComponent({
@@ -56,6 +57,7 @@ export default defineComponent({
 
   setup() {
     const { toggleCommentModal } = useMenuController()
+    const { resetTime } = useCurrentData()
 
     const { findBest } = useMath()
     const { getCurrentSessionKey } = useConfig()
@@ -114,7 +116,7 @@ export default defineComponent({
       if (!getSessionLength.value) return
 
       const results = toRaw(getSessionResults.value).slice(0, getSessionLength.value - 1)
-
+      resetTime()
       updateSessionDB(getCurrentSessionKey.value, results)
       .then(() => { setBests() })
     }
