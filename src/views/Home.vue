@@ -24,6 +24,7 @@
 
     <TheCommentModal v-if="getCommentModalVisibility" />
     <TheSessionModal v-if="getSessionModalVisibility" />
+    <TheCompetitionModal v-if="getCompetitionModalVisibility" />
 
   </div>
 </template>
@@ -37,6 +38,7 @@ import TheStatsDisplay from '@/components/displays/TheStatsDisplay.vue'
 import TheListDisplay from '@/components/list/TheListDisplay.vue'
 import TheCommentModal from '@/components/modals/TheCommentModal.vue'
 import TheSessionModal from '@/components/modals/TheSessionModal.vue'
+import TheCompetitionModal from '@/components/modals/TheCompetitionModal.vue'
 import useTimer from '@/composables/useTimer'
 import useConfig from '@/composables/store/useConfig'
 import useMenuController from '@/composables/menu/useMenuController'
@@ -50,6 +52,7 @@ export default defineComponent({
     TheListDisplay,
     TheCommentModal,
     TheSessionModal,
+    TheCompetitionModal,
     TheSessionMenu
   },
 
@@ -80,7 +83,8 @@ export default defineComponent({
     const {
       getCommentModalVisibility,
       getSessionModalVisibility,
-      getSessionMenuVisibility
+      getSessionMenuVisibility,
+      getCompetitionModalVisibility
     } = useMenuController()
 
     return {
@@ -90,7 +94,8 @@ export default defineComponent({
       getScrambleVisibility,
       getCommentModalVisibility,
       getSessionModalVisibility,
-      getSessionMenuVisibility
+      getSessionMenuVisibility,
+      getCompetitionModalVisibility
     }
   }
 })

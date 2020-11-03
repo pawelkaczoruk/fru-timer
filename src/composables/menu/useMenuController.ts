@@ -9,6 +9,7 @@ const isOptionMenuVisible = ref(false)
 const isSessionMenuVisible = ref(false)
 const isCommentModalVisible = ref(false)
 const isSessionModalVisible = ref(false)
+const isCompetitionModalVisible = ref(false)
 
 
 export default function useMenuController() {
@@ -26,6 +27,7 @@ export default function useMenuController() {
   const getSessionMenuVisibility = computed(() => isSessionMenuVisible.value)
   const getCommentModalVisibility = computed(() => isCommentModalVisible.value)
   const getSessionModalVisibility = computed(() => isSessionModalVisible.value)
+  const getCompetitionModalVisibility = computed(() => isCompetitionModalVisible.value)
 
   const toggleDisplayMenu = (state?: boolean) => {
     isDisplayMenuVisible.value = state === undefined ? !isDisplayMenuVisible.value : state
@@ -69,12 +71,17 @@ export default function useMenuController() {
     isSessionModalVisible.value = !isSessionModalVisible.value
   }
 
+  const toggleCompetitionModal = () => {
+    isCompetitionModalVisible.value = !isCompetitionModalVisible.value
+  }
+
   return {
     getDisplayMenuVisibility,
     getOptionMenuVisibility,
     getSessionMenuVisibility,
     getCommentModalVisibility,
     getSessionModalVisibility,
+    getCompetitionModalVisibility,
     toggleDisplayMenu,
     toggleOptionMenu,
     toggleSessionMenu,
@@ -82,6 +89,7 @@ export default function useMenuController() {
     toggleScrambleDisplay,
     toggleTimesList,
     toggleCommentModal,
-    toggleSessionModal
+    toggleSessionModal,
+    toggleCompetitionModal
   }
 }

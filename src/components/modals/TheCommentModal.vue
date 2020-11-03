@@ -10,11 +10,11 @@
     <div class="button-container">
       <button
         class="modal-control-button"
-        @click="toggleCommentModal"
+        @click="toggleCommentModal()"
       >Cancel</button>
       <button
         class="modal-control-button"
-        @click="addComment"
+        @click="addComment()"
       >Save</button>
     </div>
 

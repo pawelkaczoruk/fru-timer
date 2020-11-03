@@ -2,7 +2,10 @@
   <div class="menu-bar">
 
     <div>
-      <MenuButton>
+      <MenuButton
+        :highlight="getCompetitionModalVisibility"
+        @click="toggleCompetitionModal()"
+      >
         <svg
           class="icon"
           viewBox="0 0 36.093 27.353"
@@ -106,8 +109,10 @@ export default defineComponent({
       toggleDisplayMenu,
       toggleTimesList,
       toggleSessionMenu,
+      toggleCompetitionModal,
       getDisplayMenuVisibility,
-      getSessionMenuVisibility
+      getSessionMenuVisibility,
+      getCompetitionModalVisibility
     } = useMenuController()
 
     const { getListVisibility } = useConfig()
@@ -116,9 +121,11 @@ export default defineComponent({
       toggleDisplayMenu,
       toggleTimesList,
       toggleSessionMenu,
+      toggleCompetitionModal,
       getDisplayMenuVisibility,
       getSessionMenuVisibility,
-      getListVisibility
+      getListVisibility,
+      getCompetitionModalVisibility
     }
   }
 })

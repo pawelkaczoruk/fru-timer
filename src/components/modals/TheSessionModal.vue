@@ -31,11 +31,11 @@
     <div class="button-container">
       <button
         class="modal-control-button"
-        @click="toggleSessionModal"
+        @click="toggleSessionModal()"
       >Cancel</button>
       <button
         class="modal-control-button"
-        @click="addSession"
+        @click="addSession()"
       >Add</button>
     </div>
 
