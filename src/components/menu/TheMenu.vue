@@ -10,9 +10,11 @@
     <transition name="grow">
       <TheOptionMenu v-show="getOptionMenuVisibility" />
     </transition>
+
     <transition name="expand">
       <TheDisplayMenu v-show="getDisplayMenuVisibility" />
     </transition>
+
     <transition name="expand">
       <TheSessionMenu v-show="getSessionMenuVisibility" />
     </transition>
@@ -27,7 +29,6 @@ import TheSessionMenu from './expandables/TheSessionMenu.vue'
 import TheOptionMenu from './expandables/TheOptionMenu.vue'
 import TheHomeButton from './buttons/TheHomeButton.vue'
 import TheMenuBar from './TheMenuBar.vue'
-
 import useMenuController from '@/composables/menu/useMenuController'
 
 export default defineComponent({
@@ -77,7 +78,7 @@ export default defineComponent({
 }
 
 .session-menu {
-  @include position(absolute, $r: 0.5em, $b: 4.125em, $z: -1);
+  @include position(absolute, $l: 0, $b: 4.125em, $z: -1);
   @include animation(expand);
 }
 

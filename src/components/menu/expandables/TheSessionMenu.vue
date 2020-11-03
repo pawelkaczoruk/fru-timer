@@ -1,71 +1,133 @@
 <template>
   <div class="session-menu">
 
-    <ul class="session-list">
-      <li
-        v-for="session in getSessionsConfig"
-        :key="session.key"
-      >
-        <button
-          class="session-button"
-          :class="getCurrentSessionKey === session.key ? 'active' : ''"
-          @click="selectSession(session.key)"
-        >{{ session.name }}</button>
-      </li>
-    </ul>
+    <div class="session-container">
+      <ul class="session-list">
+        <li
+          class="list-item"
+          v-for="{ key, cube, name } in getSessionsConfig"
+          :key="key"
+        >
+          <SessionButton
+            :icon="cube"
+            :highlight="getCurrentSessionKey === key"
+            @click="selectSession(key)"
+          >{{ name }}</SessionButton>
+        </li>
+      </ul>
 
-    <button
-      class="add-button"
-      @click="createSession()"
-    >New</button>
+      <DisplayButton
+        class="delete-button"
+        @click="deleteSession()"
+      >Delete selected</DisplayButton>
+
+      <span
+        class="delete-alert"
+        v-if="isAlertVisible"
+      >Unable to delete default session</span>
+
+      <DisplayButton
+        class="clear-button"
+        @click="clearSession()"
+      >Clear selected</DisplayButton>
+
+      <DisplayButton
+        class="add-button"
+        @click="openSessionModal()"
+      >Add session</DisplayButton>
+
+    </div>
 
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import SessionButton from '../buttons/SessionButton.vue'
+import DisplayButton from '../buttons/DisplayButton.vue'
 import useConfig from '@/composables/store/useConfig'
 import useDB from '@/composables/useDB'
 import useLocalStorage from '@/composables/useLocalStorage'
 import useMenuController from '@/composables/menu/useMenuController'
+import useSessionResults from '@/composables/store/useSessionResults'
+import useCurrentData from '@/composables/store/useCurrentData'
+import useSessionBests from '@/composables/store/useSessionBests'
+import useSessionHistory from '@/composables/store/useSessionHistory'
 
 export default defineComponent({
   name: 'TheSessionMenu',
+  components: {
+    SessionButton,
+    DisplayButton
+  },
 
   setup() {
-    const { toggleSessionMenu } = useMenuController()
-    const { createSession: createSessionDB } = useDB()
     const { setCustomSessionsConfig: setCustomSessionsConfigLS } = useLocalStorage()
+    const { setSessionResults } = useSessionResults()
+    const { resetTime } = useCurrentData()
+    const { resetBests } = useSessionBests()
+    const { setSessionHistory } = useSessionHistory()
+    const {
+      toggleSessionMenu,
+      toggleSessionModal
+    } = useMenuController()
+    const {
+      updateSession: updateSessionDB,
+      deleteSession: deleteSessionDB
+    } = useDB()
     const {
       getCustomSessionsConfig,
       getSessionsConfig,
       getCurrentSessionKey,
       setCurrentSessionKey,
-      addSessionConfig
+      removeSessionConfig
     } = useConfig()
-
 
     const selectSession = (key: number) => {
       setCurrentSessionKey(key)
       toggleSessionMenu()
     }  
 
-    const createSession = () => {
-      const key = Date.now()
-      const cube = 'c3x3'
-      const name = 'custom 3x3'
+    const clearSession = () => {
+      updateSessionDB(getCurrentSessionKey.value, [])
+      resetTime()
+      resetBests()
+      setSessionResults([])
+      setSessionHistory([])
+      toggleSessionMenu()
+    }
 
-      createSessionDB(key)
-      addSessionConfig({ key, cube, name })
+    const isAlertVisible = ref(false)
+    let alertTime: number
+    const deleteSession = () => {
+      if (getCurrentSessionKey.value < 100) {
+        isAlertVisible.value = true
+        alertTime = Date.now()
+        setTimeout(() => {
+          if (alertTime + 2500 < Date.now())
+            isAlertVisible.value = false
+        }, 3000)
+        return
+      }
+      deleteSessionDB(getCurrentSessionKey.value)
+      removeSessionConfig(getCurrentSessionKey.value)
       setCustomSessionsConfigLS(getCustomSessionsConfig.value)
-      selectSession(key)
+      setCurrentSessionKey(2)
+    }
+
+    const openSessionModal = () => {
+      toggleSessionModal()
+      toggleSessionMenu()
     }
 
     return { 
       getSessionsConfig,
       getCurrentSessionKey,
       selectSession,
-      createSession
+      openSessionModal,
+      clearSession,
+      deleteSession,
+      isAlertVisible
     }
   }
 })
@@ -75,19 +137,46 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .session-menu {
-  @include rect(8em, 20em, 0.75em, var(--c-menu));
+  @include rect(100%, calc(100vh - 3.75em - 2 * 0.625em - 3.5625em));
+  padding: 0 0.5em;
+  max-width: 22.5em;
+  overflow: hidden;
+}
+
+.session-container {
+  height: 100%;
+  padding: 0.75em 0.75em;
+  border-radius: 0.75em;
+  background: var(--c-menu);
   overflow: hidden;
 }
 
 .session-list {
-  padding: 0.5em;
-  text-align: right;
+  @include scrollReset();
+  height: calc(100% - 3em);
+  display: grid;
+  gap: 0.5em;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 2em;
+  justify-items: start;
 }
 
-.session-button {
-  color: var(--c-text-secondary);
+.list-item {
+  height: 2em;
+  overflow: hidden;
+}
 
-  &.active { color: var(--c-menu-icon-active); }
+.add-button,
+.clear-button,
+.delete-button { width: auto; }
+
+.add-button { @include position(absolute, $b: 0.25em, $r: 1.25em); }
+.delete-button { @include position(absolute, $b: 1.75em, $l: 1.25em); }
+.clear-button { @include position(absolute, $b: 0.25em, $l: 1.25em); }
+
+.delete-alert {
+  @include position(absolute, $b: 2.5rem, $r: 1.25rem);
+  @include text(0.75em, 500, $c: var(--c-timer-not-ready));
 }
 
 </style>

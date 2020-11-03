@@ -19,16 +19,17 @@ const sessionsConfig: BasicCustomSessionsConfigs = reactive({
     { name: '5x5', key: 4, cube: 'c5x5' },
     { name: '6x6', key: 5, cube: 'c6x6' },
     { name: '7x7', key: 6, cube: 'c7x7' },
-    { name: '3x3 OH', key: 7, cube: 'c3x3oh' },
+    { name: '3x3 oh', key: 7, cube: 'c3x3oh' },
     { name: '3x3 bld', key: 8, cube: 'c3x3bld' },
     { name: '4x4 bld', key: 9, cube: 'c4x4bld' },
     { name: '5x5 bld', key: 10, cube: 'c5x5bld' },
     { name: '3x3 mbld', key: 11, cube: 'c3x3mbld' },
-    { name: 'pyraminx', key: 12, cube: 'pyraminx' },
-    { name: 'megaminx', key: 13, cube: 'megaminx' },
-    { name: 'skweb', key: 14, cube: 'skweb' },
-    { name: 'square 1', key: 15, cube: 'square1' },
-    { name: 'clock', key: 16, cube: 'clock' }
+    { name: '3x3 fm', key: 12, cube: 'c3x3fm' },
+    { name: 'pyraminx', key: 13, cube: 'pyraminx' },
+    { name: 'megaminx', key: 14, cube: 'megaminx' },
+    { name: 'skweb', key: 15, cube: 'skweb' },
+    { name: 'square-1', key: 16, cube: 'square1' },
+    { name: 'clock', key: 17, cube: 'clock' }
   ],
   custom: getCustomSessionsConfigLS()
 })
@@ -37,7 +38,11 @@ const sessionsConfig: BasicCustomSessionsConfigs = reactive({
 export default function useConfig() {
   const getConfig = computed(() => config)
   const getSessionsConfig = computed(() => [...sessionsConfig.basic, ...sessionsConfig.custom])
+  const getBasicConfig = computed(() => sessionsConfig.basic)
   const getCustomSessionsConfig = computed(() => sessionsConfig.custom)
+  const removeSessionConfig = (key: number) => {
+    sessionsConfig.custom = sessionsConfig.custom.filter((session) => session.key !== key)
+  }
 
   const getStatsVisibility = computed(() => config.areStatsVisible)
   const toggleStatsVisibility = () => { config.areStatsVisible = !config.areStatsVisible }
@@ -61,7 +66,9 @@ export default function useConfig() {
   return {
     getConfig,
     getSessionsConfig,
+    getBasicConfig,
     getCustomSessionsConfig,
+    removeSessionConfig,
 
     getStatsVisibility,
     toggleStatsVisibility,

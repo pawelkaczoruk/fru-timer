@@ -19,6 +19,7 @@
     </transition>
 
     <TheCommentModal v-if="getCommentModalVisibility" />
+    <TheSessionModal v-if="getSessionModalVisibility" />
 
   </div>
 </template>
@@ -30,6 +31,7 @@ import TheScrambleDisplay from '@/components/displays/TheScrambleDisplay.vue'
 import TheStatsDisplay from '@/components/displays/TheStatsDisplay.vue'
 import TheListDisplay from '@/components/list/TheListDisplay.vue'
 import TheCommentModal from '@/components/modals/TheCommentModal.vue'
+import TheSessionModal from '@/components/modals/TheSessionModal.vue'
 import useTimer from '@/composables/useTimer'
 import useConfig from '@/composables/store/useConfig'
 import useMenuController from '@/composables/menu/useMenuController'
@@ -41,7 +43,8 @@ export default defineComponent({
     TheScrambleDisplay,
     TheStatsDisplay,
     TheListDisplay,
-    TheCommentModal
+    TheCommentModal,
+    TheSessionModal
   },
 
   setup() {
@@ -68,14 +71,18 @@ export default defineComponent({
       getScrambleVisibility
     } = useConfig()
 
-    const { getCommentModalVisibility } = useMenuController()
+    const {
+      getCommentModalVisibility,
+      getSessionModalVisibility
+    } = useMenuController()
 
     return {
       homeRef,
       getListVisibility,
       getStatsVisibility,
       getScrambleVisibility,
-      getCommentModalVisibility
+      getCommentModalVisibility,
+      getSessionModalVisibility
     }
   }
 })
