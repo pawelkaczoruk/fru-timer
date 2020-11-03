@@ -137,10 +137,11 @@ export default defineComponent({
 @import '@/assets/styles/mixins';
 
 .session-menu {
-  @include rect(100%, calc(100vh - 3.75em - 2 * 0.625em - 3.5625em));
+  @include rect(100%, calc(100% - 3.75em - 2 * 0.625em - 3.5625em));
   padding: 0 0.5em;
   max-width: 22.5em;
   overflow: hidden;
+  user-select: none;
 }
 
 .session-container {

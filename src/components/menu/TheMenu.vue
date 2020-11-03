@@ -15,17 +15,12 @@
       <TheDisplayMenu v-show="getDisplayMenuVisibility" />
     </transition>
 
-    <transition name="expand">
-      <TheSessionMenu v-show="getSessionMenuVisibility" />
-    </transition>
-
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import TheDisplayMenu from './expandables/TheDisplayMenu.vue'
-import TheSessionMenu from './expandables/TheSessionMenu.vue'
 import TheOptionMenu from './expandables/TheOptionMenu.vue'
 import TheHomeButton from './buttons/TheHomeButton.vue'
 import TheMenuBar from './TheMenuBar.vue'
@@ -35,7 +30,6 @@ export default defineComponent({
   name: 'TheMenu',
   components: {
     TheDisplayMenu,
-    TheSessionMenu,
     TheOptionMenu,
     TheHomeButton,
     TheMenuBar
@@ -45,14 +39,12 @@ export default defineComponent({
     const {
       getDisplayMenuVisibility,
       getOptionMenuVisibility,
-      getSessionMenuVisibility,
       toggleOptionMenu
     } = useMenuController()
 
     return {
       getDisplayMenuVisibility,
       getOptionMenuVisibility,
-      getSessionMenuVisibility,
       toggleOptionMenu
     }
   }
@@ -75,11 +67,6 @@ export default defineComponent({
   @include position(absolute, $b: 0, $l: 50%);
   transform: translate(-50%, -4.875em);
   @include animation(grow);
-}
-
-.session-menu {
-  @include position(absolute, $l: 0, $b: 4.125em, $z: -1);
-  @include animation(expand);
 }
 
 .display-menu {

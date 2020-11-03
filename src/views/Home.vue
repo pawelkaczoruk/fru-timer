@@ -18,6 +18,10 @@
       <TheListDisplay v-if="getListVisibility" />
     </transition>
 
+    <transition name="expand">
+      <TheSessionMenu v-show="getSessionMenuVisibility" />
+    </transition>
+
     <TheCommentModal v-if="getCommentModalVisibility" />
     <TheSessionModal v-if="getSessionModalVisibility" />
 
@@ -26,6 +30,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref, Ref } from 'vue'
+import TheSessionMenu from '@/components/menu/expandables/TheSessionMenu.vue'
 import TheTimerDisplay from '@/components/displays/TheTimerDisplay.vue'
 import TheScrambleDisplay from '@/components/displays/TheScrambleDisplay.vue'
 import TheStatsDisplay from '@/components/displays/TheStatsDisplay.vue'
@@ -44,7 +49,8 @@ export default defineComponent({
     TheStatsDisplay,
     TheListDisplay,
     TheCommentModal,
-    TheSessionModal
+    TheSessionModal,
+    TheSessionMenu
   },
 
   setup() {
@@ -73,7 +79,8 @@ export default defineComponent({
 
     const {
       getCommentModalVisibility,
-      getSessionModalVisibility
+      getSessionModalVisibility,
+      getSessionMenuVisibility
     } = useMenuController()
 
     return {
@@ -82,7 +89,8 @@ export default defineComponent({
       getStatsVisibility,
       getScrambleVisibility,
       getCommentModalVisibility,
-      getSessionModalVisibility
+      getSessionModalVisibility,
+      getSessionMenuVisibility
     }
   }
 })
@@ -117,6 +125,12 @@ export default defineComponent({
     left: unset;
     transform: unset;
   }
+}
+
+.session-menu {
+  @include position(fixed, $b: 4.6875em, $l: 50%);
+  transform: translateX(-50%);
+  @include animation(expand);
 }
 
 </style>
