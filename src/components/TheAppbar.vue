@@ -16,53 +16,31 @@
     <nav class="nav center-content">
       <button
         class="nav-item center-content"
+        v-if="currentRoute.fullPath === '/'"
         @click="generateScramble()"
       >
-        <svg
-          class="nav-icon"
-          viewBox="0 0 21.261 20"
-        >
-          <path
-            d="M-1737.8-1304h-.46a1,1,0,0,1-.864-1.5l1.76-3.015a1,1,0,0,1,1.727,0l1.76,3.015a1,1,0,0,1-.833,1.5,6.981,6.981,0,0,0,1.763,2.949A6.955,6.955,0,0,0-1728-1299a7.008,7.008,0,0,0,7-7,7.008,7.008,0,0,0-7-7c-1.1,0-2-.671-2-1.5s.9-1.5,2-1.5a10.011,10.011,0,0,1,10,10,10.011,10.011,0,0,1-10,10A10.017,10.017,0,0,1-1737.8-1304Z"
-            transform="translate(1739.261 1316)"
-          />
-        </svg>
+        <SvgIcon icon="reload" />
       </button>
       <router-link
         class="nav-item center-content"
-        to="/about"
+        to="/"
+        v-if="currentRoute.fullPath !== '/'"
       >
-        <svg
-          class="nav-icon"
-          viewBox="0 0 25 25"
-        >
-          <path d="M12.5,0A12.5,12.5,0,1,0,25,12.5,12.514,12.514,0,0,0,12.5,0Zm0,22.727A10.227,10.227,0,1,1,22.727,12.5,10.239,10.239,0,0,1,12.5,22.727Z" />
-          <path
-            d="M146.517,70a1.515,1.515,0,1,0,1.515,1.516A1.517,1.517,0,0,0,146.517,70Z"
-            transform="translate(-134.017 -64.697)"
-          />
-          <path
-            d="M151.136,140A1.136,1.136,0,0,0,150,141.136v6.818a1.136,1.136,0,1,0,2.273,0v-6.818A1.136,1.136,0,0,0,151.136,140Z"
-            transform="translate(-138.636 -129.394)"
-          />
-        </svg>
+        <SvgIcon icon="home" />
+      </router-link>
+      <router-link
+        class="nav-item center-content"
+        to="/about"
+        v-if="currentRoute.fullPath !== '/about'"
+      >
+        <SvgIcon icon="about" />
       </router-link>
       <router-link
         class="nav-item center-content"
         to="/settings"
+        v-if="currentRoute.fullPath !== '/settings'"
       >
-        <svg
-          class="nav-icon"
-          viewBox="0 0 24.228 25"
-        >
-          <g transform="translate(-5.095)">
-            <path
-              d="M109.545,105a4.545,4.545,0,1,0,4.545,4.545A4.551,4.551,0,0,0,109.545,105Zm0,6.818a2.273,2.273,0,1,1,2.273-2.273A2.275,2.275,0,0,1,109.545,111.818Z"
-              transform="translate(-92.337 -97.045)"
-            />
-            <path d="M28.936,15.36l-2.652-2.331c.01-.177.015-.353.015-.529s-.005-.353-.015-.529L28.936,9.64a1.136,1.136,0,0,0,.234-1.422L26.9,4.282a1.136,1.136,0,0,0-1.348-.508L22.205,4.9a9.077,9.077,0,0,0-.917-.531L20.6.913A1.136,1.136,0,0,0,19.481,0H14.936a1.136,1.136,0,0,0-1.114.913L13.13,4.374a9.09,9.09,0,0,0-.917.531L8.868,3.773a1.137,1.137,0,0,0-1.348.508L5.247,8.218A1.136,1.136,0,0,0,5.481,9.64l2.652,2.331c-.01.176-.015.353-.015.529s.005.353.015.529L5.481,15.36a1.136,1.136,0,0,0-.234,1.422L7.52,20.718a1.136,1.136,0,0,0,1.348.508L12.212,20.1a9.078,9.078,0,0,0,.917.531l.692,3.461A1.136,1.136,0,0,0,14.936,25h4.545a1.136,1.136,0,0,0,1.114-.913l.692-3.461a9.09,9.09,0,0,0,.917-.531l3.344,1.131a1.136,1.136,0,0,0,1.348-.508l2.273-3.937A1.136,1.136,0,0,0,28.936,15.36ZM25.4,18.775l-3.01-1.018a1.137,1.137,0,0,0-1.052.172,6.815,6.815,0,0,1-1.487.86,1.136,1.136,0,0,0-.674.825l-.623,3.113H15.868l-.623-3.113a1.136,1.136,0,0,0-.674-.825,6.812,6.812,0,0,1-1.486-.86,1.136,1.136,0,0,0-1.052-.172l-3.01,1.018L7.681,16.452l2.386-2.1a1.136,1.136,0,0,0,.377-1,6.917,6.917,0,0,1,0-1.72,1.136,1.136,0,0,0-.377-1l-2.386-2.1L9.022,6.225l3.01,1.018a1.137,1.137,0,0,0,1.052-.172,6.817,6.817,0,0,1,1.487-.86,1.136,1.136,0,0,0,.674-.825l.623-3.113H18.55l.623,3.113a1.137,1.137,0,0,0,.674.825,6.815,6.815,0,0,1,1.486.86,1.136,1.136,0,0,0,1.052.172L25.4,6.225l1.341,2.323-2.386,2.1a1.136,1.136,0,0,0-.377.995,6.911,6.911,0,0,1,0,1.721,1.136,1.136,0,0,0,.377.995l2.386,2.1Z" />
-          </g>
-        </svg>
+        <SvgIcon icon="settings" />
       </router-link>
     </nav>
 
@@ -71,15 +49,22 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
+import SvgIcon from './utility/SvgIcon.vue'
 import useScrambleGenerator from '@/composables/scrambler/useScrambleGenerator'
 
 export default defineComponent({
   name: 'TheAppbar',
+  components: { SvgIcon },
 
   setup() {
     const { generateScramble } = useScrambleGenerator()
+    const { currentRoute } = useRouter()
 
-    return { generateScramble }
+    return {
+      generateScramble,
+      currentRoute
+    }
   }
 })
 </script>
@@ -99,7 +84,7 @@ export default defineComponent({
   @include rect(2.5em, 2.5em, 50%);
 
   @include hover() {
-    .nav-icon {
+    .nav-icon, .svg-icon {
       fill: var(--c-menu-icon-active);
       transition: all 0.15s ease-in-out;
     }
@@ -111,8 +96,8 @@ export default defineComponent({
   fill: var(--c-logo);
 }
 
-.nav-icon {
-  height: 1.5625em;
+.nav-icon, .svg-icon {
+  @include rect(1.5625em, 1.5625em);
   fill: var(--c-nav-icon);
   transition: all 0.4s ease-in-out;
 }
