@@ -15,6 +15,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/settings',
     name: 'Settings',
     component: () => import('@/views/Settings.vue')
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/'
   }
 ]
 
