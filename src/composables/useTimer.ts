@@ -1,5 +1,4 @@
 import { reactive, computed } from 'vue'
-
 import useConfig from './store/useConfig'
 import useCurrentData from './store/useCurrentData'
 import useDB from './useDB'
@@ -7,7 +6,6 @@ import useScrambleGenerator from './scrambler/useScrambleGenerator'
 import useSessionBests from './store/useSessionBests'
 import useSessionHistory from './store/useSessionHistory'
 import useSessionResults from './store/useSessionResults'
-
 import { Timer, isKeyboardEvent, Result, TimerState, ResultState } from '@/types/Timer'
 
 
@@ -47,6 +45,11 @@ export default function useTimer() {
 
   const onPress = (e: KeyboardEvent | TouchEvent) => {
     if (isKeyboardEvent(e) && e.code === KEY_CODE || !isKeyboardEvent(e)) {
+      const classList  = (e.target as Element).classList
+
+      if (!classList.contains('targetable') && !isKeyboardEvent(e)
+        || classList.contains('not-targetable')) return;
+
       if (timer.isRunning) {
         clearInterval(timer.interval)
 

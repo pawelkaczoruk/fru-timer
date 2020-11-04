@@ -24,12 +24,18 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins';
 
+.scramble-display { pointer-events: none; }
+
 .scramble {
   @include text(1.4375em, 500, center, var(--c-text-scramble));
   white-space: pre-wrap;
   user-select: none;
+  
 
-  @media screen and (any-hover: hover) { user-select: text; }
+  @media screen and (any-hover: hover) {
+    user-select: text;
+    pointer-events: initial;
+  }
 }
 
 </style>

@@ -3,7 +3,7 @@
 
     <p class="modal-title">Comment</p>
     <textarea
-      class="comment-input"
+      class="comment-input not-targetable"
       v-model="comment"
       placeholder="Comment here..."
     ></textarea>

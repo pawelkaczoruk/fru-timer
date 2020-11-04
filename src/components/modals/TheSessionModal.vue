@@ -10,7 +10,7 @@
         :key="key"
       >
         <input
-          class="radio-input"
+          class="radio-input not-targetable"
           type="radio"
           v-model="cubeType"
           :value="cube"
@@ -23,7 +23,7 @@
     </div>
 
     <input
-      class="name-input"
+      class="name-input not-targetable"
       v-model="name"
       placeholder="Name here..."
     />

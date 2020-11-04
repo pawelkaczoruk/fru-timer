@@ -62,6 +62,7 @@ export default defineComponent({
   padding: 0.625em;
   max-width: 22.5em;
   user-select: none;
+  pointer-events: none;
 
   @include media(landscapeShort) { max-width: 39em; }
 

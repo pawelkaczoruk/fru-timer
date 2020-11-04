@@ -1,6 +1,6 @@
 <template>
   <div
-    class="home"
+    class="home targetable"
     ref="homeRef"
   >
 
@@ -61,15 +61,15 @@ export default defineComponent({
     const homeRef: Ref<HTMLDivElement | null> = ref(null)
 
     onMounted(() => {
-      homeRef.value?.addEventListener('keydown', onPress)
-      homeRef.value?.addEventListener('keyup', onRelease)
+      document.addEventListener('keydown', onPress)
+      document.addEventListener('keyup', onRelease)
       homeRef.value?.addEventListener('touchstart', onPress)
       homeRef.value?.addEventListener('touchend', onRelease)
     })
 
     onUnmounted(() => {
-      homeRef.value?.removeEventListener('keydown', onPress)
-      homeRef.value?.removeEventListener('keyup', onRelease)
+      document.removeEventListener('keydown', onPress)
+      document.removeEventListener('keyup', onRelease)
       homeRef.value?.removeEventListener('touchstart', onPress)
       homeRef.value?.removeEventListener('touchend', onRelease)
     })

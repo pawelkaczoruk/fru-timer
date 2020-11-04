@@ -9,8 +9,8 @@
       class="timer-info"
       v-if="!getSessionLength"
     >Press spacebar/screen and hold to start the timer</span>
-  </div>
 
+  </div>
 </template>
 
 <script lang="ts">
@@ -52,6 +52,7 @@ export default defineComponent({
   min-width: 250px;
   text-align: center;
   user-select: none;
+  pointer-events: none;
 }
 
 .timer,
