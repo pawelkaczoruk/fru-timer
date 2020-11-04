@@ -3,15 +3,14 @@
 
   <router-view/>
 
-  <TheMenu />
+  <TheMenu v-if="currentRoute.fullPath === '/'" />
 </template>
 
 <script lang="ts">
 import { defineComponent, watch } from 'vue'
-
+import { useRouter } from 'vue-router'
 import TheAppbar from './components/TheAppbar.vue'
 import TheMenu from './components/menu/TheMenu.vue'
-
 import useConfig from './composables/store/useConfig'
 import useSessionBests from './composables/store/useSessionBests'
 import useDB from './composables/useDB'
@@ -33,6 +32,7 @@ export default defineComponent({
     const { setConfig: setConfigLS } = useLocalStorage()
     const { resetBests } = useSessionBests()
     const { resetTime } = useCurrentData()
+    const { currentRoute } = useRouter()
 
     initializeSessions()
     fetchSession(getCurrentSessionKey.value)
@@ -45,6 +45,8 @@ export default defineComponent({
       generateScramble()
       resetTime()
     })
+
+    return { currentRoute }
   }
 })
 </script>
@@ -60,7 +62,9 @@ export default defineComponent({
   height: 100vh;
   background: var(--c-bg);
 
-  .home { flex-grow: 1; }
+  .home,
+  .about,
+  .settings { flex-grow: 1; }
 }
 
 .center-content {
