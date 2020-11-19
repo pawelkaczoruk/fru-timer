@@ -11,13 +11,10 @@
     <span>{{ getFormattedTime(item.ao5) }}</span>
     <span>{{ getFormattedTime(item.ao12) }}</span>
     <span class="center-content">
-      <svg
-        class="icon"
+      <SvgIcon
+        icon="dot"
         v-if="item.result.comment"
-        viewBox="0 0 22 22"
-      >
-        <circle cx="11" cy="11" r="11" />
-      </svg>
+      />
     </span>
   </li>
 
@@ -32,13 +29,17 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import SvgIcon from '@/components/utility/SvgIcon.vue'
 import ListItemDetails from './ListItemDetails.vue'
 import useTimeFormatter from '@/composables/useTimeFormatter'
 import { SortableListItem } from '@/types/Order'
 
 export default defineComponent({
   name: 'ListItem',
-  components: { ListItemDetails },
+  components: {
+    ListItemDetails,
+    SvgIcon
+  },
   props: {
     item: {
       type: Object as () => SortableListItem,
@@ -70,12 +71,20 @@ export default defineComponent({
   padding: 0.5em;
   transition: color 0.4s ease-in-out;
 
-  &.active { color: var(--c-menu-icon-active); }
+  &.active {
+    color: var(--c-menu-icon-active);
 
-  @include hover() { color: var(--c-menu-icon-active); }
+    .svg-icon { fill: var(--c-menu-icon-active); }
+  }
+
+  @include hover() {
+    color: var(--c-menu-icon-active);
+
+    .svg-icon { fill: var(--c-menu-icon-active); }
+  }
 }
 
-.icon {
+.svg-icon {
   width: 50%;
   fill: var(--c-text-secondary);
 }
