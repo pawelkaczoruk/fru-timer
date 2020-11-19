@@ -4,30 +4,18 @@
     :class="highlight ? 'active' : ''"
   >
 
-    <svg
-      class="home-icon"
-      viewBox="0 0 38.711 38.729"
-    >
-      <g transform="translate(-0.078)">
-        <path
-          d="M33.126,5.672A19.364,19.364,0,0,0,5.741,33.057,19.364,19.364,0,0,0,33.126,5.672Zm-2.489,24.9A15.844,15.844,0,0,1,8.23,8.161,15.844,15.844,0,0,1,30.637,30.568Z"
-          transform="translate(0)"
-        />
-        <path
-          d="M82.885,70.562h-8.8v-8.8a1.76,1.76,0,1,0-3.521,0v8.8h-8.8a1.76,1.76,0,1,0,0,3.521h8.8v8.8a1.76,1.76,0,1,0,3.521,0v-8.8h8.8a1.76,1.76,0,0,0,0-3.521Z"
-          transform="translate(-52.889 -52.958)"
-        />
-      </g>
-    </svg>
+    <SvgIcon icon="plus" />
     
   </button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import SvgIcon from '@/components/utility/SvgIcon.vue'
 
 export default defineComponent({
   name: 'TheHomeButton',
+  components: { SvgIcon },
   props: {
     highlight: { type: Boolean, default: false}
   }
@@ -44,7 +32,7 @@ export default defineComponent({
   @include shadow();
   transition: all 0.4s ease-in-out;
 
-  .home-icon {
+  .svg-icon {
     height: 2.375em;
     fill: var(--c-menu-icon-active);
     transition: all 0.4s ease-in-out;
@@ -54,7 +42,7 @@ export default defineComponent({
     transform: translate(-50%, -2.25em);
     background: var(--c-menu-icon-active);
 
-    .home-icon {
+    .svg-icon {
       fill: var(--c-menu);
       transform: rotate(135deg);
     }
@@ -63,7 +51,7 @@ export default defineComponent({
   @include hover(0.4s) {
     background: var(--c-menu-icon-active);
 
-    .home-icon { fill: var(--c-menu); }
+    .svg-icon { fill: var(--c-menu); }
   }
 }
 

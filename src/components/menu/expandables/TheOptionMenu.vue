@@ -3,18 +3,9 @@
 
     <OptionButton
       :highlight="getLastSessionResult && !!getLastSessionResult.comment"
+      icon="comment"
       @click="toggleCommentModal"
-    >
-      <svg
-        class="icon"
-        viewBox="0 0 28 21.995"
-      >
-        <path
-          d="M-1733.666-636a1,1,0,0,1-.445-.105,1,1,0,0,1-.556-.9v-3.733H-1735a5.006,5.006,0,0,1-5-5V-653a5.005,5.005,0,0,1,5-5h18a5.006,5.006,0,0,1,5,5v7.26a5.006,5.006,0,0,1-5,5h-10.114l-5.947,4.529A.991.991,0,0,1-1733.666-636Zm-.334-12v2h17v-2Zm0-5v2h17v-2Z"
-          transform="translate(1740 658)"
-        />
-      </svg>
-    </OptionButton>
+    />
     <OptionButton
       :highlight="getLastSessionResult && getLastSessionResult.time.penalty === ResultState.DNF"
       @click="toggleDnf"
@@ -23,17 +14,10 @@
       :highlight="getLastSessionResult && getLastSessionResult.time.penalty === ResultState.PLUS_TWO"
       @click="togglePenalty"
     >+2</OptionButton>
-    <OptionButton @click="removeLastResult">
-      <svg
-        class="icon"
-        viewBox="0 0 15.999 28"
-      >
-        <path
-          d="M-1727-630h-10a3,3,0,0,1-3-3v-17a1,1,0,0,1,1-1h14a1,1,0,0,1,1,1v17A3,3,0,0,1-1727-630Zm-2-18v15h2v-15Zm-4,0v15h2v-15Zm-4,0v15h2v-15Zm12-5h-14a1,1,0,0,1-1-1v-1a3,3,0,0,1,3-3h10a3,3,0,0,1,3,3v1A1,1,0,0,1-1725-653Z"
-          transform="translate(1740 658)"
-        />
-      </svg>
-    </OptionButton>
+    <OptionButton
+      @click="removeLastResult"
+      icon="trash"
+    />
 
   </div>
 </template>
@@ -181,8 +165,6 @@ export default defineComponent({
   &:nth-child(2) { grid-area: second; }
   &:nth-child(3) { grid-area: third; }
   &:nth-child(4) { grid-area: fourth; }
-
-  .icon { @include rect(1.5em, 1.5em); }
 }
 
 </style>

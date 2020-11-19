@@ -25,15 +25,7 @@
       @click="orderByComment()"
       :highlight="getHighlight(OrderBy.ASC_COMMENT, OrderBy.DESC_COMMENT)"
     >
-      <svg
-        class="icon"
-        viewBox="0 0 28 21.995"
-      >
-        <path
-          d="M-1733.666-636a1,1,0,0,1-.445-.105,1,1,0,0,1-.556-.9v-3.733H-1735a5.006,5.006,0,0,1-5-5V-653a5.005,5.005,0,0,1,5-5h18a5.006,5.006,0,0,1,5,5v7.26a5.006,5.006,0,0,1-5,5h-10.114l-5.947,4.529A.991.991,0,0,1-1733.666-636Zm-.334-12v2h17v-2Zm0-5v2h17v-2Z"
-          transform="translate(1740 658)"
-        />
-      </svg>
+      <SvgIcon icon="comment" />
     </OrderButton>
 
   </li>
@@ -41,13 +33,17 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import SvgIcon from '@/components/utility/SvgIcon.vue'
 import OrderButton from './OrderButton.vue'
 import useListSorter from '@/composables/useListSorter'
 import { OrderBy } from '@/types/Order'
 
 export default defineComponent({
   name: 'TheListHead',
-  components: { OrderButton },
+  components: {
+    OrderButton,
+    SvgIcon
+  },
 
   setup() {
     const {
@@ -89,7 +85,5 @@ export default defineComponent({
   padding: 0 0.5em;
   border-bottom: 0.25rem solid var(--c-text-secondary);
 }
-
-.icon { width: 100%; }
 
 </style>
