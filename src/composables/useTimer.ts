@@ -35,6 +35,11 @@ export default function useTimer() {
   const { addToSessionHistory } = useSessionHistory()
   const { generateScramble } = useScrambleGenerator()
 
+  const checkTargetConditions = (e: KeyboardEvent | TouchEvent) => {
+    const classList  = (e.target as Element).classList
+    return (classList.contains('targetable') || isKeyboardEvent(e)) && !classList.contains('not-targetable')
+  }
+
   const startTimer = () => {
     const initialDate = Date.now()
 
@@ -45,11 +50,7 @@ export default function useTimer() {
 
   const onPress = (e: KeyboardEvent | TouchEvent) => {
     if (isKeyboardEvent(e) && e.code === KEY_CODE || !isKeyboardEvent(e)) {
-      const classList  = (e.target as Element).classList
-
-      if (!classList.contains('targetable') && !isKeyboardEvent(e)
-        || classList.contains('not-targetable')) return;
-
+      if (!checkTargetConditions(e)) return
       if (timer.isRunning) {
         clearInterval(timer.interval)
 
@@ -88,6 +89,8 @@ export default function useTimer() {
 
   const onRelease = (e: KeyboardEvent | TouchEvent) => {
     if (isKeyboardEvent(e) && e.code === KEY_CODE || !isKeyboardEvent(e)) {
+      if (!checkTargetConditions(e)) return
+
       clearTimeout(timer.timeout)
 
       if (timer.canStart) {
